@@ -1,0 +1,1975 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Training">
+<meta name="theme-color" content="#0e0e0e">
+<link rel="manifest" href="manifest.json">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<title>Training</title>
+<style>
+:root {
+  --bg: #0e0e0e;
+  --surface: #161616;
+  --surface2: #1e1e1e;
+  --surface3: #272727;
+  --border: #2a2a2a;
+  --push: #d4ff00;
+  --pull: #ff6b35;
+  --legs: #64a0ff;
+  --rest: #c084fc;
+  --warn: #ffb347;
+  --text: #e8e8e8;
+  --text2: #888;
+  --muted: #444;
+  --safe-t: env(safe-area-inset-top, 0px);
+  --safe-b: env(safe-area-inset-bottom, 0px);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  line-height: 1.5;
+  height: 100%;
+  overscroll-behavior: none;
+}
+
+input { font-family: 'DM Sans', sans-serif; }
+
+/* VIEWS */
+.view {
+  display: none;
+  position: fixed;
+  inset: 0;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  background: var(--bg);
+}
+.view.active { display: block; }
+
+/* OVERLAYS */
+.overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+}
+.overlay.active { display: flex; }
+
+/* ─── HOME ─── */
+.home-header {
+  padding: calc(var(--safe-t) + 20px) 20px 16px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.home-header::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--push), var(--pull));
+}
+.home-eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.2em;
+  color: var(--push);
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.home-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 42px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: #fff;
+}
+.home-title span { color: var(--push); }
+
+.home-body { padding: 20px; padding-bottom: calc(var(--safe-b) + 24px); }
+
+.section-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.18em;
+  color: var(--text2);
+  text-transform: uppercase;
+  margin-bottom: 12px;
+}
+
+/* Cycle diagram */
+.cycle-wrap {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px;
+  margin-bottom: 24px;
+}
+.cycle-row {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 6px;
+}
+.cycle-row:last-child { margin-bottom: 0; }
+.cycle-cell {
+  flex: 1;
+  height: 44px;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid transparent;
+  line-height: 1.3;
+  text-align: center;
+}
+.cycle-cell .day-num { font-size: 7px; color: var(--muted); margin-bottom: 1px; }
+.cycle-cell.push { background: rgba(212,255,0,0.07); border-color: rgba(212,255,0,0.25); color: var(--push); }
+.cycle-cell.pull { background: rgba(255,107,53,0.07); border-color: rgba(255,107,53,0.25); color: var(--pull); }
+.cycle-cell.legs { background: rgba(100,160,255,0.07); border-color: rgba(100,160,255,0.25); color: #64a0ff; }
+.cycle-cell.rest { background: rgba(255,255,255,0.02); border-color: var(--border); color: var(--muted); }
+
+/* Session cards */
+.session-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 24px;
+}
+.session-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 16px 14px;
+  cursor: pointer;
+  position: relative;
+  overflow: hidden;
+  transition: transform 0.12s, background 0.12s;
+  -webkit-user-select: none;
+  user-select: none;
+}
+.session-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0;
+  width: 3px;
+  height: 100%;
+}
+.session-card.push::before { background: var(--push); }
+.session-card.pull::before { background: var(--pull); }
+.session-card.legs::before { background: var(--legs); }
+.session-card:active { transform: scale(0.97); background: var(--surface2); }
+
+.card-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 24px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+  margin-bottom: 2px;
+}
+.push .card-name { color: var(--push); }
+.pull .card-name { color: var(--pull); }
+.legs .card-name { color: var(--legs); }
+
+.card-subtitle {
+  font-size: 11px;
+  color: var(--text2);
+  margin-bottom: 10px;
+  line-height: 1.3;
+}
+.card-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* History button */
+.history-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text2);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  transition: background 0.12s;
+  -webkit-user-select: none;
+}
+.history-btn:active { background: var(--surface2); color: var(--text); }
+
+/* ─── SESSION VIEW ─── */
+.session-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: calc(var(--safe-t) + 12px) 16px 0;
+}
+.session-header-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.back-btn {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: var(--text);
+  flex-shrink: 0;
+  font-size: 18px;
+  transition: background 0.12s;
+}
+.back-btn:active { background: var(--surface2); }
+.session-name-wrap { flex: 1; }
+.session-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.session-name.push { color: var(--push); }
+.session-name.pull { color: var(--pull); }
+.session-name.legs { color: var(--legs); }
+.session-name-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.12em;
+  color: var(--text2);
+  text-transform: uppercase;
+  margin-top: 1px;
+}
+.finish-btn-header {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.12s;
+}
+.finish-btn-header.ready {
+  background: rgba(212,255,0,0.08);
+  border-color: rgba(212,255,0,0.3);
+  color: var(--push);
+}
+.finish-btn-header:active { opacity: 0.7; }
+
+/* Tab bar */
+.session-tabs {
+  display: flex;
+  gap: 0;
+}
+.session-tab {
+  flex: 1;
+  padding: 10px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  -webkit-user-select: none;
+}
+.session-tab.active {
+  color: var(--text);
+  border-bottom-color: var(--push);
+}
+
+/* Session body */
+.session-body { padding: 16px; padding-bottom: calc(var(--safe-b) + 80px); }
+
+/* Exercise card */
+.ex-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.ex-card-header {
+  padding: 14px 16px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.ex-card-name {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.ex-card-note {
+  font-size: 11.5px;
+  color: var(--text2);
+  line-height: 1.4;
+}
+
+/* Set rows */
+.set-list { padding: 8px 12px; }
+.set-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 7px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  min-height: 52px;
+}
+.set-row:last-child { border-bottom: none; }
+
+.set-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--muted);
+  width: 18px;
+  flex-shrink: 0;
+  text-align: center;
+}
+.set-prev {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  width: 72px;
+  flex-shrink: 0;
+  line-height: 1.3;
+}
+.set-prev .prev-label { font-size: 8.5px; letter-spacing: 0.08em; text-transform: uppercase; }
+
+.set-inputs {
+  display: flex;
+  gap: 6px;
+  align-items: center;
+  flex: 1;
+}
+.set-input {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  text-align: center;
+  padding: 8px 4px;
+  width: 62px;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.set-input:focus { border-color: var(--push); }
+.set-input::placeholder { color: var(--muted); font-size: 13px; }
+.set-input-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-transform: uppercase;
+}
+.set-input-sep {
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--muted);
+}
+
+.log-btn {
+  width: 52px;
+  height: 40px;
+  border-radius: 8px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  color: var(--text2);
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  cursor: pointer;
+  flex-shrink: 0;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.log-btn.ready {
+  background: rgba(212,255,0,0.08);
+  border-color: rgba(212,255,0,0.3);
+  color: var(--push);
+}
+.log-btn:active { transform: scale(0.95); }
+.log-btn.hang-btn {
+  width: auto;
+  padding: 0 14px;
+  flex: 1;
+}
+
+/* Completed set row */
+.set-row.completed .set-inputs { display: none; }
+.set-row.completed .log-btn { display: none; }
+.set-logged {
+  display: none;
+  flex: 1;
+  align-items: center;
+  gap: 8px;
+}
+.set-row.completed .set-logged { display: flex; }
+.set-logged-data {
+  font-family: 'DM Mono', monospace;
+  font-size: 13px;
+  color: var(--text);
+  font-weight: 500;
+}
+.set-check {
+  width: 20px;
+  height: 20px;
+  background: rgba(212,255,0,0.12);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--push);
+  font-size: 11px;
+}
+
+/* Locked set */
+.set-row.locked .set-input {
+  background: var(--bg);
+  color: var(--muted);
+  border-color: rgba(255,255,255,0.05);
+}
+.set-row.locked .log-btn {
+  opacity: 0.3;
+  pointer-events: none;
+}
+
+/* ─── FORM CUES TAB ─── */
+.cues-list { }
+.cue-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.cue-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  transition: background 0.12s;
+}
+.cue-header:active { background: var(--surface2); }
+.cue-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  flex: 1;
+}
+.cue-toggle {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  flex-shrink: 0;
+  margin-left: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.cue-short {
+  padding: 0 16px 14px;
+  display: none;
+}
+.cue-item.open .cue-short { display: block; }
+.cue-short ul {
+  list-style: none;
+}
+.cue-short ul li {
+  font-size: 13px;
+  color: var(--text2);
+  padding: 3px 0;
+  padding-left: 14px;
+  position: relative;
+}
+.cue-short ul li::before {
+  content: '·';
+  position: absolute;
+  left: 4px;
+  color: var(--push);
+}
+.cue-full {
+  display: none;
+  padding: 12px 16px;
+  border-top: 1px solid var(--border);
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.7;
+  white-space: pre-wrap;
+  background: var(--bg);
+}
+.cue-item.expanded .cue-full { display: block; }
+.expand-full-btn {
+  display: inline-block;
+  margin-top: 10px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--push);
+  cursor: pointer;
+  -webkit-user-select: none;
+  padding: 4px 0;
+}
+
+/* ─── REST TIMER ─── */
+.rest-backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0,0,0,0.7);
+  backdrop-filter: blur(4px);
+  -webkit-backdrop-filter: blur(4px);
+}
+.rest-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  padding: 24px 24px calc(var(--safe-b) + 24px);
+  transform: translateY(100%);
+  transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+#rest-overlay.active .rest-sheet { transform: translateY(0); }
+
+.rest-pill {
+  width: 36px;
+  height: 4px;
+  background: var(--border);
+  border-radius: 2px;
+  margin: 0 auto 20px;
+}
+.rest-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text2);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.rest-countdown {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 80px;
+  letter-spacing: 0.04em;
+  color: var(--rest);
+  text-align: center;
+  line-height: 1;
+  margin-bottom: 8px;
+}
+.rest-progress-wrap {
+  height: 3px;
+  background: var(--border);
+  border-radius: 2px;
+  margin-bottom: 16px;
+  overflow: hidden;
+}
+.rest-progress-bar {
+  height: 100%;
+  background: var(--rest);
+  border-radius: 2px;
+  transition: width 1s linear;
+}
+.rest-next {
+  font-size: 12.5px;
+  color: var(--text2);
+  text-align: center;
+  margin-bottom: 20px;
+  min-height: 20px;
+}
+.rest-next strong { color: var(--text); }
+.skip-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text2);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.skip-btn:active { background: var(--surface3); color: var(--text); }
+
+/* ─── SESSION COMPLETE ─── */
+.complete-sheet {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  border-radius: 20px 20px 0 0;
+  padding: 24px 20px calc(var(--safe-b) + 24px);
+  transform: translateY(100%);
+  transition: transform 0.4s cubic-bezier(0.34, 1.3, 0.64, 1);
+  max-height: 80vh;
+  overflow-y: auto;
+}
+#complete-overlay.active { background: rgba(0,0,0,0.7); align-items: flex-end; }
+#complete-overlay.active .complete-sheet { transform: translateY(0); }
+
+.complete-icon {
+  width: 52px;
+  height: 52px;
+  background: rgba(212,255,0,0.1);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin: 0 auto 12px;
+}
+.complete-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 32px;
+  letter-spacing: 0.05em;
+  color: var(--push);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.complete-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  text-align: center;
+  letter-spacing: 0.1em;
+  margin-bottom: 20px;
+}
+.complete-summary {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 14px;
+  margin-bottom: 16px;
+  max-height: 200px;
+  overflow-y: auto;
+}
+.complete-ex {
+  margin-bottom: 8px;
+}
+.complete-ex:last-child { margin-bottom: 0; }
+.complete-ex-name {
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.complete-ex-sets {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+}
+.complete-done-btn {
+  width: 100%;
+  padding: 16px;
+  background: rgba(212,255,0,0.08);
+  border: 1px solid rgba(212,255,0,0.25);
+  border-radius: 12px;
+  color: var(--push);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  margin-bottom: 10px;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.complete-done-btn:active { opacity: 0.8; }
+.complete-history-btn {
+  width: 100%;
+  padding: 14px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  color: var(--text2);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.complete-history-btn:active { background: var(--surface3); color: var(--text); }
+
+/* ─── HISTORY ─── */
+.history-header {
+  position: sticky;
+  top: 0;
+  background: var(--bg);
+  border-bottom: 1px solid var(--border);
+  padding: calc(var(--safe-t) + 12px) 20px 12px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  z-index: 10;
+}
+.history-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.05em;
+  color: var(--text);
+  flex: 1;
+}
+.export-btn {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.export-btn:active { background: var(--surface2); color: var(--text); }
+
+.history-body { padding: 16px; padding-bottom: calc(var(--safe-b) + 24px); }
+
+.history-empty {
+  text-align: center;
+  padding: 60px 20px;
+  color: var(--muted);
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.hist-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.hist-item-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  cursor: pointer;
+  gap: 12px;
+  -webkit-user-select: none;
+  transition: background 0.12s;
+}
+.hist-item-header:active { background: var(--surface2); }
+.hist-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.hist-dot.push { background: var(--push); }
+.hist-dot.pull { background: var(--pull); }
+.hist-dot.legs { background: var(--legs); }
+.hist-info { flex: 1; }
+.hist-session-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+}
+.hist-date {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text2);
+  margin-top: 1px;
+}
+.hist-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  text-align: right;
+}
+.hist-chevron {
+  font-size: 12px;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.hist-item.open .hist-chevron { transform: rotate(90deg); }
+
+.hist-body {
+  display: none;
+  padding: 0 16px 14px;
+  border-top: 1px solid var(--border);
+}
+.hist-item.open .hist-body { display: block; }
+.hist-ex {
+  padding: 8px 0;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+}
+.hist-ex:last-child { border-bottom: none; }
+.hist-ex-name {
+  font-size: 12.5px;
+  font-weight: 500;
+  color: var(--text);
+  margin-bottom: 3px;
+}
+.hist-ex-sets {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--text2);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+}
+.hist-set-chip {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 5px;
+  padding: 2px 7px;
+  font-size: 11px;
+}
+
+/* Toast */
+.toast {
+  position: fixed;
+  top: calc(var(--safe-t) + 60px);
+  left: 50%;
+  transform: translateX(-50%) translateY(-10px);
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 8px 16px;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  color: var(--text);
+  text-transform: uppercase;
+  z-index: 500;
+  opacity: 0;
+  transition: all 0.2s;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+</style>
+</head>
+<body>
+<div id="app">
+
+  <!-- ─── HOME ─── -->
+  <div id="view-home" class="view active">
+    <div class="home-header">
+      <div class="home-eyebrow">8-Day Rotating Cycle</div>
+      <div class="home-title"><span>Training</span></div>
+    </div>
+    <div class="home-body">
+      <div class="section-label">Cycle Structure</div>
+      <div class="cycle-wrap">
+        <div class="cycle-row">
+          <div class="cycle-cell push"><span class="day-num">D1</span>Push A</div>
+          <div class="cycle-cell pull"><span class="day-num">D2</span>Pull A</div>
+          <div class="cycle-cell legs"><span class="day-num">D3</span>Legs A</div>
+          <div class="cycle-cell rest"><span class="day-num">D4</span>Rest</div>
+        </div>
+        <div class="cycle-row">
+          <div class="cycle-cell push"><span class="day-num">D5</span>Push B</div>
+          <div class="cycle-cell pull"><span class="day-num">D6</span>Pull B</div>
+          <div class="cycle-cell legs"><span class="day-num">D7</span>Legs B</div>
+          <div class="cycle-cell rest"><span class="day-num">D8</span>Rest</div>
+        </div>
+      </div>
+
+      <div class="section-label">Sessions</div>
+      <div class="session-grid">
+        <div class="session-card push" onclick="startSession('push-a')">
+          <div class="card-name">Push A</div>
+          <div class="card-subtitle">Chest Primary</div>
+          <div class="card-meta"><span>5 ex</span><span>·</span><span>52–58m</span></div>
+        </div>
+        <div class="session-card pull" onclick="startSession('pull-a')">
+          <div class="card-name">Pull A</div>
+          <div class="card-subtitle">Back (Vertical)</div>
+          <div class="card-meta"><span>7 ex</span><span>·</span><span>55–62m</span></div>
+        </div>
+        <div class="session-card legs" onclick="startSession('legs-a')">
+          <div class="card-name">Legs A</div>
+          <div class="card-subtitle">Quad Primary</div>
+          <div class="card-meta"><span>5 ex</span><span>·</span><span>55–63m</span></div>
+        </div>
+        <div class="session-card push" onclick="startSession('push-b')">
+          <div class="card-name">Push B</div>
+          <div class="card-subtitle">Shoulders Primary</div>
+          <div class="card-meta"><span>5 ex</span><span>·</span><span>52–58m</span></div>
+        </div>
+        <div class="session-card pull" onclick="startSession('pull-b')">
+          <div class="card-name">Pull B</div>
+          <div class="card-subtitle">Back (Horizontal)</div>
+          <div class="card-meta"><span>7 ex</span><span>·</span><span>56–64m</span></div>
+        </div>
+        <div class="session-card legs" onclick="startSession('legs-b')">
+          <div class="card-name">Legs B</div>
+          <div class="card-subtitle">Hip / Hamstring</div>
+          <div class="card-meta"><span>5 ex</span><span>·</span><span>56–65m</span></div>
+        </div>
+      </div>
+
+      <div class="history-btn" onclick="navigate('history')">View History</div>
+    </div>
+  </div>
+
+  <!-- ─── SESSION ─── -->
+  <div id="view-session" class="view">
+    <div class="session-header">
+      <div class="session-header-top">
+        <div class="back-btn" onclick="confirmBack()">‹</div>
+        <div class="session-name-wrap">
+          <div class="session-name" id="sess-name"></div>
+          <div class="session-name-sub" id="sess-sub"></div>
+        </div>
+        <div class="finish-btn-header" id="finish-btn" onclick="finishSession()">Finish</div>
+      </div>
+      <div class="session-tabs">
+        <div class="session-tab active" id="tab-exercises" onclick="switchSessionTab('exercises')">Exercises</div>
+        <div class="session-tab" id="tab-cues" onclick="switchSessionTab('cues')">Form Cues</div>
+      </div>
+    </div>
+    <div class="session-body">
+      <div id="exercises-panel"></div>
+      <div id="cues-panel" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- ─── HISTORY ─── -->
+  <div id="view-history" class="view">
+    <div class="history-header">
+      <div class="back-btn" onclick="navigate('home')">‹</div>
+      <div class="history-title">History</div>
+      <div class="export-btn" onclick="exportData()">Export</div>
+    </div>
+    <div class="history-body" id="history-body"></div>
+  </div>
+
+  <!-- ─── REST TIMER ─── -->
+  <div id="rest-overlay" class="overlay">
+    <div class="rest-backdrop" onclick="skipRest()"></div>
+    <div class="rest-sheet">
+      <div class="rest-pill"></div>
+      <div class="rest-label">Resting</div>
+      <div class="rest-countdown" id="rest-count">3:00</div>
+      <div class="rest-progress-wrap">
+        <div class="rest-progress-bar" id="rest-bar" style="width:100%"></div>
+      </div>
+      <div class="rest-next" id="rest-next"></div>
+      <div class="skip-btn" onclick="skipRest()">Skip Rest</div>
+    </div>
+  </div>
+
+  <!-- ─── SESSION COMPLETE ─── -->
+  <div id="complete-overlay" class="overlay">
+    <div class="complete-sheet">
+      <div class="complete-icon">✓</div>
+      <div class="complete-title">Session Done</div>
+      <div class="complete-meta" id="complete-meta"></div>
+      <div class="complete-summary" id="complete-summary"></div>
+      <div class="complete-done-btn" onclick="completeAndGoHome()">Done</div>
+      <div class="complete-history-btn" onclick="completeAndGoHistory()">View in History</div>
+    </div>
+  </div>
+
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+// ═══════════════════════════════════════════════
+// PROGRAM DATA
+// ═══════════════════════════════════════════════
+
+const PROGRAM = {
+  'push-a': {
+    id: 'push-a', name: 'Push A', subtitle: 'Chest Primary', type: 'push',
+    exercises: [
+      {
+        id: 'pa-bench', name: 'Barbell Bench Press', sets: 3, repsDisplay: '4–6', rest: 180, logType: 'standard',
+        note: 'Flat. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Maintain technique throughout.',
+        cues: {
+          short: ['Flat back, feet flat on floor', 'Bar to chest — full ROM', 'Slight elbow tuck on descent', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+          full: 'Setup: Grip just outside shoulder width. Natural arch. Feet flat, leg drive active. Retract and depress shoulder blades into the bench before unracking.\n\nExecution: Lower to mid-chest, 2s controlled descent. Brief touch, no bounce. Press in a slight arc back toward the rack.\n\nRIR Gradient: S1 is a heavy primer — 2–3 RIR. S2 is genuine working territory — 1–2 RIR. S3 push to 0–1 RIR. Never grind a technical failure on a barbell compound.\n\nElbow note: Low risk for the distal triceps tendon. Monitor under heavy loads — a slight elbow tuck can reduce strain if needed.'
+        }
+      },
+      {
+        id: 'pa-incline', name: 'Incline Dumbbell Press', sets: 3, repsDisplay: '8–12', rest: 120, logType: 'standard',
+        note: '30–45°. Full ROM — the stretch at the bottom is the stimulus. 0–1 RIR all sets.',
+        cues: {
+          short: ['30–45° bench angle', 'Own the stretch at the bottom', 'Press to peak without locking out fully', '0–1 RIR all sets'],
+          full: 'Setup: Bench at 30–45°. Dumbbells at shoulder height, elbows slightly out.\n\nExecution: Lower with control until you feel a deep upper chest stretch — this is the stimulus. Press back up without fully locking out.\n\nKey: Upper chest is the target — not front delts. If you feel front delts dominating, reduce weight and focus on the chest staying engaged throughout the stretch.'
+        }
+      },
+      {
+        id: 'pa-fly', name: 'Cable Fly (Low-to-High)', sets: 2, repsDisplay: '12–15', rest: 90, logType: 'standard',
+        note: 'Upper chest arc. Arms slightly bent. Squeeze at top. Both sets to failure.',
+        cues: {
+          short: ['Both pulleys at floor level', 'Slight forward lean, staggered stance', 'Arc upward — hands finish above shoulder height', 'Arms slightly bent — fixed throughout'],
+          full: 'Setup: Both pulleys at lowest position. Stand centre. Slight forward lean from hips, soft knees, staggered stance. Arms slightly bent — maintain that bend throughout.\n\nExecution: Start hands at hip level. Arc upward and inward, finishing above chest height where hands nearly meet. Think hugging a barrel — the arc is the movement, not a press.\n\nAt the top: Pause and squeeze — feel the upper chest fibres contract. Control the hands apart.\n\nEccentric: 2–3s back to start. Actively reach into the stretch at the bottom — own it.\n\nWatch for: Elbows bending more as weight increases (turns into a press). Shoulders shrugging up. Standing too upright.'
+        }
+      },
+      {
+        id: 'pa-lateral', name: 'Cable Lateral Raise (Single-Arm)', sets: 3, repsDisplay: '15–20', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley. Lead with elbow, no momentum. 0 RIR. Alternate arms within the rest period.',
+        cues: {
+          short: ['Low pulley', 'Lead with the elbow — not the hand', 'No swinging or momentum', 'Alternate arms — each side rests while other works'],
+          full: 'Setup: Stand side-on to a low cable pulley.\n\nExecution: Lead the raise with the elbow. Raise to shoulder height — no higher. Slow and controlled. Cable provides constant tension unlike a dumbbell.\n\nRest protocol: Alternate arms within the rest period. One arm works while the other rests — no additional rest needed between sides.\n\nWatch for: Momentum or body lean. Raising above shoulder height. Shrugging on the working side.'
+        }
+      },
+      {
+        id: 'pa-pushdown', name: 'Cable Tricep Pushdown (Rope)', sets: 3, repsDisplay: '12–15', rest: 90, logType: 'standard',
+        note: 'Flare hands at the bottom for full contraction. All sets to failure.',
+        cues: {
+          short: ['Pulley at highest position', 'Upper arms pinned to sides — stay there', 'Flare hands outward at the bottom', 'Own the stretch at the top'],
+          full: 'Setup: Pulley at highest position. Rope attachment. Grip one end each hand, palms facing each other. Stand close to stack, slight forward lean.\n\nKey cue: Upper arms pinned to sides throughout. If elbows drift forward, the shoulders take over.\n\nExecution: Push rope down extending the elbows. As you approach the bottom, flare hands outward — palms face the floor at full extension. Your hands should be apart and angled outward at the bottom.\n\nAt the bottom: Brief pause, full tricep contraction. Elbows locked out.\n\nEccentric: 2–3s back up. Don\'t let elbows drift forward as rope rises. The stretch at the top is important.\n\nElbow note: Low risk. Monitor under heavier accumulated volume.'
+        }
+      }
+    ]
+  },
+
+  'pull-a': {
+    id: 'pull-a', name: 'Pull A', subtitle: 'Back Primary (Vertical)', type: 'pull',
+    exercises: [
+      {
+        id: 'pla-pullup', name: 'Weighted Pull-Up', sets: 3, repsDisplay: '5–8', rest: 180, logType: 'standard',
+        note: 'Pronated grip. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Sub lat pulldown if needed. Log added weight only.',
+        cues: {
+          short: ['Pronated (overhand) grip', 'Full dead hang at the bottom', 'Drive elbows down toward hips', 'Chin clears the bar at top'],
+          full: 'Warm-up: 1 set scapular pulls (dead hang, depress/retract shoulder blades, 8–10 reps). Then 3–4 bodyweight pull-ups at easy effort as technique primers — not working sets.\n\nSetup: Pronated grip, hands just outside shoulder width. Full dead hang to start each rep.\n\nExecution: Drive elbows down toward your hips — this is the lat engagement cue. Chest up, slight lean back. Pull until chin clears the bar.\n\nRIR: S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR.\n\nLog: Enter the added weight only (e.g. 5 for +5kg). Bodyweight is the constant baseline.'
+        }
+      },
+      {
+        id: 'pla-hs-row', name: 'Hammer Strength Iso-Lateral Row', sets: 3, repsDisplay: '8–12', rest: 120, logType: 'standard',
+        note: 'Pronated grip. Both arms simultaneously. Pull to lower chest. Brief pause. 0–1 RIR all sets.',
+        cues: {
+          short: ['Pronated grip', 'Both arms simultaneously — not alternating', 'Pull to lower chest, brief pause', 'Reach into the stretch at the bottom'],
+          full: 'Setup: Pronated grip handles. Chest firmly on pad. Seat adjusted so handles are at lower chest height when arms extended.\n\nExecution: Row both arms simultaneously. Pull to lower chest — brief pause and squeeze. Control the eccentric back.\n\nKey: Machine may have a dead spot at full extension where load drops off. Actively reach forward into the stretch rather than passively letting the weight drop.\n\nAsymmetry: If one side feels weaker, let the weaker side determine the weight and let it catch up naturally over time.'
+        }
+      },
+      {
+        id: 'pla-facepull', name: 'Cable Face Pull', sets: 2, repsDisplay: '15–20', rest: 60, logType: 'standard',
+        note: 'Rope at eye level. External rotation at end range. Both sets to failure — light weight, full ROM.',
+        cues: {
+          short: ['Rope attachment at eye level', 'Pull to forehead — not chin', 'External rotation at end range', 'Light weight — full ROM is the point'],
+          full: 'Setup: Rope attachment at eye level. Stand far enough back to be balanced against the cable tension.\n\nExecution: Pull the rope to your forehead. At the end position, externally rotate — hands beside temples, elbows high. The external rotation at end range is what makes this valuable for rear delt and rotator cuff health.\n\nKey: Light weight. If you\'re using heavy weight you\'re pulling with arms rather than engaging the rear delts and performing the rotation correctly.'
+        }
+      },
+      {
+        id: 'pla-incline-curl', name: 'Incline Dumbbell Curl', sets: 3, repsDisplay: '10–12', rest: 90, logType: 'standard',
+        note: 'Arm behind torso — maximal long-head stretch. This position is the entire point. 0 RIR all sets.',
+        cues: {
+          short: ['Arm fully behind the body — this is the entire point', 'Don\'t rush the bottom position', 'Full supination at the top', '0 RIR — push to failure'],
+          full: 'Setup: Incline bench at ~60°. Lie back so your arms hang behind your torso. This critical position puts the bicep long head at maximal stretch.\n\nExecution: Curl from the fully stretched hanging position. Don\'t let the upper arm swing forward — it defeats the purpose. Full supination at the top. Control back to full stretch.\n\nKey: The stretch position is where the stimulus lives. Don\'t shortchange the ROM at the bottom.'
+        }
+      },
+      {
+        id: 'pla-cable-curl', name: 'Cable Curl (EZ Bar Attachment)', sets: 2, repsDisplay: '10–12', rest: 90, logType: 'standard',
+        note: 'Constant tension throughout. Supinate hard at the top. Both sets to failure.',
+        cues: {
+          short: ['EZ bar attachment for wrist comfort', 'Full extension at the bottom — constant tension advantage', 'Supinate hard at the top', 'Both sets to failure'],
+          full: 'Setup: EZ bar attachment. Stand with slight forward lean or seated.\n\nExecution: Full extension at the bottom — cable maintains tension here unlike a free weight. Curl smoothly, supinate hard at the top for full contraction. Control back to full stretch.\n\nKey: The cable\'s advantage over free weight is constant tension at the bottom stretch position. Don\'t cut the bottom ROM short.'
+        }
+      },
+      {
+        id: 'pla-shrug', name: 'Dumbbell Shrug', sets: 2, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Full elevation — straight up and down, no rolling. Brief pause at peak. Slow descent.',
+        cues: {
+          short: ['Straight up and down — no shoulder rolling', 'Pause at peak elevation', '2–3s slow descent', 'Heavy — upper traps are fast-twitch dominant'],
+          full: 'Setup: Heavy dumbbells at sides. Stand tall, neutral spine.\n\nExecution: Elevate shoulders straight up toward ears. No rolling forward or backward — no benefit and stresses the AC joint. Brief pause and squeeze at the top. 2–3s controlled descent.\n\nLoad: Upper traps are predominantly fast-twitch and respond to heavier loading — this is why the rep range is lower (8–12) compared to most other isolation work.'
+        }
+      },
+      {
+        id: 'pla-hang', name: 'Dead Hang (Passive)', sets: 1, repsDisplay: 'Hold', rest: 0, logType: 'hang',
+        note: 'Arms fully relaxed — no scapular engagement. Hang to grip failure. Go straight from last exercise.',
+        cues: {
+          short: ['Arms fully relaxed — passive hang', 'No scapular engagement whatsoever', 'Hang until grip gives out', 'No rest before — go straight from last exercise'],
+          full: 'Execution: Jump up and simply hang. Arms fully straight and relaxed — no shoulder engagement. This is the opposite of a scapular pull. Hang passively until your grip gives out.\n\nBenefits: Grip endurance, wrist and forearm health, spinal decompression after heavy pulling.\n\nNote: Go straight from your last exercise. The hang itself is low effort until the final moments.'
+        }
+      }
+    ]
+  },
+
+  'legs-a': {
+    id: 'legs-a', name: 'Legs A', subtitle: 'Quad Primary', type: 'legs',
+    exercises: [
+      {
+        id: 'la-squat', name: 'Barbell Back Squat', sets: 3, repsDisplay: '5–7', rest: 180, logType: 'standard',
+        note: 'Full depth. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Stop before technical breakdown.',
+        cues: {
+          short: ['Full depth — hip crease below knee', 'Brace 360° before every rep', 'Knees track over toes', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+          full: 'Setup: Bar position to preference. Brace 360° — breathe into your belly, create full circumferential pressure before every rep.\n\nExecution: Slight hip push back to initiate, then descend. Hit full depth — hip crease below knee minimum. Drive knees out to track over toes. Drive through the floor on the ascent.\n\nRIR: S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR. Stop one rep before technical breakdown — form failure on a heavy squat is where injuries happen.\n\nBelt: Optional. Brace hard into the belt — don\'t rely on it. Consider doing sets 1–2 beltless to build unbelted core strength.'
+        }
+      },
+      {
+        id: 'la-bss', name: 'Bulgarian Split Squat', sets: 3, repsDisplay: '8–12 ea.', rest: 120, logType: 'per-leg',
+        note: 'Rear foot elevated. Full depth. 0–1 RIR. REST IS PER LEG — complete one leg fully, rest, then switch.',
+        cues: {
+          short: ['Rear foot elevated on bench', 'Front foot far enough forward', 'Back knee close to floor at depth', 'REST PER LEG — full rest between each leg'],
+          full: 'Setup: Rear foot elevated. Front foot far enough forward that your front shin stays roughly vertical at the bottom — key for knee health and loading the right muscles.\n\nExecution: Descend until back knee is close to the floor. Front knee tracks over toes — not caving inward. Drive through the front heel.\n\nRest protocol: Complete ALL reps on one leg. Rest the full 2 minutes. Then switch to the other leg. The systemic demand is too high to go straight to the other side.\n\nGround Base Machine: Same mechanics but greater stretch and load potential. Take the RIR guidance seriously — this machine can be extremely demanding.'
+        }
+      },
+      {
+        id: 'la-ext', name: 'Leg Extension', sets: 2, repsDisplay: '12–15', rest: 90, logType: 'standard',
+        note: '3s eccentric. Hard peak contraction at the top. 0 RIR all sets.',
+        cues: {
+          short: ['3 second eccentric — slow descent', 'Hard contraction and pause at the top', 'Full ROM — don\'t cut the bottom short', '0 RIR — push to failure'],
+          full: 'Execution: Full ROM from full knee flexion to full extension. Hold the contraction hard at the top for 1s. Then lower in 3 seconds.\n\nKey: The 3s eccentric is non-negotiable. If you can\'t control the descent, the weight is too heavy. This slow eccentric provides significant additional stimulus.'
+        }
+      },
+      {
+        id: 'la-curl', name: 'Lying Leg Curl', sets: 2, repsDisplay: '10–12', rest: 90, logType: 'standard',
+        note: 'Plantarflex (point toes) to increase hamstring stretch. Both sets to failure.',
+        cues: {
+          short: ['Point toes (plantarflex) throughout', 'Full stretch at the bottom — don\'t rush it', 'Control the descent', 'Both sets to failure'],
+          full: 'Setup: Pad just above heels. Point your toes (plantarflex) — this shortens the gastrocnemius, putting more demand on the hamstrings specifically.\n\nExecution: Curl from full extension to full flexion. Control the descent — full stretch at the bottom. Both sets to failure.'
+        }
+      },
+      {
+        id: 'la-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '15–20', rest: 60, logType: 'standard',
+        note: 'Deep stretch at the bottom is the stimulus. Vary toe angle across sets. All sets to failure.',
+        cues: {
+          short: ['Deep stretch at bottom — the key stimulus (research supported)', 'Toes: neutral / slightly out / slightly in across 3 sets', 'Full elevation at the top', 'All sets to failure'],
+          full: '2023 research confirms standing raises grow the gastrocnemius significantly better than seated. Both gastrocnemius heads are covered by standing raises.\n\nKey: Lower to a deep stretch — this is where growth stimulus is concentrated. Research on stretch-mediated hypertrophy strongly supports the deep bottom position.\n\nToe angle: Vary across your 3 sets — neutral for both heads, slightly out for medial head bias, slightly in for lateral head bias. Complete calf coverage without extra exercises.'
+        }
+      }
+    ]
+  },
+
+  'push-b': {
+    id: 'push-b', name: 'Push B', subtitle: 'Shoulders Primary', type: 'push',
+    exercises: [
+      {
+        id: 'pb-ohp', name: 'Seated DB Overhead Press', sets: 3, repsDisplay: '6–8', rest: 180, logType: 'standard',
+        note: '90° bench, fully upright. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Brace core, don\'t arch lower back.',
+        cues: {
+          short: ['Bench fully upright — exactly 90°', 'Feet flat, hips at 90°, seat slightly tilted up', 'Core braced — no lower back arch', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+          full: 'Bench setup: 90° backrest. Seat height so feet are flat with hips at 90°. Seat pad slightly tilted upward to prevent sliding forward. Sit back enough that lower back stays in contact with pad throughout.\n\nExecution: Brace core before pressing — prevents lower back compensation. Press vertically. Full ROM without fully locking out at the top.\n\nRIR: S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR.'
+        }
+      },
+      {
+        id: 'pb-db-lat', name: 'Dumbbell Lateral Raise', sets: 3, repsDisplay: '12–15', rest: 60, logType: 'standard',
+        note: 'Slight forward lean, lead with elbow. No swinging. 0–1 RIR all sets.',
+        cues: {
+          short: ['Slight forward lean from the hips', 'Lead with the elbow — think pouring a jug', 'No swinging or body lean', '0–1 RIR all sets'],
+          full: 'Setup: Slight forward lean from the hips — aligns the lateral head with the direction of lift.\n\nExecution: Lead with the elbow. Pinky slightly higher than thumb at the top. Raise to shoulder height — no higher. Slow and controlled throughout.\n\nWatch for: Shrugging the shoulders up. Leaning back to help lift. Wrists rising above elbows.'
+        }
+      },
+      {
+        id: 'pb-cable-lat', name: 'Cable Lateral Raise (Single-Arm)', sets: 2, repsDisplay: '15–20', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley. Alternate arms within rest period. Both sets to failure.',
+        cues: {
+          short: ['Low pulley', 'Lead with elbow — not hand', 'Alternate arms — each side rests while other works', '0 RIR — to failure'],
+          full: 'Same as Push A cable lateral raise. Low pulley, arm at side, lead with elbow, raise to shoulder height. Alternate arms — each side rests while the other works. No additional rest needed between sides.'
+        }
+      },
+      {
+        id: 'pb-pecdec', name: 'Pec Dec / Machine Fly', sets: 3, repsDisplay: '12–15', rest: 90, logType: 'standard',
+        note: 'Prioritise the stretch position. Squeeze pecs, not front delts. 0 RIR all sets.',
+        cues: {
+          short: ['Arms at 90° to torso — adjust the machine', 'Prioritise the stretch position — the stimulus is here', 'Squeeze chest — not front delts', '0 RIR — to failure'],
+          full: 'Setup: Adjust machine so arms are at 90° to the torso. Sit tall, chest up, shoulders back.\n\nExecution: Focus on the chest stretching at the open position — don\'t rush through it. Squeeze at the closed position by thinking chest, not shoulders.\n\nKey: This is stretch-focused chest work. Loading the pec in the lengthened position is the primary stimulus. If front delts dominate, reduce weight and focus on chest activation.'
+        }
+      },
+      {
+        id: 'pb-pushdown', name: 'Cable Tricep Pushdown (Rope)', sets: 3, repsDisplay: '12–15', rest: 90, logType: 'standard',
+        note: 'Same as Push A. Overhead extension removed due to elbow. All sets to failure.',
+        cues: {
+          short: ['Pulley at highest position', 'Upper arms pinned to sides throughout', 'Flare hands outward at the bottom', 'Control the eccentric back to the stretch'],
+          full: 'Identical cues to Push A pushdown. Pulley at top. Upper arms pinned. Flare hands at the bottom for full contraction. Control the eccentric back to the stretch at the top.\n\nElbow note: Overhead extension removed due to distal triceps tendon irritation. Pushdowns load the tricep at a comfortable angle without the provocative overhead stretch. Monitor for elbow response under accumulated push volume across the cycle.'
+        }
+      }
+    ]
+  },
+
+  'pull-b': {
+    id: 'pull-b', name: 'Pull B', subtitle: 'Back Primary (Horizontal)', type: 'pull',
+    exercises: [
+      {
+        id: 'plb-pendlay', name: 'Pendlay Row', sets: 3, repsDisplay: '5–7', rest: 180, logType: 'standard',
+        note: 'Torso parallel. Dead stop on floor between every rep. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR.',
+        cues: {
+          short: ['Torso close to parallel to floor', 'Bar returns to floor — dead stop — every single rep', 'Overhand grip', 'Reset and brace before every rep'],
+          full: 'Setup: Bar on floor. Hinge to torso close to parallel. Overhand grip just outside shoulder width. Brace before every rep — treat each as a partial deadlift setup.\n\nExecution: Pull explosively from the floor to lower chest. Bar returns to floor — full dead stop. Reset your brace. This removes all momentum carry-over.\n\nKey: You will use less load than a standard bent-over row. This is correct — don\'t compare loads to previous bent-over row numbers.\n\nRIR: S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR.'
+        }
+      },
+      {
+        id: 'plb-cable-row', name: 'Single-Arm Cable Row (Kneeling)', sets: 3, repsDisplay: '8–12 ea.', rest: 120, logType: 'per-arm-full',
+        note: 'Single leg kneel, opposite foot forward. Pulley at shoulder height. REST IS PER ARM — full rest between each arm.',
+        cues: {
+          short: ['Single leg kneel — opposite foot forward to working arm', 'Pulley at shoulder height (NOT floor)', 'Depress shoulder blade BEFORE bending the arm', 'Actively reach into the stretch at the bottom'],
+          full: 'Setup: Single leg kneeling. Opposite foot forward to the working arm — creates a diagonal brace resisting the cable pull. Pulley at shoulder height — gives a horizontal pull angle from kneeling position (floor level would create an upward angle).\n\nExecution: Depress and retract shoulder blade FIRST — before the arm bends. This ensures lat/mid-back work rather than just bicep. Drive elbow back toward hip. Brief pause. Actively reach into the stretch at the bottom.\n\nRest: Complete all reps on one arm. Rest the full 2 minutes. Switch.\n\nKey: Hand is just a hook. The elbow drives, the shoulder blade retracts. Don\'t pull with the hand.'
+        }
+      },
+      {
+        id: 'plb-rear-delt', name: 'Rear Delt Cable Fly', sets: 2, repsDisplay: '15–20', rest: 60, logType: 'standard',
+        note: 'Cable at eye level or above. Arms out at 90°. Both sets to failure.',
+        cues: {
+          short: ['Cable at eye level or above', 'Arms out at 90° — horizontal abduction', 'Light weight — feel the rear delt working', 'Both sets to failure'],
+          full: 'Setup: Cable at eye level or higher. Stand balanced against the cable tension.\n\nExecution: Arms out to the sides at 90°. The movement is horizontal abduction — spreading your arms wide, not pulling down. Light weight — the rear delt is a small muscle.\n\nAlternative: Reverse pec dec machine works identically and is often easier to stabilise on.'
+        }
+      },
+      {
+        id: 'plb-cable-curl', name: 'Cable Curl (EZ Bar Attachment)', sets: 3, repsDisplay: '10–12', rest: 90, logType: 'standard',
+        note: 'Constant tension through full ROM. Slight wrist supination. 0 RIR all sets.',
+        cues: {
+          short: ['EZ bar attachment', 'Full extension at the bottom — don\'t cut it short', 'Supinate slightly at the top', '0 RIR — push to failure'],
+          full: 'Same as Pull A cable curl. Full extension at the bottom exploits the cable\'s constant tension in the stretched position. Supinate at the top for full contraction. All sets to failure.'
+        }
+      },
+      {
+        id: 'plb-hammer', name: 'Hammer Curl (Dumbbell)', sets: 2, repsDisplay: '10–12', rest: 90, logType: 'standard',
+        note: 'Neutral grip. Full ROM. Both sets to failure.',
+        cues: {
+          short: ['Neutral grip — thumbs up throughout', 'Full extension at the bottom', 'No swinging or body momentum', 'Both sets to failure'],
+          full: 'Setup: Neutral grip — thumbs pointing up throughout. This is not a supinated bicep curl.\n\nExecution: Full extension at the bottom. Curl to shoulder height. No swinging. The brachialis and brachioradialis add arm thickness that standard curls don\'t provide — this is a distinct stimulus.'
+        }
+      },
+      {
+        id: 'plb-shrug', name: 'Dumbbell Shrug', sets: 2, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Full elevation — straight up and down, no rolling. Pause at peak. Slow descent.',
+        cues: {
+          short: ['Straight up and down — no rolling', 'Pause at peak elevation', '2–3s slow descent', 'Upper traps respond to heavier loading'],
+          full: 'Identical cues to Pull A shrug. Straight elevation only — no rolling. Pause at the top. Slow descent. Upper traps are fast-twitch dominant and respond to heavier loads.'
+        }
+      },
+      {
+        id: 'plb-hang', name: 'Dead Hang (Passive)', sets: 1, repsDisplay: 'Hold', rest: 0, logType: 'hang',
+        note: 'Arms fully relaxed — no scapular engagement. Hang to grip failure. Go straight from last exercise.',
+        cues: {
+          short: ['Fully relaxed — passive hang', 'No scapular engagement', 'Hang to grip failure', 'Go straight from last exercise — no rest'],
+          full: 'Fully relaxed passive hang. No shoulder engagement — just gravity. Hang until grip fails. Go straight from last exercise. Benefits: grip endurance, wrist health, spinal decompression.'
+        }
+      }
+    ]
+  },
+
+  'legs-b': {
+    id: 'legs-b', name: 'Legs B', subtitle: 'Hip / Hamstring Primary', type: 'legs',
+    exercises: [
+      {
+        id: 'lb-rdl', name: 'Barbell Romanian Deadlift', sets: 3, repsDisplay: '6–8', rest: 180, logType: 'standard',
+        note: 'Hip hinge, soft knee, bar close. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Own the stretch.',
+        cues: {
+          short: ['Hip hinge — not a squat', 'Soft knee bend throughout — don\'t increase it on descent', 'Bar stays close to legs throughout', 'Own the hamstring stretch at the bottom'],
+          full: 'Setup: Bar in hands, standing tall. Soft knee bend — maintain this angle throughout, never bend more on the descent.\n\nExecution: Push your hips back as bar descends. Bar stays close to legs — almost dragging down the thighs. Descend until you feel a significant hamstring stretch, typically mid-shin.\n\nStretch position: This is the key stimulus. Pause briefly at the bottom — feel the hamstrings loaded under stretch before driving hips forward.\n\nRIR: S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR. Never lose the hip hinge pattern under fatigue.'
+        }
+      },
+      {
+        id: 'lb-hack', name: 'Hack Squat', sets: 2, repsDisplay: '10–12', rest: 120, logType: 'standard',
+        note: 'High foot placement for posterior emphasis. Full ROM. 0–1 RIR all sets.',
+        cues: {
+          short: ['High foot placement — shifts posterior emphasis', 'Full ROM — don\'t cut depth short', 'Feet shoulder width, toes out slightly', '0–1 RIR all sets'],
+          full: 'Foot placement: High on the platform. This shifts emphasis toward glutes and hamstrings. Feet shoulder width or slightly wider, toes out slightly.\n\nExecution: Full ROM — don\'t cut depth short. The machine handles stability so focus on full depth and feeling the posterior chain work. Control the descent.\n\nNote: Start conservatively — you\'ll likely handle less load than leg press due to more demanding mechanics.'
+        }
+      },
+      {
+        id: 'lb-legcurl', name: 'Single-Leg Kneeling Leg Curl', sets: 3, repsDisplay: '10–12 ea.', rest: 90, logType: 'per-leg',
+        note: 'Kneeling preserves hip flexion for stretch. 0 RIR. REST IS PER LEG — full rest between each leg.',
+        cues: {
+          short: ['Kneeling preserves hip flexion — key for stretch benefit', 'Full ROM — full extension at the bottom', '0 RIR — push to failure', 'REST PER LEG — full rest between each leg'],
+          full: 'Key point: Kneeling keeps the hip in flexion throughout the curl. This is why it was chosen — hip flexion increases the hamstring stretch, similar to the seated curl benefit.\n\nExecution: Full extension at the bottom. Curl to full flexion. 0 RIR — push to failure on all sets.\n\nRest: Complete all reps on one leg. Rest the full 90 seconds. Then switch. Don\'t go directly from one leg to the other.'
+        }
+      },
+      {
+        id: 'lb-thrust', name: 'Machine Hip Thrust (Booty Builder)', sets: 3, repsDisplay: '10–12', rest: 120, logType: 'standard',
+        note: 'Full hip extension. Pause and squeeze at the top. Consistent pad position every rep. 0–1 RIR.',
+        cues: {
+          short: ['Consistent pad position against hip crease every session', 'Drive through heels to full hip extension', 'Pause and actively squeeze glutes at the top', '0–1 RIR all sets'],
+          full: 'Setup: Position the pad consistently against your hip crease every session — changing this changes the movement and makes progress tracking meaningless.\n\nExecution: Drive through heels to full hip extension. Pause at the top — actively squeeze the glutes. Don\'t bounce through the top position. Control the descent.\n\nKey: This provides end-range hip extension loading — glutes maximally contracted at the top. Complements squats and RDLs which load the glute most in the stretched position.'
+        }
+      },
+      {
+        id: 'lb-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '15–20', rest: 60, logType: 'standard',
+        note: 'Deep stretch at the bottom. Vary toe angle across sets. All sets to failure.',
+        cues: {
+          short: ['Deep stretch at the bottom — the key stimulus', 'Vary toe angle: neutral / slightly out / slightly in', 'Full elevation at the top', 'All sets to failure'],
+          full: 'Same cues as Legs A calf raise. Deep stretch is the primary stimulus — research supports this strongly. Vary toe angle across 3 sets: neutral, slightly out, slightly in to cover both gastrocnemius heads. All sets to failure.'
+        }
+      }
+    ]
+  }
+};
+
+// ═══════════════════════════════════════════════
+// STATE
+// ═══════════════════════════════════════════════
+
+const state = {
+  view: 'home',
+  sessionId: null,
+  sessionTab: 'exercises',
+  current: null,
+  rest: null,
+  completedSession: null
+};
+
+// ═══════════════════════════════════════════════
+// STORAGE
+// ═══════════════════════════════════════════════
+
+function getHistory() {
+  try { return JSON.parse(localStorage.getItem('wt_history') || '[]'); } catch { return []; }
+}
+
+function saveHistory(history) {
+  localStorage.setItem('wt_history', JSON.stringify(history));
+}
+
+function getCurrent() {
+  try { return JSON.parse(localStorage.getItem('wt_current') || 'null'); } catch { return null; }
+}
+
+function saveCurrent(s) {
+  if (s) localStorage.setItem('wt_current', JSON.stringify(s));
+  else localStorage.removeItem('wt_current');
+}
+
+function getLastSession(sessionId) {
+  const history = getHistory();
+  for (let i = history.length - 1; i >= 0; i--) {
+    if (history[i].sessionId === sessionId) return history[i];
+  }
+  return null;
+}
+
+function getPrevSet(sessionId, exerciseId, setIndex) {
+  const last = getLastSession(sessionId);
+  if (!last || !last.exercises[exerciseId]) return null;
+  const sets = last.exercises[exerciseId];
+  if (sets[setIndex]) return sets[setIndex];
+  return null;
+}
+
+// ═══════════════════════════════════════════════
+// NAVIGATION
+// ═══════════════════════════════════════════════
+
+function navigate(view, params = {}) {
+  document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
+  document.getElementById('view-' + view).classList.add('active');
+  state.view = view;
+  if (view === 'home') renderHome();
+  if (view === 'history') renderHistory();
+}
+
+function renderHome() {
+  // Check for in-progress session
+  const cur = getCurrent();
+  if (cur) {
+    showToast('Resume last session?');
+    // Could auto-resume here — for now just note it
+  }
+}
+
+// ═══════════════════════════════════════════════
+// SESSION
+// ═══════════════════════════════════════════════
+
+function startSession(sessionId) {
+  const session = PROGRAM[sessionId];
+  if (!session) return;
+
+  // Check for existing in-progress session
+  const existing = getCurrent();
+  if (existing && existing.sessionId === sessionId) {
+    state.current = existing;
+  } else {
+    state.current = {
+      sessionId,
+      startTime: Date.now(),
+      exercises: {}
+    };
+    // Initialise exercise tracking
+    session.exercises.forEach(ex => {
+      state.current.exercises[ex.id] = {
+        activeSet: 0,
+        sets: Array(ex.sets).fill(null).map(() => ({ weight: '', reps: '', logged: false }))
+      };
+    });
+    saveCurrent(state.current);
+  }
+
+  state.sessionId = sessionId;
+  state.sessionTab = 'exercises';
+
+  // Set up session header
+  const nameEl = document.getElementById('sess-name');
+  const subEl = document.getElementById('sess-sub');
+  const finishBtn = document.getElementById('finish-btn');
+  nameEl.textContent = session.name;
+  nameEl.className = 'session-name ' + session.type;
+  subEl.textContent = session.subtitle;
+  finishBtn.className = 'finish-btn-header';
+
+  // Reset tabs
+  document.getElementById('tab-exercises').classList.add('active');
+  document.getElementById('tab-cues').classList.remove('active');
+  document.getElementById('exercises-panel').style.display = 'block';
+  document.getElementById('cues-panel').style.display = 'none';
+
+  renderExercises();
+  renderCues();
+  navigate('session');
+}
+
+function switchSessionTab(tab) {
+  state.sessionTab = tab;
+  document.getElementById('tab-exercises').classList.toggle('active', tab === 'exercises');
+  document.getElementById('tab-cues').classList.toggle('active', tab === 'cues');
+  document.getElementById('exercises-panel').style.display = tab === 'exercises' ? 'block' : 'none';
+  document.getElementById('cues-panel').style.display = tab === 'cues' ? 'block' : 'none';
+}
+
+function renderExercises() {
+  const session = PROGRAM[state.sessionId];
+  const panel = document.getElementById('exercises-panel');
+  panel.innerHTML = session.exercises.map(ex => renderExerciseCard(ex)).join('');
+  updateFinishBtn();
+}
+
+function renderExerciseCard(ex) {
+  const exState = state.current.exercises[ex.id];
+
+  const sets = Array.from({ length: ex.sets }, (_, i) => {
+    const s = exState.sets[i];
+    const isActive = i === exState.activeSet && !s.logged;
+    const isLocked = i > exState.activeSet;
+    const isCompleted = s.logged;
+    const prev = getPrevSet(state.sessionId, ex.id, i);
+
+    let prevHtml = prev
+      ? `<div class="set-prev"><div class="prev-label">Prev</div>${ex.logType === 'hang' ? 'Hold' : `${prev.weight || '—'}${prev.weight ? 'kg' : ''} × ${prev.reps || '—'}`}</div>`
+      : `<div class="set-prev"><div class="prev-label">Prev</div>—</div>`;
+
+    if (ex.logType === 'hang') {
+      if (isCompleted) {
+        return `<div class="set-row completed" data-ex="${ex.id}" data-set="${i}">
+          <div class="set-num">${i + 1}</div>
+          ${prevHtml}
+          <div class="set-logged"><div class="set-check">✓</div><div class="set-logged-data">Done</div></div>
+        </div>`;
+      }
+      return `<div class="set-row ${isLocked ? 'locked' : ''}" data-ex="${ex.id}" data-set="${i}">
+        <div class="set-num">${i + 1}</div>
+        ${prevHtml}
+        <div class="set-inputs" style="flex:1">
+          <button class="log-btn hang-btn ${isActive ? 'ready' : ''}" onclick="logHang('${ex.id}', ${i})" ${isLocked ? 'disabled' : ''}>Mark Done</button>
+        </div>
+      </div>`;
+    }
+
+    const prefillWeight = isActive && !s.weight ? (prev ? prev.weight : '') : s.weight;
+
+    if (isCompleted) {
+      return `<div class="set-row completed" data-ex="${ex.id}" data-set="${i}">
+        <div class="set-num">${i + 1}</div>
+        ${prevHtml}
+        <div class="set-logged"><div class="set-check">✓</div><div class="set-logged-data">${s.weight}kg × ${s.reps}</div></div>
+      </div>`;
+    }
+
+    return `<div class="set-row ${isLocked ? 'locked' : ''}" data-ex="${ex.id}" data-set="${i}">
+      <div class="set-num">${i + 1}</div>
+      ${prevHtml}
+      <div class="set-inputs">
+        <input class="set-input" type="number" inputmode="decimal" placeholder="kg" min="0" step="0.5"
+          id="w-${ex.id}-${i}" value="${prefillWeight}" ${isLocked ? 'disabled' : ''}>
+        <span class="set-input-sep">×</span>
+        <input class="set-input" type="number" inputmode="numeric" placeholder="reps" min="1" step="1"
+          id="r-${ex.id}-${i}" value="${s.reps}" ${isLocked ? 'disabled' : ''}
+          onkeydown="if(event.key==='Enter'){logSet('${ex.id}',${i})}">
+      </div>
+      <button class="log-btn ${isActive ? 'ready' : ''}" onclick="logSet('${ex.id}', ${i})" ${isLocked ? 'disabled' : ''}>Log</button>
+    </div>`;
+  });
+
+  return `<div class="ex-card" id="card-${ex.id}">
+    <div class="ex-card-header">
+      <div class="ex-card-name">${ex.name}</div>
+      <div class="ex-card-note">${ex.repsDisplay} reps · ${formatRest(ex.rest)} rest${ex.note ? ' · ' + ex.note : ''}</div>
+    </div>
+    <div class="set-list">${sets.join('')}</div>
+  </div>`;
+}
+
+function renderCues() {
+  const session = PROGRAM[state.sessionId];
+  const panel = document.getElementById('cues-panel');
+  panel.innerHTML = session.exercises.map(ex => `
+    <div class="cue-item open" id="cue-${ex.id}">
+      <div class="cue-header" onclick="toggleCue('${ex.id}')">
+        <div class="cue-name">${ex.name}</div>
+        <div class="cue-toggle" id="cue-toggle-${ex.id}">hide</div>
+      </div>
+      <div class="cue-short">
+        <ul>${ex.cues.short.map(c => `<li>${c}</li>`).join('')}</ul>
+        <span class="expand-full-btn" id="expand-${ex.id}" onclick="toggleFullCue(event, '${ex.id}')">+ Full Cues</span>
+      </div>
+      <div class="cue-full" id="full-${ex.id}">${ex.cues.full}</div>
+    </div>
+  `).join('');
+}
+
+function toggleCue(exId) {
+  const item = document.getElementById('cue-' + exId);
+  const toggle = document.getElementById('cue-toggle-' + exId);
+  item.classList.toggle('open');
+  toggle.textContent = item.classList.contains('open') ? 'hide' : 'show';
+}
+
+function toggleFullCue(event, exId) {
+  event.stopPropagation();
+  const item = document.getElementById('cue-' + exId);
+  const btn = document.getElementById('expand-' + exId);
+  item.classList.toggle('expanded');
+  btn.textContent = item.classList.contains('expanded') ? '− Hide Full Cues' : '+ Full Cues';
+}
+
+// ═══════════════════════════════════════════════
+// LOGGING
+// ═══════════════════════════════════════════════
+
+function logSet(exId, setIndex) {
+  const weightEl = document.getElementById('w-' + exId + '-' + setIndex);
+  const repsEl = document.getElementById('r-' + exId + '-' + setIndex);
+  if (!weightEl || !repsEl) return;
+
+  const weight = weightEl.value.trim();
+  const reps = repsEl.value.trim();
+  if (!weight || !reps) {
+    showToast('Enter weight and reps');
+    if (!weight) weightEl.focus();
+    else repsEl.focus();
+    return;
+  }
+
+  const exState = state.current.exercises[exId];
+  exState.sets[setIndex] = { weight, reps, logged: true };
+
+  const session = PROGRAM[state.sessionId];
+  const ex = session.exercises.find(e => e.id === exId);
+
+  // Find next set index for this exercise
+  const nextSetIndex = setIndex + 1;
+  const hasNextSet = nextSetIndex < ex.sets;
+
+  // Find next exercise's first unlogged set
+  const exList = session.exercises;
+  const thisExIdx = exList.findIndex(e => e.id === exId);
+  let nextExName = null;
+  if (!hasNextSet && thisExIdx < exList.length - 1) {
+    nextExName = exList[thisExIdx + 1].name;
+  }
+
+  // Update active set
+  if (hasNextSet) {
+    exState.activeSet = nextSetIndex;
+    // Pre-fill next set weight from prev session
+    const prev = getPrevSet(state.sessionId, exId, nextSetIndex);
+    if (prev && !exState.sets[nextSetIndex].weight) {
+      exState.sets[nextSetIndex].weight = prev.weight;
+    }
+  }
+
+  saveCurrent(state.current);
+  renderExercises();
+  updateFinishBtn();
+
+  // Scroll to the logged set card
+  setTimeout(() => {
+    const card = document.getElementById('card-' + exId);
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }, 50);
+
+  // Start rest timer if applicable
+  if (ex.rest > 0) {
+    let nextLabel = '';
+    if (hasNextSet) {
+      const prev = getPrevSet(state.sessionId, exId, nextSetIndex);
+      const prevWeight = prev ? prev.weight + 'kg' : '—';
+      nextLabel = `Set ${nextSetIndex + 1} — ${ex.repsDisplay} reps${prev ? ' · prev ' + prevWeight : ''}`;
+    } else if (nextExName) {
+      nextLabel = `Next: ${nextExName}`;
+    }
+    startRestTimer(ex.rest, nextLabel);
+  }
+}
+
+function logHang(exId, setIndex) {
+  const exState = state.current.exercises[exId];
+  exState.sets[setIndex] = { weight: '', reps: '', logged: true };
+  saveCurrent(state.current);
+  renderExercises();
+  updateFinishBtn();
+}
+
+function updateFinishBtn() {
+  const btn = document.getElementById('finish-btn');
+  if (!state.current) return;
+  const allLogged = checkAllLogged();
+  btn.className = 'finish-btn-header' + (allLogged ? ' ready' : '');
+}
+
+function checkAllLogged() {
+  if (!state.current) return false;
+  const session = PROGRAM[state.sessionId];
+  return session.exercises.every(ex => {
+    const exState = state.current.exercises[ex.id];
+    return exState && exState.sets.every(s => s.logged);
+  });
+}
+
+function confirmBack() {
+  if (state.current) {
+    const hasAnyLogged = Object.values(state.current.exercises).some(e => e.sets.some(s => s.logged));
+    if (hasAnyLogged) {
+      if (!confirm('Leave session? Your progress is saved and you can resume later.')) return;
+    }
+  }
+  navigate('home');
+}
+
+function finishSession() {
+  const hasAnyLogged = Object.values(state.current.exercises).some(e => e.sets.some(s => s.logged));
+  if (!hasAnyLogged) {
+    showToast('Log at least one set first');
+    return;
+  }
+  if (!checkAllLogged()) {
+    if (!confirm('Not all sets are logged. Finish anyway?')) return;
+  }
+  saveCompletedSession();
+}
+
+function saveCompletedSession() {
+  if (!state.current) return;
+
+  const session = PROGRAM[state.sessionId];
+  const completed = {
+    id: Date.now().toString(),
+    sessionId: state.sessionId,
+    sessionName: session.name,
+    sessionType: session.type,
+    timestamp: state.current.startTime,
+    duration: Date.now() - state.current.startTime,
+    exercises: {}
+  };
+
+  session.exercises.forEach(ex => {
+    const exState = state.current.exercises[ex.id];
+    completed.exercises[ex.id] = {
+      name: ex.name,
+      sets: exState.sets.filter(s => s.logged)
+    };
+  });
+
+  const history = getHistory();
+  history.push(completed);
+  saveHistory(history);
+  saveCurrent(null);
+  state.completedSession = completed;
+  state.current = null;
+
+  showCompleteOverlay(completed);
+}
+
+// ═══════════════════════════════════════════════
+// REST TIMER
+// ═══════════════════════════════════════════════
+
+function startRestTimer(totalSeconds, nextLabel) {
+  if (state.rest) {
+    clearInterval(state.rest.interval);
+  }
+  state.rest = {
+    total: totalSeconds,
+    remaining: totalSeconds,
+    nextLabel,
+    interval: null
+  };
+
+  document.getElementById('rest-overlay').classList.add('active');
+  updateRestDisplay();
+
+  state.rest.interval = setInterval(() => {
+    state.rest.remaining--;
+    if (state.rest.remaining <= 0) {
+      clearInterval(state.rest.interval);
+      state.rest.remaining = 0;
+      updateRestDisplay();
+      setTimeout(skipRest, 500);
+    } else {
+      updateRestDisplay();
+    }
+  }, 1000);
+}
+
+function updateRestDisplay() {
+  if (!state.rest) return;
+  const { remaining, total, nextLabel } = state.rest;
+  const mins = Math.floor(remaining / 60);
+  const secs = remaining % 60;
+  document.getElementById('rest-count').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+  document.getElementById('rest-bar').style.width = (remaining / total * 100) + '%';
+  document.getElementById('rest-next').innerHTML = nextLabel ? `Up next: <strong>${nextLabel}</strong>` : '';
+}
+
+function skipRest() {
+  if (state.rest) {
+    clearInterval(state.rest.interval);
+    state.rest = null;
+  }
+  document.getElementById('rest-overlay').classList.remove('active');
+  // Focus the next active input
+  setTimeout(() => {
+    const activeInputs = document.querySelectorAll('.set-input:not(:disabled)');
+    if (activeInputs.length > 0) {
+      // Find the first empty reps field
+      for (const input of activeInputs) {
+        if (input.placeholder === 'reps' && !input.value) {
+          input.focus();
+          break;
+        }
+      }
+    }
+  }, 100);
+}
+
+// ═══════════════════════════════════════════════
+// SESSION COMPLETE
+// ═══════════════════════════════════════════════
+
+function showCompleteOverlay(completed) {
+  const session = PROGRAM[completed.sessionId];
+  const duration = formatDuration(completed.duration);
+  const date = formatDate(completed.timestamp);
+
+  document.getElementById('complete-meta').textContent = `${date} · ${duration}`;
+
+  let summaryHtml = '';
+  session.exercises.forEach(ex => {
+    const logged = completed.exercises[ex.id];
+    if (!logged || logged.sets.length === 0) return;
+    const setsStr = logged.sets.map(s =>
+      s.weight ? `${s.weight}×${s.reps}` : 'Done'
+    ).join(' / ');
+    summaryHtml += `<div class="complete-ex">
+      <div class="complete-ex-name">${ex.name}</div>
+      <div class="complete-ex-sets">${setsStr}</div>
+    </div>`;
+  });
+
+  document.getElementById('complete-summary').innerHTML = summaryHtml;
+  document.getElementById('complete-overlay').classList.add('active');
+}
+
+function completeAndGoHome() {
+  document.getElementById('complete-overlay').classList.remove('active');
+  navigate('home');
+}
+
+function completeAndGoHistory() {
+  document.getElementById('complete-overlay').classList.remove('active');
+  navigate('history');
+}
+
+// ═══════════════════════════════════════════════
+// HISTORY
+// ═══════════════════════════════════════════════
+
+function renderHistory() {
+  const history = getHistory();
+  const body = document.getElementById('history-body');
+
+  if (history.length === 0) {
+    body.innerHTML = '<div class="history-empty">No sessions logged yet</div>';
+    return;
+  }
+
+  const sorted = [...history].reverse();
+  body.innerHTML = sorted.map(session => {
+    const session_def = PROGRAM[session.sessionId];
+    if (!session_def) return '';
+    const totalSets = Object.values(session.exercises).reduce((acc, ex) => acc + ex.sets.length, 0);
+
+    let exHtml = '';
+    session_def.exercises.forEach(ex => {
+      const logged = session.exercises[ex.id];
+      if (!logged || logged.sets.length === 0) return;
+      const chips = logged.sets.map((s, i) =>
+        `<span class="hist-set-chip">${s.weight ? s.weight + '×' + s.reps : 'Done'}</span>`
+      ).join('');
+      exHtml += `<div class="hist-ex">
+        <div class="hist-ex-name">${ex.name}</div>
+        <div class="hist-ex-sets">${chips}</div>
+      </div>`;
+    });
+
+    return `<div class="hist-item" id="hist-${session.id}">
+      <div class="hist-item-header" onclick="toggleHistory('${session.id}')">
+        <div class="hist-dot ${session.sessionType}"></div>
+        <div class="hist-info">
+          <div class="hist-session-name">${session.sessionName}</div>
+          <div class="hist-date">${formatDate(session.timestamp)} · ${formatDuration(session.duration)}</div>
+        </div>
+        <div class="hist-meta">${totalSets} sets</div>
+        <div class="hist-chevron">›</div>
+      </div>
+      <div class="hist-body">${exHtml}</div>
+    </div>`;
+  }).join('');
+}
+
+function toggleHistory(id) {
+  document.getElementById('hist-' + id).classList.toggle('open');
+}
+
+function exportData() {
+  const history = getHistory();
+  if (history.length === 0) {
+    showToast('No sessions to export');
+    return;
+  }
+
+  let text = `TRAINING EXPORT\nGenerated: ${new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}\n\n`;
+
+  const sorted = [...history].reverse();
+  sorted.forEach(session => {
+    const session_def = PROGRAM[session.sessionId];
+    if (!session_def) return;
+    text += `${session.sessionName.toUpperCase()} — ${formatDate(session.timestamp)} — ${formatDuration(session.duration)}\n`;
+    session_def.exercises.forEach(ex => {
+      const logged = session.exercises[ex.id];
+      if (!logged || logged.sets.length === 0) return;
+      const setsStr = logged.sets.map(s => s.weight ? `${s.weight}×${s.reps}` : 'Done').join(' / ');
+      text += `  ${ex.name}: ${setsStr}\n`;
+    });
+    text += '\n';
+  });
+
+  if (navigator.share) {
+    navigator.share({ title: 'Training Export', text }).catch(() => copyToClipboard(text));
+  } else {
+    copyToClipboard(text);
+  }
+}
+
+function copyToClipboard(text) {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard'));
+  } else {
+    const el = document.createElement('textarea');
+    el.value = text;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    showToast('Copied to clipboard');
+  }
+}
+
+// ═══════════════════════════════════════════════
+// UTILITIES
+// ═══════════════════════════════════════════════
+
+function formatRest(seconds) {
+  if (seconds === 0) return 'none';
+  if (seconds >= 60) {
+    const m = Math.floor(seconds / 60);
+    const s = seconds % 60;
+    return s > 0 ? `${m}m ${s}s` : `${m}m`;
+  }
+  return `${seconds}s`;
+}
+
+function formatDate(ts) {
+  return new Date(ts).toLocaleDateString('en-AU', { weekday: 'short', day: 'numeric', month: 'short' });
+}
+
+function formatDuration(ms) {
+  const mins = Math.round(ms / 60000);
+  if (mins < 60) return `${mins} min`;
+  const h = Math.floor(mins / 60);
+  const m = mins % 60;
+  return m > 0 ? `${h}h ${m}m` : `${h}h`;
+}
+
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ═══════════════════════════════════════════════
+// PWA REGISTRATION
+// ═══════════════════════════════════════════════
+
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => {
+    navigator.serviceWorker.register('./sw.js').catch(err => console.log('SW error:', err));
+  });
+}
+
+// Check for in-progress session on load
+window.addEventListener('load', () => {
+  const cur = getCurrent();
+  if (cur && PROGRAM[cur.sessionId]) {
+    // Show resume option (non-blocking)
+    setTimeout(() => {
+      showToast('Tap a session to resume');
+    }, 800);
+  }
+});
+</script>
+</body>
+</html>
