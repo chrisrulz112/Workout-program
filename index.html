@@ -461,6 +461,15 @@ input { font-family: 'DM Sans', sans-serif; }
   font-size: 11px;
 }
 
+.set-edit-hint {
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-left: 8px;
+}
+
 /* Locked set */
 .set-row.locked .set-input {
   background: var(--bg);
@@ -873,8 +882,563 @@ input { font-family: 'DM Sans', sans-serif; }
   font-size: 11px;
 }
 
+/* Bodyweight widget */
+.bw-widget {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 0;
+}
+.bw-top {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+.bw-current { flex: 1; }
+.bw-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 2px;
+}
+.bw-value {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  letter-spacing: 0.04em;
+  line-height: 1;
+  color: var(--text);
+}
+.bw-input-wrap {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.bw-input {
+  width: 72px;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 500;
+  text-align: center;
+  padding: 9px 4px;
+  -webkit-appearance: none;
+  outline: none;
+  transition: border-color 0.15s;
+}
+.bw-input:focus { border-color: var(--push); }
+.bw-input::placeholder { color: var(--muted); font-size: 12px; }
+.bw-log-btn {
+  padding: 9px 14px;
+  background: rgba(212,255,0,0.08);
+  border: 1px solid rgba(212,255,0,0.25);
+  border-radius: 8px;
+  color: var(--push);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  transition: opacity 0.12s;
+}
+.bw-log-btn:active { opacity: 0.7; }
+.bw-entries {
+  border-top: 1px solid var(--border);
+  padding-top: 8px;
+}
+.bw-entry {
+  display: flex;
+  align-items: center;
+  padding: 5px 0;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+}
+.bw-entry-date { flex: 1; color: var(--text2); }
+.bw-entry-weight { color: var(--text); font-weight: 500; margin-right: 12px; }
+.bw-entry-del {
+  color: var(--muted);
+  font-size: 16px;
+  cursor: pointer;
+  padding: 0 4px;
+  -webkit-user-select: none;
+  transition: color 0.12s;
+}
+.bw-entry-del:active { color: var(--danger); }
+
+/* Swipe to delete */
+.hist-item-wrap {
+  position: relative;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+.hist-delete-bg {
+  position: absolute;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  width: 80px;
+  background: var(--danger);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+  cursor: pointer;
+  border-radius: 0 12px 12px 0;
+  -webkit-user-select: none;
+}
+.hist-item-wrap .hist-item {
+  position: relative;
+  z-index: 1;
+  margin-bottom: 0;
+  border-radius: 12px;
+  will-change: transform;
+}
+
+/* Session notes */
+.session-notes-wrap {
+  margin-bottom: 12px;
+}
+.session-notes-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+.session-notes-label span {
+  color: var(--muted);
+  text-transform: lowercase;
+  letter-spacing: 0;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 11px;
+}
+.session-notes-input {
+  width: 100%;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-size: 13.5px;
+  line-height: 1.6;
+  padding: 12px 14px;
+  resize: none;
+  outline: none;
+  -webkit-appearance: none;
+  transition: border-color 0.15s;
+}
+.session-notes-input:focus { border-color: rgba(212,255,0,0.4); }
+.session-notes-input::placeholder { color: var(--muted); font-size: 13px; }
+
+/* History notes */
+.hist-notes {
+  padding: 10px 0 4px;
+  border-top: 1px solid rgba(255,255,255,0.04);
+  margin-top: 4px;
+}
+.hist-notes-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--muted);
+  margin-bottom: 4px;
+}
+.hist-notes-text {
+  font-size: 12.5px;
+  color: var(--text2);
+  line-height: 1.6;
+  white-space: pre-wrap;
+}
+
+/* Deload banner */
+.deload-banner {
+  background: rgba(192,132,252,0.07);
+  border: 1px solid rgba(192,132,252,0.25);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-bottom: 20px;
+}
+.deload-banner-inner {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+.deload-banner-icon {
+  font-size: 20px;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.deload-banner-title {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 20px;
+  letter-spacing: 0.05em;
+  color: var(--rest);
+  line-height: 1;
+  margin-bottom: 4px;
+}
+.deload-banner-sub {
+  font-size: 12.5px;
+  color: rgba(192,132,252,0.75);
+  line-height: 1.5;
+}
+.deload-banner-btn {
+  width: 100%;
+  padding: 11px;
+  background: rgba(192,132,252,0.1);
+  border: 1px solid rgba(192,132,252,0.3);
+  border-radius: 8px;
+  color: var(--rest);
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.deload-banner-btn:active { opacity: 0.7; }
+
+/* Deload toggle in session header */
+.deload-toggle {
+  padding: 7px 11px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.deload-toggle.active {
+  background: rgba(192,132,252,0.1);
+  border-color: rgba(192,132,252,0.35);
+  color: var(--rest);
+}
+.deload-toggle:active { opacity: 0.7; }
+
+/* Deload badge in history */
+.deload-hist-badge {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 1px 6px;
+  background: rgba(192,132,252,0.1);
+  border: 1px solid rgba(192,132,252,0.25);
+  border-radius: 4px;
+  color: var(--rest);
+  margin-left: 6px;
+  vertical-align: middle;
+}
+
+/* Home bottom buttons */
+.home-bottom-btns {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+}
+
+/* Program view */
+.program-tabs-wrap {
+  display: flex;
+  border-bottom: 1px solid var(--border);
+  background: var(--bg);
+  position: sticky;
+  top: 53px;
+  z-index: 9;
+}
+.prog-tab {
+  flex: 1;
+  padding: 12px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  transition: all 0.15s;
+  -webkit-user-select: none;
+}
+.prog-tab.active { color: var(--text); border-bottom-color: var(--push); }
+.prog-panel { }
+.prog-body { padding: 16px; padding-bottom: calc(var(--safe-b) + 24px); }
+
+/* Volume cards */
+.vol-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+.vol-card-app {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 12px 13px;
+}
+.vol-m {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-bottom: 8px;
+}
+.vol-bar-w {
+  height: 3px;
+  background: rgba(255,255,255,0.06);
+  border-radius: 2px;
+  margin-bottom: 8px;
+  overflow: hidden;
+}
+.vol-bar-f { height: 100%; border-radius: 2px; }
+.vol-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 5px;
+}
+.vol-n {
+  font-family: 'DM Mono', monospace;
+  font-size: 18px;
+  font-weight: 500;
+  color: var(--text);
+}
+.vol-t {
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  color: var(--muted);
+  text-align: right;
+  line-height: 1.3;
+}
+.vol-s {
+  display: inline-block;
+  font-family: 'DM Mono', monospace;
+  font-size: 8.5px;
+  letter-spacing: 0.06em;
+  padding: 2px 6px;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.vol-s.good { background: rgba(212,255,0,0.08); color: var(--push); border: 1px solid rgba(212,255,0,0.18); }
+.vol-s.ok { background: rgba(255,179,71,0.08); color: var(--warn); border: 1px solid rgba(255,179,71,0.18); }
+.vol-legend {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  color: var(--muted);
+  letter-spacing: 0.06em;
+  line-height: 1.6;
+}
+
+/* Coach Notes */
+.cn-item {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.cn-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 14px 16px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  transition: background 0.12s;
+}
+.cn-header:active { background: var(--surface2); }
+.cn-title { font-size: 14px; font-weight: 600; color: var(--text); }
+.cn-arrow { font-size: 16px; color: var(--muted); transition: transform 0.2s; }
+.cn-item.open .cn-arrow { transform: rotate(90deg); }
+.cn-body {
+  display: none;
+  padding: 14px 16px 16px;
+  border-top: 1px solid var(--border);
+}
+.cn-item.open .cn-body { display: block; }
+.cn-body p { font-size: 13px; color: var(--text2); line-height: 1.7; }
+.cn-list { list-style: none; margin-top: 10px; }
+.cn-list li {
+  font-size: 13px; color: var(--text2); line-height: 1.7;
+  padding-left: 14px; position: relative; margin-bottom: 4px;
+}
+.cn-list li::before { content: '·'; position: absolute; left: 4px; color: var(--push); }
+.cn-callout {
+  background: rgba(212,255,0,0.04);
+  border: 1px solid rgba(212,255,0,0.15);
+  border-left: 3px solid var(--push);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin-top: 12px;
+  font-size: 12.5px;
+  color: rgba(212,255,0,0.7);
+  line-height: 1.6;
+}
+
+/* Program Sessions */
+.ps-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.ps-header {
+  display: flex;
+  align-items: center;
+  padding: 14px 16px;
+  gap: 12px;
+  cursor: pointer;
+  -webkit-user-select: none;
+  transition: background 0.12s;
+}
+.ps-header:active { background: var(--surface2); }
+.ps-dot {
+  width: 8px; height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+.ps-header-info { flex: 1; }
+.ps-name {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 22px;
+  letter-spacing: 0.05em;
+  line-height: 1;
+}
+.ps-sub {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  margin-top: 2px;
+}
+.ps-count {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+}
+.ps-chevron {
+  font-size: 16px;
+  color: var(--muted);
+  transition: transform 0.2s;
+}
+.ps-card.open .ps-chevron { transform: rotate(90deg); }
+.ps-body {
+  display: none;
+  border-top: 1px solid var(--border);
+}
+.ps-card.open .ps-body { display: block; }
+.ps-ex-row {
+  display: flex;
+  gap: 10px;
+  padding: 11px 16px;
+  border-bottom: 1px solid rgba(255,255,255,0.04);
+  align-items: flex-start;
+}
+.ps-ex-row:last-child { border-bottom: none; }
+.ps-ex-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--muted);
+  flex-shrink: 0;
+  padding-top: 2px;
+  width: 20px;
+}
+.ps-ex-info { flex: 1; }
+.ps-ex-name {
+  font-size: 13.5px;
+  font-weight: 600;
+  color: var(--text);
+  margin-bottom: 2px;
+}
+.ps-ex-meta {
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  color: var(--text2);
+  margin-bottom: 3px;
+}
+.ps-ex-note {
+  font-size: 11.5px;
+  color: var(--muted);
+  line-height: 1.5;
+}
+
+/* Warm-Up panel */
+.warmup-section {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+.warmup-section-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--push);
+  padding: 12px 16px 10px;
+  border-bottom: 1px solid var(--border);
+}
+.warmup-body { padding: 12px 16px; }
+.warmup-body p { font-size: 13px; color: var(--text2); line-height: 1.7; margin-bottom: 8px; }
+.warmup-body p:last-child { margin-bottom: 0; }
+.warmup-list { list-style: none; margin: 8px 0; }
+.warmup-list li {
+  font-size: 13px; color: var(--text2); line-height: 1.7;
+  padding-left: 14px; position: relative; margin-bottom: 3px;
+}
+.warmup-list li::before { content: '·'; position: absolute; left: 4px; color: var(--push); }
+.warmup-callout {
+  background: rgba(100,160,255,0.05);
+  border: 1px solid rgba(100,160,255,0.2);
+  border-left: 3px solid var(--legs);
+  border-radius: 0 8px 8px 0;
+  padding: 10px 14px;
+  margin: 10px 0;
+  font-size: 12.5px;
+  color: rgba(100,160,255,0.8);
+  line-height: 1.6;
+}
+.warmup-callout strong {
+  display: block;
+  font-family: 'DM Mono', monospace;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--legs);
+  margin-bottom: 4px;
+}
+
 /* Toast */
-.toast {
   position: fixed;
   top: calc(var(--safe-t) + 60px);
   left: 50%;
@@ -907,6 +1471,16 @@ input { font-family: 'DM Sans', sans-serif; }
       <div class="home-title"><span>Training</span></div>
     </div>
     <div class="home-body">
+      <div class="deload-banner" id="deload-banner" style="display:none">
+        <div class="deload-banner-inner">
+          <div class="deload-banner-icon">⚡</div>
+          <div class="deload-banner-text">
+            <div class="deload-banner-title">Deload Due</div>
+            <div class="deload-banner-sub"><span id="deload-banner-count">5</span> cycles completed — reduce load 30–40%, 1–2 sets per exercise</div>
+          </div>
+        </div>
+        <div class="deload-banner-btn" onclick="confirmDeloadDone()">Mark Done</div>
+      </div>
       <div class="section-label">Cycle Structure</div>
       <div class="cycle-wrap">
         <div class="cycle-row">
@@ -957,7 +1531,10 @@ input { font-family: 'DM Sans', sans-serif; }
         </div>
       </div>
 
-      <div class="history-btn" onclick="navigate('history')">View History</div>
+      <div class="home-bottom-btns">
+        <div class="history-btn" onclick="navigate('program')">Program</div>
+        <div class="history-btn" onclick="navigate('history')">History</div>
+      </div>
     </div>
   </div>
 
@@ -970,16 +1547,119 @@ input { font-family: 'DM Sans', sans-serif; }
           <div class="session-name" id="sess-name"></div>
           <div class="session-name-sub" id="sess-sub"></div>
         </div>
+        <div class="deload-toggle" id="deload-toggle" onclick="toggleDeload()">Deload</div>
         <div class="finish-btn-header" id="finish-btn" onclick="finishSession()">Finish</div>
       </div>
       <div class="session-tabs">
         <div class="session-tab active" id="tab-exercises" onclick="switchSessionTab('exercises')">Exercises</div>
         <div class="session-tab" id="tab-cues" onclick="switchSessionTab('cues')">Form Cues</div>
+        <div class="session-tab" id="tab-warmup" onclick="switchSessionTab('warmup')">Warm-Up</div>
       </div>
     </div>
     <div class="session-body">
       <div id="exercises-panel"></div>
       <div id="cues-panel" style="display:none"></div>
+      <div id="warmup-panel" style="display:none"></div>
+    </div>
+  </div>
+
+  <!-- ─── PROGRAM ─── -->
+  <div id="view-program" class="view">
+    <div class="history-header">
+      <div class="back-btn" onclick="navigate('home')">‹</div>
+      <div class="history-title">Program</div>
+    </div>
+    <div class="program-tabs-wrap">
+      <div class="prog-tab active" id="prog-tab-volume" onclick="switchProgTab('volume')">Volume</div>
+      <div class="prog-tab" id="prog-tab-sessions" onclick="switchProgTab('sessions')">Sessions</div>
+      <div class="prog-tab" id="prog-tab-notes" onclick="switchProgTab('notes')">Coach Notes</div>
+    </div>
+
+    <!-- Volume panel -->
+    <div id="prog-volume" class="prog-panel">
+      <div class="prog-body">
+        <div class="section-label" style="margin-bottom:14px">Weekly Volume — Cycle Sets × 7/8</div>
+        <div class="vol-grid">
+          <div class="vol-card-app"><div class="vol-m">Chest</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:68%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~9.6</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Side Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:70%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~7</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Rear Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:30%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~3.5</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">+ indirect via rows ~4–6</div></div>
+          <div class="vol-card-app"><div class="vol-m">Upper Traps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:42%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~3.5</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s ok">Approaching MEV</div></div>
+          <div class="vol-card-app"><div class="vol-m">Triceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:62%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~5.25</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">+ compound adds ~3–5</div></div>
+          <div class="vol-card-app"><div class="vol-m">Back (Lats + Mid)</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:84%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~10.5</span><span class="vol-t">MEV ~10 · MRV ~25</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Biceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:70%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~8.75</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Quads</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:72%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~8.75</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Hamstrings</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:58%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~7</span><span class="vol-t">MEV ~6 · MRV ~18</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Glutes</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:52%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~5.25</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Calves</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:45%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~5.25</span><span class="vol-t">MEV ~6 · MRV ~16</span></div><div class="vol-s ok">Approaching MEV</div></div>
+        </div>
+        <div class="vol-legend">MEV = Minimum Effective Volume · MRV = Maximum Recoverable Volume · Israetel et al.</div>
+      </div>
+    </div>
+
+    <!-- Sessions panel -->
+    <div id="prog-sessions" class="prog-panel" style="display:none">
+      <div class="prog-body" id="prog-sessions-body"></div>
+    </div>
+
+    <!-- Coach Notes panel -->
+    <div id="prog-notes" class="prog-panel" style="display:none">
+      <div class="prog-body">
+
+        <div class="cn-item open" id="cn-cycle">
+          <div class="cn-header" onclick="toggleCN('cycle')"><span class="cn-title">Cycle Structure</span><span class="cn-arrow">›</span></div>
+          <div class="cn-body">
+            <p>The program runs on an 8-day rotating cycle — Push / Pull / Legs / Rest / Push / Pull / Legs / Rest — deliberately de-coupled from the calendar week. Training frequency is driven by recovery, not the calendar.</p>
+            <p style="margin-top:10px">Three consecutive PPL days is tolerable because each session targets largely non-overlapping muscle groups. Each muscle is trained approximately every 4 days — closer to twice-weekly frequency than once.</p>
+            <div class="cn-callout">If you miss a session, pick up exactly where you left off. Never cram two sessions into one day to catch up, and never skip a session to stay calendar-aligned.</div>
+          </div>
+        </div>
+
+        <div class="cn-item" id="cn-intensity">
+          <div class="cn-header" onclick="toggleCN('intensity')"><span class="cn-title">Intensity — Compounds vs Isolations</span><span class="cn-arrow">›</span></div>
+          <div class="cn-body">
+            <p>Compounds: graduated RIR across sets — S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR. Stop one rep before technical breakdown. Form breakdown on a heavy squat or RDL is where injuries happen.</p>
+            <p style="margin-top:10px">Isolations: true failure (0 RIR) across all sets. Failure on a leg extension, cable curl, or lateral raise carries no meaningful injury risk and maximises the stimulus-to-fatigue ratio.</p>
+          </div>
+        </div>
+
+        <div class="cn-item" id="cn-overload">
+          <div class="cn-header" onclick="toggleCN('overload')"><span class="cn-title">Progressive Overload</span><span class="cn-arrow">›</span></div>
+          <div class="cn-body">
+            <p>Double progression is the primary overload method:</p>
+            <ul class="cn-list">
+              <li>Hit the top of the rep range across all sets at the prescribed RIR → add weight next session (2.5kg upper / 5kg lower)</li>
+              <li>Adding weight drops you back to the lower end of the range — work back up over subsequent sessions</li>
+              <li>For high-rep isolations (15–20), use smaller increments where plates aren't practical</li>
+              <li>For unilateral movements, let the weaker side determine the load</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="cn-item" id="cn-calves">
+          <div class="cn-header" onclick="toggleCN('calves')"><span class="cn-title">Calf Training</span><span class="cn-arrow">›</span></div>
+          <div class="cn-body">
+            <p>Both leg sessions use standing raises exclusively. 2023 research found standing raises produced significantly greater gastrocnemius hypertrophy than seated, while soleus growth was comparable between both.</p>
+            <div class="cn-callout">Vary toe angle across sets: neutral covers both heads evenly, toes slightly out biases the medial head, toes slightly in biases the lateral head.</div>
+          </div>
+        </div>
+
+        <div class="cn-item" id="cn-elbow">
+          <div class="cn-header" onclick="toggleCN('elbow')"><span class="cn-title">Elbow Management</span><span class="cn-arrow">›</span></div>
+          <div class="cn-body">
+            <p>Overhead tricep extension has been removed entirely — the overhead stretched position under load is the primary aggravating mechanism for the right distal triceps tendon. Rope pushdowns are the sole direct tricep isolation, loading the tricep at a comfortable angle.</p>
+            <p style="margin-top:10px">Monitor elbow response to accumulated push volume. If irritation increases, reduce pushdown sets first. Consider a sports physio for a specific eccentric loading protocol — tendons require progressive load to remodel.</p>
+          </div>
+        </div>
+
+        <div class="cn-item" id="cn-deload">
+          <div class="cn-header" onclick="toggleCN('deload')"><span class="cn-title">Deload Protocol</span><span class="cn-arrow">›</span></div>
+          <div class="cn-body">
+            <p>After every 4–5 cycles (~5–6 weeks), run a deload. Keep all exercises — reduce every session to 1–2 sets per exercise and drop load by 30–40%.</p>
+            <p style="margin-top:10px">Not optional at advanced training intensity. Accumulated joint and central fatigue blunts progress and increases injury risk. The distal triceps tendon specifically benefits from unloading regardless of current symptom status.</p>
+          </div>
+        </div>
+
+      </div>
     </div>
   </div>
 
@@ -990,7 +1670,25 @@ input { font-family: 'DM Sans', sans-serif; }
       <div class="history-title">History</div>
       <div class="export-btn" onclick="exportData()">Export</div>
     </div>
-    <div class="history-body" id="history-body"></div>
+    <div class="history-body">
+      <!-- Bodyweight widget -->
+      <div class="bw-widget" id="bw-widget">
+        <div class="bw-top">
+          <div class="bw-current" id="bw-current">
+            <div class="bw-label">Bodyweight</div>
+            <div class="bw-value" id="bw-value">—</div>
+          </div>
+          <div class="bw-input-wrap">
+            <input class="bw-input" id="bw-input" type="number" inputmode="decimal" placeholder="kg" step="0.1" min="30" max="200">
+            <div class="bw-log-btn" onclick="logBodyweight()">Log</div>
+          </div>
+        </div>
+        <div class="bw-history" id="bw-history"></div>
+      </div>
+
+      <div class="section-label" style="margin:16px 0 12px">Sessions</div>
+      <div id="history-sessions"></div>
+    </div>
   </div>
 
   <!-- ─── REST TIMER ─── -->
@@ -1015,6 +1713,10 @@ input { font-family: 'DM Sans', sans-serif; }
       <div class="complete-title">Session Done</div>
       <div class="complete-meta" id="complete-meta"></div>
       <div class="complete-summary" id="complete-summary"></div>
+      <div class="session-notes-wrap">
+        <div class="session-notes-label">Session Notes <span>(optional)</span></div>
+        <textarea class="session-notes-input" id="session-notes-input" placeholder="How did it feel? Any elbow issues? PRs hit? Anything to note for next time…" rows="3"></textarea>
+      </div>
       <div class="complete-done-btn" onclick="completeAndGoHome()">Done</div>
       <div class="complete-history-btn" onclick="completeAndGoHistory()">View in History</div>
     </div>
@@ -1373,10 +2075,13 @@ function saveCurrent(s) {
   else localStorage.removeItem('wt_current');
 }
 
-function getLastSession(sessionId) {
+function getLastSession(sessionId, excludeDeload = true) {
   const history = getHistory();
   for (let i = history.length - 1; i >= 0; i--) {
-    if (history[i].sessionId === sessionId) return history[i];
+    if (history[i].sessionId === sessionId) {
+      if (excludeDeload && history[i].isDeload) continue;
+      return history[i];
+    }
   }
   return null;
 }
@@ -1389,9 +2094,57 @@ function getPrevSet(sessionId, exerciseId, setIndex) {
   return null;
 }
 
-// ═══════════════════════════════════════════════
-// NAVIGATION
-// ═══════════════════════════════════════════════
+function getBodyweightLog() {
+  try { return JSON.parse(localStorage.getItem('wt_bodyweight') || '[]'); } catch { return []; }
+}
+function saveBodyweightLog(log) { localStorage.setItem('wt_bodyweight', JSON.stringify(log)); }
+
+function logBodyweight() {
+  const input = document.getElementById('bw-input');
+  const val = parseFloat(input.value);
+  if (!val || val < 30 || val > 300) { showToast('Enter a valid weight'); return; }
+  const log = getBodyweightLog();
+  log.push({ weight: val, timestamp: Date.now() });
+  saveBodyweightLog(log);
+  input.value = '';
+  renderBodyweightWidget();
+  showToast('Bodyweight logged');
+}
+
+function deleteBodyweight(timestamp) {
+  if (!confirm('Delete this entry?')) return;
+  const log = getBodyweightLog().filter(e => e.timestamp !== timestamp);
+  saveBodyweightLog(log);
+  renderBodyweightWidget();
+}
+
+
+function getCycleData() {
+  try { return JSON.parse(localStorage.getItem('wt_cycles') || '{"count":0,"buffer":[],"deloadDue":false}'); } catch { return { count: 0, buffer: [], deloadDue: false }; }
+}
+function saveCycleData(d) { localStorage.setItem('wt_cycles', JSON.stringify(d)); }
+
+const ALL_SESSIONS = ['push-a', 'pull-a', 'legs-a', 'push-b', 'pull-b', 'legs-b'];
+const DELOAD_THRESHOLD = 5;
+
+function recordSessionInCycle(sessionId, isDeload) {
+  if (isDeload) return; // deload sessions don't count toward next cycle
+  const d = getCycleData();
+  if (!d.buffer.includes(sessionId)) d.buffer.push(sessionId);
+  const allDone = ALL_SESSIONS.every(s => d.buffer.includes(s));
+  if (allDone) {
+    d.count++;
+    d.buffer = [];
+    if (d.count >= DELOAD_THRESHOLD) d.deloadDue = true;
+  }
+  saveCycleData(d);
+}
+
+function resetCycleCounter() {
+  saveCycleData({ count: 0, buffer: [], deloadDue: false });
+}
+
+
 
 function navigate(view, params = {}) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
@@ -1399,14 +2152,25 @@ function navigate(view, params = {}) {
   state.view = view;
   if (view === 'home') renderHome();
   if (view === 'history') renderHistory();
+  if (view === 'program') {
+    // Ensure volume tab is active by default
+    switchProgTab('volume');
+  }
 }
 
 function renderHome() {
+  const deloadBanner = document.getElementById('deload-banner');
+  const cycleData = getCycleData();
+  if (cycleData.deloadDue) {
+    deloadBanner.style.display = 'block';
+    document.getElementById('deload-banner-count').textContent = cycleData.count;
+  } else {
+    deloadBanner.style.display = 'none';
+  }
   // Check for in-progress session
   const cur = getCurrent();
-  if (cur) {
-    showToast('Resume last session?');
-    // Could auto-resume here — for now just note it
+  if (cur && PROGRAM[cur.sessionId]) {
+    showToast('Tap a session to resume');
   }
 }
 
@@ -1426,6 +2190,7 @@ function startSession(sessionId) {
     state.current = {
       sessionId,
       startTime: Date.now(),
+      isDeload: false,
       exercises: {}
     };
     // Initialise exercise tracking
@@ -1453,8 +2218,14 @@ function startSession(sessionId) {
   // Reset tabs
   document.getElementById('tab-exercises').classList.add('active');
   document.getElementById('tab-cues').classList.remove('active');
+  document.getElementById('tab-warmup').classList.remove('active');
   document.getElementById('exercises-panel').style.display = 'block';
   document.getElementById('cues-panel').style.display = 'none';
+  document.getElementById('warmup-panel').style.display = 'none';
+  document.getElementById('warmup-panel').innerHTML = '';
+
+  // Set deload toggle state
+  updateDeloadToggle();
 
   renderExercises();
   renderCues();
@@ -1465,8 +2236,11 @@ function switchSessionTab(tab) {
   state.sessionTab = tab;
   document.getElementById('tab-exercises').classList.toggle('active', tab === 'exercises');
   document.getElementById('tab-cues').classList.toggle('active', tab === 'cues');
+  document.getElementById('tab-warmup').classList.toggle('active', tab === 'warmup');
   document.getElementById('exercises-panel').style.display = tab === 'exercises' ? 'block' : 'none';
   document.getElementById('cues-panel').style.display = tab === 'cues' ? 'block' : 'none';
+  document.getElementById('warmup-panel').style.display = tab === 'warmup' ? 'block' : 'none';
+  if (tab === 'warmup' && !document.getElementById('warmup-panel').innerHTML) renderWarmup();
 }
 
 function renderExercises() {
@@ -1492,10 +2266,10 @@ function renderExerciseCard(ex) {
 
     if (ex.logType === 'hang') {
       if (isCompleted) {
-        return `<div class="set-row completed" data-ex="${ex.id}" data-set="${i}">
+        return `<div class="set-row completed" data-ex="${ex.id}" data-set="${i}" onclick="unlockSet('${ex.id}', ${i})">
           <div class="set-num">${i + 1}</div>
           ${prevHtml}
-          <div class="set-logged"><div class="set-check">✓</div><div class="set-logged-data">Done</div></div>
+          <div class="set-logged"><div class="set-check">✓</div><div class="set-logged-data">Done</div><div class="set-edit-hint">tap to edit</div></div>
         </div>`;
       }
       return `<div class="set-row ${isLocked ? 'locked' : ''}" data-ex="${ex.id}" data-set="${i}">
@@ -1510,10 +2284,10 @@ function renderExerciseCard(ex) {
     const prefillWeight = isActive && !s.weight ? (prev ? prev.weight : '') : s.weight;
 
     if (isCompleted) {
-      return `<div class="set-row completed" data-ex="${ex.id}" data-set="${i}">
+      return `<div class="set-row completed" data-ex="${ex.id}" data-set="${i}" onclick="unlockSet('${ex.id}', ${i})">
         <div class="set-num">${i + 1}</div>
         ${prevHtml}
-        <div class="set-logged"><div class="set-check">✓</div><div class="set-logged-data">${s.weight}kg × ${s.reps}</div></div>
+        <div class="set-logged"><div class="set-check">✓</div><div class="set-logged-data">${s.weight}kg × ${s.reps}</div><div class="set-edit-hint">tap to edit</div></div>
       </div>`;
     }
 
@@ -1652,6 +2426,26 @@ function logHang(exId, setIndex) {
   updateFinishBtn();
 }
 
+function unlockSet(exId, setIndex) {
+  const exState = state.current.exercises[exId];
+  exState.sets[setIndex] = { ...exState.sets[setIndex], logged: false };
+  // Roll back activeSet if needed so this set becomes editable
+  if (setIndex < exState.activeSet) {
+    exState.activeSet = setIndex;
+  } else if (setIndex === exState.activeSet && exState.sets[setIndex].logged === false) {
+    // already correct
+  }
+  exState.activeSet = setIndex;
+  saveCurrent(state.current);
+  renderExercises();
+  updateFinishBtn();
+  // Focus weight input
+  setTimeout(() => {
+    const w = document.getElementById('w-' + exId + '-' + setIndex);
+    if (w) { w.select(); w.focus(); }
+  }, 50);
+}
+
 function updateFinishBtn() {
   const btn = document.getElementById('finish-btn');
   if (!state.current) return;
@@ -1694,6 +2488,7 @@ function saveCompletedSession() {
   if (!state.current) return;
 
   const session = PROGRAM[state.sessionId];
+  const isDeload = state.current.isDeload || false;
   const completed = {
     id: Date.now().toString(),
     sessionId: state.sessionId,
@@ -1701,6 +2496,7 @@ function saveCompletedSession() {
     sessionType: session.type,
     timestamp: state.current.startTime,
     duration: Date.now() - state.current.startTime,
+    isDeload,
     exercises: {}
   };
 
@@ -1715,6 +2511,10 @@ function saveCompletedSession() {
   const history = getHistory();
   history.push(completed);
   saveHistory(history);
+
+  // Update cycle counter
+  recordSessionInCycle(state.sessionId, isDeload);
+
   saveCurrent(null);
   state.completedSession = completed;
   state.current = null;
@@ -1746,6 +2546,8 @@ function startRestTimer(totalSeconds, nextLabel) {
       clearInterval(state.rest.interval);
       state.rest.remaining = 0;
       updateRestDisplay();
+      // Haptic feedback
+      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
       setTimeout(skipRest, 500);
     } else {
       updateRestDisplay();
@@ -1809,15 +2611,29 @@ function showCompleteOverlay(completed) {
   });
 
   document.getElementById('complete-summary').innerHTML = summaryHtml;
+  document.getElementById('session-notes-input').value = '';
   document.getElementById('complete-overlay').classList.add('active');
 }
 
+function saveSessionNotes() {
+  const notes = document.getElementById('session-notes-input').value.trim();
+  if (!notes || !state.completedSession) return;
+  const history = getHistory();
+  const idx = history.findIndex(s => s.id === state.completedSession.id);
+  if (idx !== -1) {
+    history[idx].notes = notes;
+    saveHistory(history);
+  }
+}
+
 function completeAndGoHome() {
+  saveSessionNotes();
   document.getElementById('complete-overlay').classList.remove('active');
   navigate('home');
 }
 
 function completeAndGoHistory() {
+  saveSessionNotes();
   document.getElementById('complete-overlay').classList.remove('active');
   navigate('history');
 }
@@ -1827,8 +2643,42 @@ function completeAndGoHistory() {
 // ═══════════════════════════════════════════════
 
 function renderHistory() {
+  renderBodyweightWidget();
+  renderSessionHistory();
+}
+
+function renderBodyweightWidget() {
+  const bwLog = getBodyweightLog();
+  const valueEl = document.getElementById('bw-value');
+  const histEl = document.getElementById('bw-history');
+
+  if (bwLog.length > 0) {
+    const latest = bwLog[bwLog.length - 1];
+    valueEl.textContent = latest.weight + ' kg';
+    valueEl.style.color = 'var(--text)';
+  } else {
+    valueEl.textContent = '—';
+    valueEl.style.color = 'var(--muted)';
+  }
+
+  // Show last 5 entries in reverse
+  const recent = [...bwLog].reverse().slice(0, 5);
+  if (recent.length === 0) {
+    histEl.innerHTML = '';
+    return;
+  }
+  histEl.innerHTML = `<div class="bw-entries">${recent.map((e) => `
+    <div class="bw-entry">
+      <span class="bw-entry-date">${formatDate(e.timestamp)}</span>
+      <span class="bw-entry-weight">${e.weight} kg</span>
+      <span class="bw-entry-del" onclick="deleteBodyweight(${e.timestamp})">×</span>
+    </div>`).join('')}</div>`;
+}
+
+function renderSessionHistory() {
   const history = getHistory();
-  const body = document.getElementById('history-body');
+  const body = document.getElementById('history-sessions');
+  if (!body) return;
 
   if (history.length === 0) {
     body.innerHTML = '<div class="history-empty">No sessions logged yet</div>';
@@ -1845,7 +2695,7 @@ function renderHistory() {
     session_def.exercises.forEach(ex => {
       const logged = session.exercises[ex.id];
       if (!logged || logged.sets.length === 0) return;
-      const chips = logged.sets.map((s, i) =>
+      const chips = logged.sets.map(s =>
         `<span class="hist-set-chip">${s.weight ? s.weight + '×' + s.reps : 'Done'}</span>`
       ).join('');
       exHtml += `<div class="hist-ex">
@@ -1854,23 +2704,86 @@ function renderHistory() {
       </div>`;
     });
 
-    return `<div class="hist-item" id="hist-${session.id}">
-      <div class="hist-item-header" onclick="toggleHistory('${session.id}')">
-        <div class="hist-dot ${session.sessionType}"></div>
-        <div class="hist-info">
-          <div class="hist-session-name">${session.sessionName}</div>
-          <div class="hist-date">${formatDate(session.timestamp)} · ${formatDuration(session.duration)}</div>
+    return `<div class="hist-item-wrap" id="wrap-${session.id}">
+      <div class="hist-delete-bg" onclick="deleteSession('${session.id}')">Delete</div>
+      <div class="hist-item" id="hist-${session.id}">
+        <div class="hist-item-header" onclick="toggleHistory('${session.id}')">
+          <div class="hist-dot ${session.sessionType}"></div>
+          <div class="hist-info">
+            <div class="hist-session-name">${session.sessionName}${session.isDeload ? ' <span class="deload-hist-badge">Deload</span>' : ''}</div>
+            <div class="hist-date">${formatDate(session.timestamp)} · ${formatDuration(session.duration)}</div>
+          </div>
+          <div class="hist-meta">${totalSets} sets</div>
+          <div class="hist-chevron">›</div>
         </div>
-        <div class="hist-meta">${totalSets} sets</div>
-        <div class="hist-chevron">›</div>
+        <div class="hist-body">${exHtml}${session.notes ? `<div class="hist-notes"><div class="hist-notes-label">Notes</div><div class="hist-notes-text">${session.notes}</div></div>` : ''}</div>
       </div>
-      <div class="hist-body">${exHtml}</div>
     </div>`;
   }).join('');
+
+  // Attach swipe listeners
+  document.querySelectorAll('.hist-item').forEach(item => {
+    attachSwipeToDelete(item);
+  });
+}
+
+function attachSwipeToDelete(el) {
+  let startX = 0, currentX = 0, swiping = false;
+  const THRESHOLD = 80;
+
+  el.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    swiping = true;
+    el.style.transition = 'none';
+  }, { passive: true });
+
+  el.addEventListener('touchmove', e => {
+    if (!swiping) return;
+    currentX = e.touches[0].clientX - startX;
+    if (currentX < 0) {
+      el.style.transform = `translateX(${Math.max(currentX, -THRESHOLD - 20)}px)`;
+    }
+  }, { passive: true });
+
+  el.addEventListener('touchend', () => {
+    if (!swiping) return;
+    swiping = false;
+    el.style.transition = 'transform 0.25s ease';
+    if (currentX < -THRESHOLD) {
+      el.style.transform = `translateX(-${THRESHOLD}px)`;
+    } else {
+      el.style.transform = 'translateX(0)';
+    }
+    currentX = 0;
+  });
 }
 
 function toggleHistory(id) {
-  document.getElementById('hist-' + id).classList.toggle('open');
+  const item = document.getElementById('hist-' + id);
+  if (!item) return;
+  item.classList.toggle('open');
+  // Reset swipe position on expand/collapse
+  item.style.transform = 'translateX(0)';
+}
+
+function deleteSession(id) {
+  if (!confirm('Delete this session? This cannot be undone.')) {
+    // Reset swipe
+    const item = document.getElementById('hist-' + id);
+    if (item) { item.style.transition = 'transform 0.25s ease'; item.style.transform = 'translateX(0)'; }
+    return;
+  }
+  const history = getHistory().filter(s => s.id !== id);
+  saveHistory(history);
+  const wrap = document.getElementById('wrap-' + id);
+  if (wrap) {
+    wrap.style.transition = 'opacity 0.2s, max-height 0.3s';
+    wrap.style.opacity = '0';
+    wrap.style.maxHeight = '0';
+    wrap.style.overflow = 'hidden';
+    setTimeout(() => renderSessionHistory(), 350);
+  }
+  showToast('Session deleted');
 }
 
 function exportData() {
@@ -1882,17 +2795,30 @@ function exportData() {
 
   let text = `TRAINING EXPORT\nGenerated: ${new Date().toLocaleDateString('en-AU', { day: 'numeric', month: 'long', year: 'numeric' })}\n\n`;
 
+  // Bodyweight log
+  const bwLog = getBodyweightLog();
+  if (bwLog.length > 0) {
+    text += `BODYWEIGHT LOG\n`;
+    [...bwLog].reverse().forEach(e => {
+      text += `  ${formatDate(e.timestamp)}: ${e.weight} kg\n`;
+    });
+    text += '\n';
+  }
+
+  text += `SESSION HISTORY\n\n`;
+
   const sorted = [...history].reverse();
   sorted.forEach(session => {
     const session_def = PROGRAM[session.sessionId];
     if (!session_def) return;
-    text += `${session.sessionName.toUpperCase()} — ${formatDate(session.timestamp)} — ${formatDuration(session.duration)}\n`;
+    text += `${session.sessionName.toUpperCase()}${session.isDeload ? ' [DELOAD]' : ''} — ${formatDate(session.timestamp)} — ${formatDuration(session.duration)}\n`;
     session_def.exercises.forEach(ex => {
       const logged = session.exercises[ex.id];
       if (!logged || logged.sets.length === 0) return;
       const setsStr = logged.sets.map(s => s.weight ? `${s.weight}×${s.reps}` : 'Done').join(' / ');
       text += `  ${ex.name}: ${setsStr}\n`;
     });
+    if (session.notes) text += `  Notes: ${session.notes}\n`;
     text += '\n';
   });
 
@@ -1948,6 +2874,161 @@ function showToast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2000);
+}
+
+// ═══════════════════════════════════════════════
+// WARM-UP PANEL
+// ═══════════════════════════════════════════════
+
+function renderWarmup() {
+  document.getElementById('warmup-panel').innerHTML = `
+    <div class="warmup-section">
+      <div class="warmup-section-title">General Warm-Up</div>
+      <div class="warmup-body">
+        <p>5 minutes treadmill before lifting — <strong style="color:var(--text)">2–4% incline, 5.5–6.5 km/h</strong>. You should feel noticeably warmer and breathing slightly elevated. On cold days extend to 6–7 minutes.</p>
+      </div>
+    </div>
+
+    <div class="warmup-section">
+      <div class="warmup-section-title">Compound Warm-Up — Standard</div>
+      <div class="warmup-body">
+        <p>Every primary compound that opens a session needs its own pyramid:</p>
+        <ul class="warmup-list">
+          <li>Set 1 — 40–50% of working weight, 8–10 reps. Pattern only, zero fatigue.</li>
+          <li>Set 2 — 60–70% of working weight, 4–5 reps.</li>
+          <li>Set 3 — 80–90% of working weight, 2–3 reps.</li>
+          <li>Rest 2 minutes after the final warm-up set, then begin working sets.</li>
+        </ul>
+        <p>Secondary compounds later in the session — 1 lighter warm-up set only. Isolation work — nothing needed.</p>
+      </div>
+    </div>
+
+    <div class="warmup-section">
+      <div class="warmup-section-title">Pull-Up Warm-Up — Specific</div>
+      <div class="warmup-body">
+        <div class="warmup-callout"><strong>Why different</strong>Bodyweight is ~95% of working weight at current +5kg loading. A full pyramid would arrive at near-working intensity before set 1.</div>
+        <ul class="warmup-list">
+          <li>1 set scapular pulls — dead hang, depress and retract shoulder blades without bending the arms, 8–10 reps.</li>
+          <li>3–4 bodyweight pull-ups at easy effort — full ROM, controlled descent. Technique reps, not effort reps.</li>
+          <li>Straight into weighted working sets.</li>
+        </ul>
+        <p>As added load increases and bodyweight represents a smaller proportion, the standard pyramid approach becomes more applicable.</p>
+      </div>
+    </div>
+
+    <div class="warmup-section">
+      <div class="warmup-section-title">Rest Between Sets</div>
+      <div class="warmup-body">
+        <p>Rest periods are prescribed per exercise. <strong style="color:var(--text)">Stand or walk slowly</strong> between sets — don't sit. Keeps heart rate slightly elevated and blood in the working muscles.</p>
+        <p>Unilateral rest rules:</p>
+        <ul class="warmup-list">
+          <li><strong style="color:var(--text)">Light isolation</strong> (cable laterals, face pulls) — alternate sides within the rest period. Each side rests while the other works.</li>
+          <li><strong style="color:var(--text)">Heavy leg work</strong> (BSS, single-leg curl) — complete one leg fully, rest the full prescribed period, then switch.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="warmup-section">
+      <div class="warmup-section-title">Rest Between Exercises</div>
+      <div class="warmup-body">
+        <p>No fixed prescription — transition as efficiently as you can. Setup and equipment changes typically take 1–3 minutes naturally, which is adequate. Move with purpose, get set up, start when your breathing has settled.</p>
+      </div>
+    </div>
+
+    <div class="warmup-section">
+      <div class="warmup-section-title">Cardio</div>
+      <div class="warmup-body">
+        <p><strong style="color:var(--text)">After Push or Pull sessions only — never after Legs.</strong> 15–20 minutes, 2–3× per week.</p>
+        <div class="warmup-callout"><strong>Target Settings</strong>Incline: 10–12% · Speed: 5.5–6.5 km/h · Duration: 15–20 min</div>
+        <p>If session quality on resistance days starts to decline, trim to 12–15 minutes before touching the resistance program.</p>
+      </div>
+    </div>
+  `;
+}
+
+function toggleDeload() {
+  if (!state.current) return;
+  state.current.isDeload = !state.current.isDeload;
+  saveCurrent(state.current);
+  updateDeloadToggle();
+  renderExercises(); // re-render so prev weights update
+}
+
+function updateDeloadToggle() {
+  const btn = document.getElementById('deload-toggle');
+  if (!btn || !state.current) return;
+  btn.className = 'deload-toggle' + (state.current.isDeload ? ' active' : '');
+  btn.textContent = state.current.isDeload ? 'Deload ✓' : 'Deload';
+}
+
+function confirmDeloadDone() {
+  if (confirm('Reset cycle counter? Only do this after completing your full deload cycle.')) {
+    resetCycleCounter();
+    document.getElementById('deload-banner').style.display = 'none';
+    showToast('Cycle counter reset');
+  }
+}
+
+// ═══════════════════════════════════════════════
+// PROGRAM VIEW
+// ═══════════════════════════════════════════════
+
+function switchProgTab(tab) {
+  ['volume', 'sessions', 'notes'].forEach(t => {
+    document.getElementById('prog-tab-' + t).classList.toggle('active', t === tab);
+    document.getElementById('prog-' + t).style.display = t === tab ? 'block' : 'none';
+  });
+  if (tab === 'sessions' && !document.getElementById('prog-sessions-body').innerHTML) {
+    renderProgSessions();
+  }
+}
+
+function renderProgSessions() {
+  const ORDER = ['push-a', 'pull-a', 'legs-a', 'push-b', 'pull-b', 'legs-b'];
+  const TYPE_LABEL = { push: 'Push', pull: 'Pull', legs: 'Legs' };
+
+  const html = ORDER.map(sid => {
+    const s = PROGRAM[sid];
+    const color = `var(--${s.type})`;
+    const exRows = s.exercises.map((ex, i) => {
+      const restStr = formatRest(ex.rest);
+      const perNote = ex.logType === 'per-leg' ? ' · per leg' :
+                      ex.logType === 'per-arm-full' ? ' · per arm' :
+                      ex.logType === 'per-arm-alt' ? ' · alt arms' :
+                      ex.logType === 'hang' ? '' : '';
+      return `<div class="ps-ex-row">
+        <div class="ps-ex-num">${String(i + 1).padStart(2, '0')}</div>
+        <div class="ps-ex-info">
+          <div class="ps-ex-name">${ex.name}</div>
+          <div class="ps-ex-meta">${ex.sets} sets · ${ex.repsDisplay}${perNote} · ${restStr} rest</div>
+          ${ex.note ? `<div class="ps-ex-note">${ex.note}</div>` : ''}
+        </div>
+      </div>`;
+    }).join('');
+
+    return `<div class="ps-card" id="ps-${sid}">
+      <div class="ps-header" onclick="togglePS('${sid}')">
+        <div class="ps-dot" style="background:${color}"></div>
+        <div class="ps-header-info">
+          <div class="ps-name" style="color:${color}">${s.name}</div>
+          <div class="ps-sub">${s.subtitle}</div>
+        </div>
+        <div class="ps-count">${s.exercises.length} ex</div>
+        <div class="ps-chevron">›</div>
+      </div>
+      <div class="ps-body">${exRows}</div>
+    </div>`;
+  }).join('');
+
+  document.getElementById('prog-sessions-body').innerHTML = html;
+}
+
+function togglePS(sid) {
+  document.getElementById('ps-' + sid).classList.toggle('open');
+}
+
+function toggleCN(id) {
+  document.getElementById('cn-' + id).classList.toggle('open');
 }
 
 // ═══════════════════════════════════════════════
