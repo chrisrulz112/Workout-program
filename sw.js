@@ -1,4 +1,4 @@
-const CACHE = 'training-v8';
+const CACHE = 'training-v12';
 const ASSETS = ['./', './index.html', './manifest.json', './sw.js'];
 
 self.addEventListener('install', e => {
