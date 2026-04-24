@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
 <meta name="apple-mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
 <meta name="apple-mobile-web-app-title" content="Training">
@@ -786,6 +786,81 @@ input { font-family: 'DM Sans', sans-serif; }
 }
 .export-btn:active { background: var(--surface2); color: var(--text); }
 
+/* Data menu */
+.data-menu-btn {
+  padding: 8px 14px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  font-family: 'DM Mono', monospace;
+  font-size: 14px;
+  color: var(--text2);
+  cursor: pointer;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+  line-height: 1;
+}
+.data-menu-btn:active { background: var(--surface2); color: var(--text); }
+
+.data-menu-sheet {
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  background: var(--surface);
+  border-radius: 20px 20px 0 0;
+  border-top: 1px solid var(--border);
+  padding: 12px 16px calc(var(--safe-b) + 16px);
+  transform: translateY(100%);
+  transition: transform 0.3s cubic-bezier(0.4,0,0.2,1);
+  z-index: 210;
+}
+#data-menu-overlay.active { background: rgba(0,0,0,0.7); align-items: flex-end; }
+#data-menu-overlay.active .data-menu-sheet { transform: translateY(0); }
+.data-menu-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--text2);
+  text-align: center;
+  padding: 4px 0 14px;
+}
+.data-menu-item {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 4px;
+  border-top: 1px solid var(--border);
+  cursor: pointer;
+  transition: opacity 0.1s;
+  -webkit-user-select: none;
+}
+.data-menu-item:active { opacity: 0.55; }
+.data-menu-icon {
+  width: 36px; height: 36px;
+  border-radius: 9px;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 17px;
+  flex-shrink: 0;
+}
+.data-menu-icon.backup { background: rgba(212,255,0,0.08); }
+.data-menu-icon.restore { background: rgba(192,132,252,0.08); }
+.data-menu-icon.export { background: rgba(255,255,255,0.05); }
+.data-menu-label { font-size: 15px; font-weight: 600; color: var(--text); }
+.data-menu-sub { font-size: 12px; color: var(--text2); margin-top: 2px; }
+.data-menu-cancel {
+  margin-top: 8px;
+  padding: 14px;
+  text-align: center;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  border-top: 1px solid var(--border);
+}
+.data-menu-cancel:active { opacity: 0.55; }
+
 .history-body { padding: 16px; padding-bottom: calc(var(--safe-b) + 24px); }
 
 .history-empty {
@@ -1465,6 +1540,36 @@ input { font-family: 'DM Sans', sans-serif; }
 }
 .toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 
+.cancel-session-btn {
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--danger);
+  padding: 8px 10px;
+  cursor: pointer;
+  opacity: 0.7;
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+.cancel-session-btn:active { opacity: 1; }
+
+.hist-date-edit {
+  background: none;
+  border: none;
+  border-bottom: 1px solid var(--border);
+  color: var(--text2);
+  font-family: 'DM Mono', monospace;
+  font-size: 10.5px;
+  padding: 0;
+  margin-top: 1px;
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+  outline: none;
+  color-scheme: dark;
+}
+
 /* ─── WEIGHT INCREMENT BUTTONS ─── */
 .weight-adj {
   display: flex;
@@ -1618,7 +1723,34 @@ input { font-family: 'DM Sans', sans-serif; }
 .chart-svg-wrap {
   padding: 10px 16px 6px;
 }
-.chart-no-data {
+.chart-toggle-row {
+  display: flex;
+  gap: 6px;
+  padding: 10px 20px 0;
+}
+.chart-toggle-btn {
+  flex: 1;
+  padding: 7px 0;
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  text-align: center;
+  transition: all 0.12s;
+  -webkit-user-select: none;
+}
+.chart-toggle-btn.active {
+  background: rgba(212,255,0,0.08);
+  border-color: rgba(212,255,0,0.3);
+  color: var(--push);
+}
+.chart-toggle-btn:active { opacity: 0.7; }
+
   text-align: center;
   padding: 44px 24px;
   font-size: 13px;
@@ -1728,6 +1860,7 @@ input { font-family: 'DM Sans', sans-serif; }
           <div class="session-name" id="sess-name"></div>
           <div class="session-name-sub" id="sess-sub"></div>
         </div>
+        <div class="cancel-session-btn" onclick="cancelSession()">Cancel</div>
         <div class="deload-toggle" id="deload-toggle" onclick="toggleDeload()">Deload</div>
         <div class="finish-btn-header" id="finish-btn" onclick="finishSession()">Finish</div>
       </div>
@@ -1832,6 +1965,24 @@ input { font-family: 'DM Sans', sans-serif; }
           </div>
         </div>
 
+        <div class="cn-item" id="cn-warmup">
+          <div class="cn-header" onclick="toggleCN('warmup')"><span class="cn-title">Warm-Up & Cardio</span><span class="cn-arrow">›</span></div>
+          <div class="cn-body">
+            <p><strong style="color:var(--text)">General warm-up:</strong> 5 minutes treadmill at 2–4% incline, 5.5–6.5 km/h. Noticeably warmer and breathing slightly elevated before touching a barbell.</p>
+            <p style="margin-top:10px"><strong style="color:var(--text)">Compound pyramid:</strong> every primary compound needs its own warm-up set sequence before working sets:</p>
+            <ul class="cn-list">
+              <li>Set 1 — 40–50% working weight, 8–10 reps. Pattern only, zero fatigue.</li>
+              <li>Set 2 — 60–70% working weight, 4–5 reps.</li>
+              <li>Set 3 — 80–90% working weight, 2–3 reps.</li>
+              <li>Rest 2 minutes after the final warm-up set, then begin working sets.</li>
+            </ul>
+            <p style="margin-top:10px">Secondary compounds later in the session — 1 lighter set only. Isolations — nothing needed.</p>
+            <p style="margin-top:10px"><strong style="color:var(--text)">Pull-up warm-up (specific):</strong> bodyweight is ~95% of working weight at current +5kg loading, so a full pyramid would arrive at near-working intensity. Instead: 1 set scapular pulls (8–10 reps) + 3–4 bodyweight pull-ups at easy effort. Straight into weighted sets.</p>
+            <p style="margin-top:10px"><strong style="color:var(--text)">Cardio:</strong> after Push or Pull sessions only — never after Legs. 15–20 min, 2–3× per week.</p>
+            <div class="cn-callout">Incline: 10–12% · Speed: 5.5–6.5 km/h · Duration: 15–20 min. If resistance session quality declines, trim cardio to 12–15 min before touching the resistance program.</div>
+          </div>
+        </div>
+
         <div class="cn-item" id="cn-deload">
           <div class="cn-header" onclick="toggleCN('deload')"><span class="cn-title">Deload Protocol</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
@@ -1849,7 +2000,7 @@ input { font-family: 'DM Sans', sans-serif; }
     <div class="history-header">
       <div class="back-btn" onclick="navigate('home')">‹</div>
       <div class="history-title">History</div>
-      <div class="export-btn" onclick="exportData()">Export</div>
+      <div class="data-menu-btn" onclick="openDataMenu()">⋯</div>
     </div>
     <div class="history-body">
       <!-- Bodyweight widget -->
@@ -1871,6 +2022,36 @@ input { font-family: 'DM Sans', sans-serif; }
       <div id="history-sessions"></div>
     </div>
   </div>
+
+  <!-- ─── DATA MENU ─── -->
+  <div id="data-menu-overlay" class="overlay" onclick="closeDataMenu(event)">
+    <div class="data-menu-sheet">
+      <div class="data-menu-title">Data</div>
+      <div class="data-menu-item" onclick="backupData()">
+        <div class="data-menu-icon backup">💾</div>
+        <div>
+          <div class="data-menu-label">Backup to File</div>
+          <div class="data-menu-sub">Save JSON to Files / iCloud Drive</div>
+        </div>
+      </div>
+      <div class="data-menu-item" onclick="triggerRestore()">
+        <div class="data-menu-icon restore">📂</div>
+        <div>
+          <div class="data-menu-label">Restore from File</div>
+          <div class="data-menu-sub">Load a previous backup</div>
+        </div>
+      </div>
+      <div class="data-menu-item" onclick="exportData(); closeDataMenu()">
+        <div class="data-menu-icon export">↗</div>
+        <div>
+          <div class="data-menu-label">Export as Text</div>
+          <div class="data-menu-sub">Share a readable summary</div>
+        </div>
+      </div>
+      <div class="data-menu-cancel" onclick="closeDataMenu()">Cancel</div>
+    </div>
+  </div>
+  <input type="file" id="restore-file-input" accept=".json" style="display:none" onchange="restoreData(this)">
 
   <!-- ─── REST TIMER ─── -->
   <div id="rest-overlay" class="overlay">
@@ -2270,7 +2451,8 @@ function getLastSession(sessionId, excludeDeload = true) {
 function getPrevSet(sessionId, exerciseId, setIndex) {
   const last = getLastSession(sessionId);
   if (!last || !last.exercises[exerciseId]) return null;
-  const sets = last.exercises[exerciseId];
+  const sets = last.exercises[exerciseId].sets;
+  if (!sets) return null;
   if (sets[setIndex]) return sets[setIndex];
   return null;
 }
@@ -2382,6 +2564,12 @@ function startSession(sessionId) {
   if (existing && existing.sessionId === sessionId) {
     state.current = existing;
   } else {
+    if (existing && existing.sessionId !== sessionId) {
+      const hasLogged = Object.values(existing.exercises).some(e => e.sets.some(s => s.logged));
+      if (hasLogged) {
+        if (!confirm(`${PROGRAM[existing.sessionId]?.name || 'A session'} is in progress. Starting a new session will discard it. Continue?`)) return;
+      }
+    }
     state.current = {
       sessionId,
       startTime: Date.now(),
@@ -2734,6 +2922,7 @@ function startRestTimer(totalSeconds, nextLabel) {
   state.rest = {
     total: totalSeconds,
     remaining: totalSeconds,
+    endTime: Date.now() + totalSeconds * 1000,
     nextLabel,
     interval: null
   };
@@ -2742,19 +2931,35 @@ function startRestTimer(totalSeconds, nextLabel) {
   updateRestDisplay();
 
   state.rest.interval = setInterval(() => {
-    state.rest.remaining--;
+    const remaining = Math.ceil((state.rest.endTime - Date.now()) / 1000);
+    state.rest.remaining = Math.max(0, remaining);
     if (state.rest.remaining <= 0) {
       clearInterval(state.rest.interval);
-      state.rest.remaining = 0;
       updateRestDisplay();
-      // Haptic feedback
       if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
       setTimeout(skipRest, 500);
     } else {
       updateRestDisplay();
     }
-  }, 1000);
+  }, 500); // Poll at 500ms so resync after unlock is near-instant
 }
+
+// Resync timer when app returns to foreground (screen unlock / tab switch back)
+document.addEventListener('visibilitychange', () => {
+  if (document.visibilityState === 'visible' && state.rest && state.rest.endTime) {
+    const remaining = Math.ceil((state.rest.endTime - Date.now()) / 1000);
+    if (remaining <= 0) {
+      clearInterval(state.rest.interval);
+      state.rest.remaining = 0;
+      updateRestDisplay();
+      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      setTimeout(skipRest, 300);
+    } else {
+      state.rest.remaining = remaining;
+      updateRestDisplay();
+    }
+  }
+});
 
 function updateRestDisplay() {
   if (!state.rest) return;
@@ -2912,7 +3117,7 @@ function renderSessionHistory() {
           <div class="hist-dot ${session.sessionType}"></div>
           <div class="hist-info">
             <div class="hist-session-name">${session.sessionName}${session.isDeload ? ' <span class="deload-hist-badge">Deload</span>' : ''}</div>
-            <div class="hist-date">${formatDate(session.timestamp)} · ${formatDuration(session.duration)}</div>
+            <div class="hist-date"><input class="hist-date-edit" type="date" value="${new Date(session.timestamp).toISOString().slice(0,10)}" onchange="editSessionDate('${session.id}', this.value)" onclick="event.stopPropagation()"> · ${formatDuration(session.duration)}</div>
           </div>
           <div class="hist-meta">${totalSets} sets</div>
           <div class="hist-chevron">›</div>
@@ -3244,45 +3449,178 @@ if ('serviceWorker' in navigator) {
 
 
 // ═══════════════════════════════════════════════
-// EXERCISE PROGRESS CHART
+// DATA BACKUP & RESTORE
 // ═══════════════════════════════════════════════
+
+function openDataMenu() {
+  document.getElementById('data-menu-overlay').classList.add('active');
+}
+
+function closeDataMenu(e) {
+  if (e && e.target !== document.getElementById('data-menu-overlay')) return;
+  document.getElementById('data-menu-overlay').classList.remove('active');
+}
+
+function backupData() {
+  document.getElementById('data-menu-overlay').classList.remove('active');
+
+  const backup = {
+    version: 1,
+    exportedAt: new Date().toISOString(),
+    data: {
+      wt_history:    localStorage.getItem('wt_history')    || '[]',
+      wt_bodyweight: localStorage.getItem('wt_bodyweight') || '[]',
+      wt_cycles:     localStorage.getItem('wt_cycles')     || '{"count":0,"buffer":[],"deloadDue":false}',
+      wt_current:    localStorage.getItem('wt_current')    || 'null',
+    }
+  };
+
+  const json = JSON.stringify(backup, null, 2);
+  const date = new Date().toISOString().slice(0, 10);
+  const filename = `training-backup-${date}.json`;
+
+  const blob = new Blob([json], { type: 'application/json' });
+  const file = new File([blob], filename, { type: 'application/json' });
+
+  if (navigator.share && navigator.canShare && navigator.canShare({ files: [file] })) {
+    navigator.share({ files: [file], title: 'Training Backup' })
+      .then(() => showToast('Backup saved'))
+      .catch(err => { if (err.name !== 'AbortError') showToast('Share failed'); });
+  } else {
+    // Fallback: trigger download
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = filename;
+    a.click();
+    URL.revokeObjectURL(url);
+    showToast('Backup downloaded');
+  }
+}
+
+function triggerRestore() {
+  document.getElementById('data-menu-overlay').classList.remove('active');
+  setTimeout(() => document.getElementById('restore-file-input').click(), 300);
+}
+
+function restoreData(input) {
+  const file = input.files[0];
+  if (!file) return;
+  input.value = ''; // reset so same file can be picked again
+
+  const reader = new FileReader();
+  reader.onload = e => {
+    try {
+      const backup = JSON.parse(e.target.result);
+
+      // Validate structure
+      if (!backup.data || !backup.data.wt_history) {
+        showToast('Invalid backup file');
+        return;
+      }
+
+      // Parse each key to validate JSON before writing
+      JSON.parse(backup.data.wt_history);
+      JSON.parse(backup.data.wt_bodyweight);
+      JSON.parse(backup.data.wt_cycles);
+
+      const exportedAt = backup.exportedAt
+        ? new Date(backup.exportedAt).toLocaleDateString('en-AU', { day: 'numeric', month: 'short', year: 'numeric' })
+        : 'unknown date';
+
+      const sessionCount = JSON.parse(backup.data.wt_history).length;
+
+      if (!confirm(`Restore backup from ${exportedAt}?\n\n${sessionCount} sessions found.\n\nThis will overwrite your current data.`)) return;
+
+      localStorage.setItem('wt_history',    backup.data.wt_history);
+      localStorage.setItem('wt_bodyweight', backup.data.wt_bodyweight);
+      localStorage.setItem('wt_cycles',     backup.data.wt_cycles);
+      if (backup.data.wt_current && backup.data.wt_current !== 'null') {
+        localStorage.setItem('wt_current', backup.data.wt_current);
+      } else {
+        localStorage.removeItem('wt_current');
+      }
+
+      // Re-render affected views
+      renderHistory();
+      renderBodyweightWidget();
+      renderHome();
+      showToast(`Restored — ${sessionCount} sessions`);
+
+    } catch (err) {
+      showToast('Failed to read backup file');
+      console.error('Restore error:', err);
+    }
+  };
+  reader.readAsText(file);
+}
+
+
+// ═══════════════════════════════════════════════
+
+let chartState = { mode: 'weight', weightPoints: [], volPoints: [] };
 
 function openExChart(exId, name) {
   const history = getHistory();
 
-  // Collect data points: one per session that logged this exercise with a weight
-  const allPoints = [];
+  const weightPoints = [], volPoints = [];
   history.forEach(session => {
+    if (session.isDeload) return;
     const ex = session.exercises[exId];
     if (!ex) return;
-    let maxW = -Infinity;
+
+    let maxW = -Infinity, totalVol = 0;
     ex.sets.forEach(s => {
       if (!s.logged) return;
       const w = parseFloat(s.weight);
-      if (!isNaN(w) && w > 0) maxW = Math.max(maxW, w);
+      const r = parseFloat(s.reps);
+      if (!isNaN(w) && w > 0) {
+        maxW = Math.max(maxW, w);
+        if (!isNaN(r) && r > 0) totalVol += w * r;
+      }
     });
-    if (maxW === -Infinity) return; // no weight logged (e.g. dead hang)
-    allPoints.push({ date: session.timestamp, weight: maxW, isDeload: !!session.isDeload });
+    if (maxW === -Infinity) return;
+    weightPoints.push({ date: session.timestamp, value: maxW });
+    if (totalVol > 0) volPoints.push({ date: session.timestamp, value: totalVol });
   });
 
-  // Sort ascending by date, exclude deloads, take last 10
-  allPoints.sort((a, b) => a.date - b.date);
-  const working = allPoints.filter(p => !p.isDeload);
-  const display = working.slice(-10);
+  weightPoints.sort((a, b) => a.date - b.date);
+  volPoints.sort((a, b) => a.date - b.date);
+
+  chartState.weightPoints = weightPoints.slice(-10);
+  chartState.volPoints = volPoints.slice(-10);
+  chartState.mode = 'weight';
 
   document.getElementById('chart-title').textContent = name;
+  document.getElementById('chart-toggle-weight').classList.add('active');
+  document.getElementById('chart-toggle-volume').classList.remove('active');
+
+  renderChart();
+  document.getElementById('chart-overlay').classList.add('active');
+}
+
+function switchChartMode(mode) {
+  chartState.mode = mode;
+  document.getElementById('chart-toggle-weight').classList.toggle('active', mode === 'weight');
+  document.getElementById('chart-toggle-volume').classList.toggle('active', mode === 'volume');
+  renderChart();
+}
+
+function renderChart() {
   const wrap = document.getElementById('chart-svg-wrap');
   const rangeLabel = document.getElementById('chart-range-label');
+  const isVol = chartState.mode === 'volume';
+  const points = isVol ? chartState.volPoints : chartState.weightPoints;
 
-  if (display.length < 2) {
+  if (points.length < 2) {
     rangeLabel.textContent = '';
     wrap.innerHTML = '<div class="chart-no-data">Log at least 2 sessions of this exercise to see a chart.</div>';
-  } else {
-    rangeLabel.textContent = `Top set · last ${display.length} session${display.length !== 1 ? 's' : ''}`;
-    wrap.innerHTML = buildExChartSVG(display);
+    return;
   }
 
-  document.getElementById('chart-overlay').classList.add('active');
+  const label = isVol ? 'Total volume' : 'Top set';
+  rangeLabel.textContent = `${label} · last ${points.length} session${points.length !== 1 ? 's' : ''}`;
+  wrap.innerHTML = buildExChartSVG(points, isVol ? 'kg vol' : 'kg');
 }
 
 function closeExChart(e) {
@@ -3290,44 +3628,48 @@ function closeExChart(e) {
   document.getElementById('chart-overlay').classList.remove('active');
 }
 
-function buildExChartSVG(points) {
+function buildExChartSVG(points, unit) {
   const W = 343, H = 180;
-  const PAD = { top: 20, right: 18, bottom: 34, left: 42 };
+  const PAD = { top: 20, right: 18, bottom: 34, left: 52 };
   const cW = W - PAD.left - PAD.right;
   const cH = H - PAD.top - PAD.bottom;
 
-  const weights = points.map(p => p.weight);
-  const minW = Math.min(...weights);
-  const maxW = Math.max(...weights);
-  const range = maxW - minW;
+  const vals = points.map(p => p.value);
+  const minV = Math.min(...vals);
+  const maxV = Math.max(...vals);
+  const range = maxV - minV;
 
   const xScale = i => PAD.left + (i / (points.length - 1)) * cW;
-  const yScale = w => range === 0
+  const yScale = v => range === 0
     ? PAD.top + cH / 2
-    : PAD.top + cH - ((w - minW) / range) * cH;
+    : PAD.top + cH - ((v - minV) / range) * cH;
 
   function fmtDate(ts) {
     return new Date(ts).toLocaleDateString('en-AU', { day: 'numeric', month: 'short' });
   }
-  function fmtW(v) {
-    return v % 1 === 0 ? String(v) : v.toFixed(1);
+  function fmtVal(v) {
+    const n = v % 1 === 0 ? String(v) : v.toFixed(1);
+    return n + unit.replace('kg vol', 'kg').replace('kg', 'kg');
+  }
+  function fmtYTick(v) {
+    // For volume, abbreviate large numbers
+    if (unit === 'kg vol' && v >= 1000) return (v / 1000).toFixed(1) + 't';
+    return (v % 1 === 0 ? String(v) : v.toFixed(0)) + 'kg';
   }
 
   // Polyline + area
-  const linePts = points.map((p, i) => `${xScale(i).toFixed(1)},${yScale(p.weight).toFixed(1)}`).join(' ');
+  const linePts = points.map((p, i) => `${xScale(i).toFixed(1)},${yScale(p.value).toFixed(1)}`).join(' ');
   const areaPts = [
     `${xScale(0).toFixed(1)},${(PAD.top + cH).toFixed(1)}`,
-    ...points.map((p, i) => `${xScale(i).toFixed(1)},${yScale(p.weight).toFixed(1)}`),
+    ...points.map((p, i) => `${xScale(i).toFixed(1)},${yScale(p.value).toFixed(1)}`),
     `${xScale(points.length - 1).toFixed(1)},${(PAD.top + cH).toFixed(1)}`
   ].join(' ');
 
   // Y axis: 3 ticks
-  const yTicks = range === 0
-    ? [minW]
-    : [minW, minW + range / 2, maxW];
+  const yTicks = range === 0 ? [minV] : [minV, minV + range / 2, maxV];
   const yTicksSVG = yTicks.map(v => {
     const y = yScale(v).toFixed(1);
-    return `<text x="${PAD.left - 7}" y="${(parseFloat(y) + 3.5).toFixed(1)}" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#555">${fmtW(v)}</text>
+    return `<text x="${PAD.left - 6}" y="${(parseFloat(y) + 3.5).toFixed(1)}" text-anchor="end" font-family="DM Mono,monospace" font-size="9" fill="#555">${fmtYTick(v)}</text>
 <line x1="${PAD.left}" y1="${y}" x2="${W - PAD.right}" y2="${y}" stroke="rgba(255,255,255,0.05)" stroke-width="1"/>`;
   }).join('');
 
@@ -3340,20 +3682,19 @@ function buildExChartSVG(points) {
     return `<text x="${x}" y="${H - 5}" text-anchor="middle" font-family="DM Mono,monospace" font-size="9" fill="#444">${fmtDate(points[i].date)}</text>`;
   }).join('');
 
-  // Dots on all points (small), bigger on last
+  // Dots — small on all, larger on last
   const dotsSVG = points.map((p, i) => {
     const x = xScale(i).toFixed(1);
-    const y = yScale(p.weight).toFixed(1);
-    const isLast = i === points.length - 1;
-    return isLast
+    const y = yScale(p.value).toFixed(1);
+    return i === points.length - 1
       ? `<circle cx="${x}" cy="${y}" r="3.5" fill="#d4ff00"/>`
       : `<circle cx="${x}" cy="${y}" r="2" fill="#d4ff00" opacity="0.45"/>`;
   }).join('');
 
   // Label on last point
   const lastX = xScale(points.length - 1).toFixed(1);
-  const lastY = yScale(points[points.length - 1].weight).toFixed(1);
-  const lastLabel = `<text x="${lastX}" y="${(parseFloat(lastY) - 8).toFixed(1)}" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="#d4ff00" font-weight="500">${fmtW(points[points.length - 1].weight)}</text>`;
+  const lastY = yScale(points[points.length - 1].value).toFixed(1);
+  const lastLabel = `<text x="${lastX}" y="${(parseFloat(lastY) - 8).toFixed(1)}" text-anchor="middle" font-family="DM Mono,monospace" font-size="9.5" fill="#d4ff00" font-weight="500">${fmtVal(points[points.length - 1].value)}</text>`;
 
   return `<svg viewBox="0 0 ${W} ${H}" width="100%" xmlns="http://www.w3.org/2000/svg" style="display:block;overflow:visible">
   <defs>
@@ -3374,6 +3715,34 @@ function buildExChartSVG(points) {
 // ═══════════════════════════════════════════════
 // RESUME / PROGRESSION / WEIGHT ADJUST
 // ═══════════════════════════════════════════════
+
+function cancelSession() {
+  if (!confirm('Discard this session? All logged sets will be lost.')) return;
+  // Clean up rest timer if running
+  if (state.rest) {
+    clearInterval(state.rest.interval);
+    state.rest = null;
+    document.getElementById('rest-overlay').classList.remove('active');
+  }
+  saveCurrent(null);
+  state.current = null;
+  navigate('home');
+}
+
+function editSessionDate(sessionId, dateString) {
+  const history = getHistory();
+  const idx = history.findIndex(s => s.id === sessionId);
+  if (idx === -1) return;
+  const existing = history[idx].timestamp;
+  // Preserve the original time-of-day, just change the date
+  const orig = new Date(existing);
+  const [y, m, d] = dateString.split('-').map(Number);
+  orig.setFullYear(y, m - 1, d);
+  history[idx].timestamp = orig.getTime();
+  saveHistory(history);
+  showToast('Date updated');
+}
+
 
 function resumeSession() {
   const cur = getCurrent();
@@ -3413,6 +3782,10 @@ function adjustWeight(exId, setIndex, delta) {
     <div class="chart-sheet-header">
       <div class="chart-sheet-title" id="chart-title"></div>
       <div class="chart-close-btn" onclick="closeExChart()">✕</div>
+    </div>
+    <div class="chart-toggle-row">
+      <div class="chart-toggle-btn active" id="chart-toggle-weight" onclick="switchChartMode('weight')">Weight</div>
+      <div class="chart-toggle-btn" id="chart-toggle-volume" onclick="switchChartMode('volume')">Volume</div>
     </div>
     <div class="chart-range-label" id="chart-range-label"></div>
     <div class="chart-svg-wrap" id="chart-svg-wrap"></div>
