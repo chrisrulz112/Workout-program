@@ -173,6 +173,14 @@ input { font-family: 'DM Sans', sans-serif; }
 .session-card.legs::before { background: var(--legs); }
 .session-card:active { transform: scale(0.97); background: var(--surface2); }
 
+.session-card.active-session.push { border-color: rgba(212,255,0,0.5); box-shadow: 0 0 0 1px rgba(212,255,0,0.15), 0 0 16px rgba(212,255,0,0.12); }
+.session-card.active-session.pull { border-color: rgba(192,132,252,0.5); box-shadow: 0 0 0 1px rgba(192,132,252,0.15), 0 0 16px rgba(192,132,252,0.12); }
+.session-card.active-session.legs { border-color: rgba(100,160,255,0.5); box-shadow: 0 0 0 1px rgba(100,160,255,0.15), 0 0 16px rgba(100,160,255,0.12); }
+
+.session-card.next-session.push { border-color: rgba(212,255,0,0.2); box-shadow: 0 0 10px rgba(212,255,0,0.06); }
+.session-card.next-session.pull { border-color: rgba(192,132,252,0.2); box-shadow: 0 0 10px rgba(192,132,252,0.06); }
+.session-card.next-session.legs { border-color: rgba(100,160,255,0.2); box-shadow: 0 0 10px rgba(100,160,255,0.06); }
+
 .card-name {
   font-family: 'Bebas Neue', sans-serif;
   font-size: 24px;
@@ -567,6 +575,11 @@ input { font-family: 'DM Sans', sans-serif; }
   background: rgba(0,0,0,0.7);
   backdrop-filter: blur(4px);
   -webkit-backdrop-filter: blur(4px);
+  transition: opacity 0.3s;
+}
+#rest-overlay.rest-minimised .rest-backdrop {
+  opacity: 0;
+  pointer-events: none;
 }
 .rest-sheet {
   position: absolute;
@@ -581,6 +594,47 @@ input { font-family: 'DM Sans', sans-serif; }
   transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 #rest-overlay.active .rest-sheet { transform: translateY(0); }
+#rest-overlay.rest-minimised .rest-sheet { transform: translateY(calc(100% - 56px)); }
+
+/* Mini bar — visible when minimised */
+.rest-mini-bar {
+  display: none;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  margin: -24px -24px 0;
+  padding: 0 20px;
+  cursor: pointer;
+  -webkit-user-select: none;
+}
+#rest-overlay.rest-minimised .rest-mini-bar { display: flex; }
+#rest-overlay.rest-minimised .rest-full-content { display: none; }
+.rest-mini-label {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text2);
+}
+.rest-mini-count {
+  font-family: 'Bebas Neue', sans-serif;
+  font-size: 28px;
+  color: var(--rest);
+  letter-spacing: 0.04em;
+  line-height: 1;
+}
+.rest-mini-expand {
+  font-size: 18px;
+  color: var(--text2);
+  line-height: 1;
+}
+.rest-mini-bar .rest-pill {
+  position: absolute;
+  top: 8px;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+}
 
 .rest-pill {
   width: 36px;
@@ -1812,32 +1866,32 @@ input { font-family: 'DM Sans', sans-serif; }
 
       <div class="section-label">Sessions</div>
       <div class="session-grid">
-        <div class="session-card push" onclick="startSession('push-a')">
+        <div class="session-card push" id="scard-push-a" onclick="startSession('push-a')">
           <div class="card-name">Push A</div>
           <div class="card-subtitle">Chest Primary</div>
           <div class="card-meta"><span>5 ex</span><span>·</span><span>52–58m</span></div>
         </div>
-        <div class="session-card pull" onclick="startSession('pull-a')">
+        <div class="session-card pull" id="scard-pull-a" onclick="startSession('pull-a')">
           <div class="card-name">Pull A</div>
           <div class="card-subtitle">Back (Vertical)</div>
           <div class="card-meta"><span>7 ex</span><span>·</span><span>55–62m</span></div>
         </div>
-        <div class="session-card legs" onclick="startSession('legs-a')">
+        <div class="session-card legs" id="scard-legs-a" onclick="startSession('legs-a')">
           <div class="card-name">Legs A</div>
           <div class="card-subtitle">Quad Primary</div>
           <div class="card-meta"><span>5 ex</span><span>·</span><span>55–63m</span></div>
         </div>
-        <div class="session-card push" onclick="startSession('push-b')">
+        <div class="session-card push" id="scard-push-b" onclick="startSession('push-b')">
           <div class="card-name">Push B</div>
           <div class="card-subtitle">Shoulders Primary</div>
           <div class="card-meta"><span>5 ex</span><span>·</span><span>52–58m</span></div>
         </div>
-        <div class="session-card pull" onclick="startSession('pull-b')">
+        <div class="session-card pull" id="scard-pull-b" onclick="startSession('pull-b')">
           <div class="card-name">Pull B</div>
           <div class="card-subtitle">Back (Horizontal)</div>
           <div class="card-meta"><span>7 ex</span><span>·</span><span>56–64m</span></div>
         </div>
-        <div class="session-card legs" onclick="startSession('legs-b')">
+        <div class="session-card legs" id="scard-legs-b" onclick="startSession('legs-b')">
           <div class="card-name">Legs B</div>
           <div class="card-subtitle">Hip / Hamstring</div>
           <div class="card-meta"><span>5 ex</span><span>·</span><span>56–65m</span></div>
@@ -2055,9 +2109,16 @@ input { font-family: 'DM Sans', sans-serif; }
 
   <!-- ─── REST TIMER ─── -->
   <div id="rest-overlay" class="overlay">
-    <div class="rest-backdrop" onclick="skipRest()"></div>
-    <div class="rest-sheet">
-      <div class="rest-pill"></div>
+    <div class="rest-backdrop"></div>
+    <div class="rest-sheet" id="rest-sheet">
+      <div class="rest-mini-bar" onclick="expandRestSheet()">
+        <div class="rest-pill"></div>
+        <div class="rest-mini-label">Resting</div>
+        <div class="rest-mini-count" id="rest-mini-count">—</div>
+        <div class="rest-mini-expand">›</div>
+      </div>
+      <div class="rest-full-content">
+        <div class="rest-pill" id="rest-drag-handle" style="cursor:grab"></div>
       <div class="rest-label">Resting</div>
       <div class="rest-countdown" id="rest-count">3:00</div>
       <div class="rest-progress-wrap">
@@ -2065,6 +2126,7 @@ input { font-family: 'DM Sans', sans-serif; }
       </div>
       <div class="rest-next" id="rest-next"></div>
       <div class="skip-btn" onclick="skipRest()">Skip Rest</div>
+      </div><!-- end rest-full-content -->
     </div>
   </div>
 
@@ -2549,6 +2611,22 @@ function renderHome() {
   } else {
     resumeBanner.style.display = 'none';
   }
+
+  // Session card glows
+  const activeSessionId = cur ? cur.sessionId : null;
+  const nextSessionId = (() => {
+    if (activeSessionId) return null; // don't show next while one is in progress
+    const done = cycleData.buffer || [];
+    return ALL_SESSIONS.find(s => !done.includes(s)) || null;
+  })();
+
+  ALL_SESSIONS.forEach(id => {
+    const card = document.getElementById('scard-' + id);
+    if (!card) return;
+    card.classList.remove('active-session', 'next-session');
+    if (id === activeSessionId) card.classList.add('active-session');
+    else if (id === nextSessionId) card.classList.add('next-session');
+  });
 }
 
 // ═══════════════════════════════════════════════
@@ -2612,6 +2690,7 @@ function startSession(sessionId) {
 
   renderExercises();
   renderCues();
+  requestNotificationPermission();
   navigate('session');
 }
 
@@ -2928,7 +3007,11 @@ function startRestTimer(totalSeconds, nextLabel) {
   };
 
   document.getElementById('rest-overlay').classList.add('active');
+  const sheet = document.getElementById('rest-sheet');
+  sheet.style.transform = '';
+  sheet.style.transition = '';
   updateRestDisplay();
+  scheduleSwNotification(state.rest.endTime, nextLabel);
 
   state.rest.interval = setInterval(() => {
     const remaining = Math.ceil((state.rest.endTime - Date.now()) / 1000);
@@ -2936,7 +3019,7 @@ function startRestTimer(totalSeconds, nextLabel) {
     if (state.rest.remaining <= 0) {
       clearInterval(state.rest.interval);
       updateRestDisplay();
-      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      cancelSwNotification(); // page fired it, cancel SW fallback
       setTimeout(skipRest, 500);
     } else {
       updateRestDisplay();
@@ -2952,7 +3035,7 @@ document.addEventListener('visibilitychange', () => {
       clearInterval(state.rest.interval);
       state.rest.remaining = 0;
       updateRestDisplay();
-      if (navigator.vibrate) navigator.vibrate([200, 100, 200]);
+      cancelSwNotification();
       setTimeout(skipRest, 300);
     } else {
       state.rest.remaining = remaining;
@@ -2961,14 +3044,56 @@ document.addEventListener('visibilitychange', () => {
   }
 });
 
+// ─── Notification helpers ───
+function requestNotificationPermission() {
+  if (!('Notification' in window) || !('serviceWorker' in navigator)) return;
+  if (Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+function scheduleSwNotification(endTime, nextLabel) {
+  if (!('serviceWorker' in navigator) || Notification.permission !== 'granted') return;
+  navigator.serviceWorker.ready.then(reg => {
+    reg.active.postMessage({
+      type: 'SCHEDULE_NOTIFICATION',
+      endTime,
+      label: nextLabel || ''
+    });
+  });
+}
+
+function cancelSwNotification() {
+  if (!('serviceWorker' in navigator)) return;
+  navigator.serviceWorker.ready.then(reg => {
+    if (reg.active) reg.active.postMessage({ type: 'CANCEL_NOTIFICATION' });
+  });
+}
+
 function updateRestDisplay() {
   if (!state.rest) return;
   const { remaining, total, nextLabel } = state.rest;
   const mins = Math.floor(remaining / 60);
   const secs = remaining % 60;
-  document.getElementById('rest-count').textContent = `${mins}:${secs.toString().padStart(2, '0')}`;
+  const fmt = `${mins}:${secs.toString().padStart(2, '0')}`;
+  document.getElementById('rest-count').textContent = fmt;
+  document.getElementById('rest-mini-count').textContent = fmt;
   document.getElementById('rest-bar').style.width = (remaining / total * 100) + '%';
   document.getElementById('rest-next').innerHTML = nextLabel ? `Up next: <strong>${nextLabel}</strong>` : '';
+}
+
+function minimiseRestSheet() {
+  const overlay = document.getElementById('rest-overlay');
+  const sheet = document.getElementById('rest-sheet');
+  sheet.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+  overlay.classList.add('rest-minimised');
+}
+
+function expandRestSheet() {
+  const overlay = document.getElementById('rest-overlay');
+  const sheet = document.getElementById('rest-sheet');
+  sheet.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+  overlay.classList.remove('rest-minimised');
 }
 
 function skipRest() {
@@ -2976,12 +3101,14 @@ function skipRest() {
     clearInterval(state.rest.interval);
     state.rest = null;
   }
-  document.getElementById('rest-overlay').classList.remove('active');
+  cancelSwNotification();
+  const overlay = document.getElementById('rest-overlay');
+  overlay.classList.remove('active');
+  overlay.classList.remove('rest-minimised');
   // Focus the next active input
   setTimeout(() => {
     const activeInputs = document.querySelectorAll('.set-input:not(:disabled)');
     if (activeInputs.length > 0) {
-      // Find the first empty reps field
       for (const input of activeInputs) {
         if (input.placeholder === 'reps' && !input.value) {
           input.focus();
@@ -2991,6 +3118,80 @@ function skipRest() {
     }
   }, 100);
 }
+
+// ─── Rest sheet drag ───
+(function () {
+  const MINIMISE_THRESHOLD = 60;
+  const DISMISS_THRESHOLD  = 60; // from minimised position
+  let dragStart = null;
+  let isMinimised = false;
+
+  function getSheet()   { return document.getElementById('rest-sheet'); }
+  function getOverlay() { return document.getElementById('rest-overlay'); }
+
+  function onTouchStart(e) {
+    if (!getOverlay().classList.contains('active')) return;
+    isMinimised = getOverlay().classList.contains('rest-minimised');
+    dragStart = e.touches[0].clientY;
+    getSheet().style.transition = 'none';
+  }
+
+  function onTouchMove(e) {
+    if (dragStart === null) return;
+    const dy = e.touches[0].clientY - dragStart;
+    const sheet = getSheet();
+    if (isMinimised) {
+      // From minimised: allow drag down to dismiss, up to expand
+      const base = getSheet().offsetHeight - 56;
+      const offset = Math.max(0, base + dy);
+      sheet.style.transform = `translateY(${offset}px)`;
+    } else {
+      // From expanded: only allow drag down
+      if (dy < 0) return;
+      sheet.style.transform = `translateY(${dy}px)`;
+    }
+  }
+
+  function onTouchEnd(e) {
+    if (dragStart === null) return;
+    const dy = e.changedTouches[0].clientY - dragStart;
+    dragStart = null;
+    const sheet = getSheet();
+
+    if (isMinimised) {
+      if (dy >= DISMISS_THRESHOLD) {
+        // Dismiss from minimised
+        sheet.style.transition = 'transform 0.25s ease';
+        sheet.style.transform = 'translateY(100%)';
+        setTimeout(skipRest, 240);
+      } else if (dy < -MINIMISE_THRESHOLD) {
+        // Drag up from minimised → expand
+        expandRestSheet();
+      } else {
+        // Snap back to minimised
+        sheet.style.transition = 'transform 0.3s cubic-bezier(0.4,0,0.2,1)';
+        sheet.style.transform = '';
+      }
+    } else {
+      if (dy >= MINIMISE_THRESHOLD) {
+        // Minimise
+        sheet.style.transform = '';
+        minimiseRestSheet();
+      } else {
+        // Snap back to expanded
+        sheet.style.transition = 'transform 0.35s cubic-bezier(0.34,1.56,0.64,1)';
+        sheet.style.transform = '';
+      }
+    }
+  }
+
+  document.addEventListener('DOMContentLoaded', () => {
+    const sheet = document.getElementById('rest-sheet');
+    sheet.addEventListener('touchstart', onTouchStart, { passive: true });
+    sheet.addEventListener('touchmove',  onTouchMove,  { passive: true });
+    sheet.addEventListener('touchend',   onTouchEnd,   { passive: true });
+  });
+})();
 
 // ═══════════════════════════════════════════════
 // SESSION COMPLETE
@@ -3104,8 +3305,20 @@ function renderSessionHistory() {
       const chips = logged.sets.map(s =>
         `<span class="hist-set-chip">${s.weight ? s.weight + '×' + s.reps : 'Done'}</span>`
       ).join('');
-      exHtml += `<div class="hist-ex">
-        <div class="hist-ex-name" onclick="openExChart('${ex.id}', '${ex.name}')">${ex.name}<svg class="chart-tap-icon" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,10 3.5,6.5 6.5,8 9.5,3.5 12,5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
+        const hasChart = (() => {
+          let count = 0;
+          for (const s of history) {
+            if (s.isDeload) continue;
+            const e = s.exercises[ex.id];
+            if (!e) continue;
+            const hasWeight = e.sets.some(st => st.logged && parseFloat(st.weight) > 0);
+            if (hasWeight && ++count >= 2) return true;
+          }
+          return false;
+        })();
+        const chartIcon = hasChart ? `<svg class="chart-tap-icon" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,10 3.5,6.5 6.5,8 9.5,3.5 12,5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` : '';
+        exHtml += `<div class="hist-ex">
+        <div class="hist-ex-name" onclick="openExChart('${ex.id}', '${ex.name}')">${ex.name}${chartIcon}</div>
         <div class="hist-ex-sets">${chips}</div>
       </div>`;
     });
@@ -3722,7 +3935,9 @@ function cancelSession() {
   if (state.rest) {
     clearInterval(state.rest.interval);
     state.rest = null;
-    document.getElementById('rest-overlay').classList.remove('active');
+    const overlay = document.getElementById('rest-overlay');
+    overlay.classList.remove('active');
+    overlay.classList.remove('rest-minimised');
   }
   saveCurrent(null);
   state.current = null;
