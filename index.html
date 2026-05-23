@@ -339,7 +339,6 @@ input { font-family: 'DM Sans', sans-serif; }
   font-size: 15px;
   font-weight: 600;
   color: var(--text);
-  margin-bottom: 2px;
 }
 .ex-card-note {
   font-size: 11.5px;
@@ -1817,6 +1816,39 @@ input { font-family: 'DM Sans', sans-serif; }
   opacity: 0.3;
   display: block;
 }
+
+/* ─── ALT EXERCISE BUTTON ─── */
+.ex-card-name-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 2px;
+}
+.alt-btn {
+  padding: 4px 10px;
+  background: var(--surface3);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  font-family: 'DM Mono', monospace;
+  font-size: 9.5px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text2);
+  cursor: pointer;
+  flex-shrink: 0;
+  -webkit-user-select: none;
+  transition: all 0.12s;
+}
+.alt-btn:active { opacity: 0.7; }
+.alt-btn.active {
+  background: rgba(255,179,71,0.1);
+  border-color: rgba(255,179,71,0.35);
+  color: var(--warn);
+}
+.alt-btn.disabled {
+  opacity: 0.3;
+  pointer-events: none;
+}
 </style>
 </head>
 <body>
@@ -2425,44 +2457,312 @@ const PROGRAM = {
         id: 'lb-rdl', name: 'Barbell Romanian Deadlift', sets: 3, repsDisplay: '6–8', rest: 180, logType: 'standard',
         note: 'Hip hinge, soft knee, bar close. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Own the stretch.',
         cues: {
-          short: ['Hip hinge — not a squat', 'Soft knee bend throughout — don\'t increase it on descent', 'Bar stays close to legs throughout', 'Own the hamstring stretch at the bottom'],
-          full: 'Setup: Bar in hands, standing tall. Soft knee bend — maintain this angle throughout, never bend more on the descent.\n\nExecution: Push your hips back as bar descends. Bar stays close to legs — almost dragging down the thighs. Descend until you feel a significant hamstring stretch, typically mid-shin.\n\nStretch position: This is the key stimulus. Pause briefly at the bottom — feel the hamstrings loaded under stretch before driving hips forward.\n\nRIR: S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR. Never lose the hip hinge pattern under fatigue.'
+          short: ['Hip hinge — not a squat, knees stay soft and fixed', 'Bar stays close to legs throughout — almost dragging', 'Own the hamstring stretch at the bottom', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+          full: 'SETUP\n- Bar in hands at hip height, standing tall. Overhand or mixed grip\n- Soft knee bend — establish this angle before the first rep and maintain it throughout. The knees must not bend more on the descent — this is what separates an RDL from a deadlift\n- Lats engaged, neutral spine, slight chest up\n\nEXECUTION\n- Push the hips back as the bar descends — the hips moving back is the movement, not the bar moving down\n- Bar stays in contact with or very close to the legs throughout — if it drifts away, the lower back takes load it shouldn\'t\n- Descend until a significant hamstring stretch is felt, typically mid-shin — ROM is limited by hamstring flexibility, not a fixed point\n- Pause 1s at the bottom — feel the hamstrings loaded under stretch before driving the hips forward\n- Drive hips forward to return to standing — squeeze glutes at the top\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Pause at bottom: 1s. Concentric: controlled drive through the hips.\n\nKEY CUE\n- "Push the hips back to the wall behind you" — this keeps the hinge pattern honest and prevents the movement from becoming a squat\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Never lose the hip hinge pattern under fatigue — if form starts to break, stop the set\n\nWATCH FOR\n- Knees bending more on the descent — this shifts load away from the hamstrings\n- Bar drifting away from the legs — increases lumbar strain significantly\n- Lower back rounding at the bottom — reduce the depth before allowing this\n- Rushing through the bottom stretch — this is where the stimulus is'
         }
       },
       {
         id: 'lb-hack', name: 'Hack Squat', sets: 2, repsDisplay: '10–12', rest: 120, logType: 'standard',
         note: 'High foot placement for posterior emphasis. Full ROM. 0–1 RIR all sets.',
         cues: {
-          short: ['High foot placement — shifts posterior emphasis', 'Full ROM — don\'t cut depth short', 'Feet shoulder width, toes out slightly', '0–1 RIR all sets'],
-          full: 'Foot placement: High on the platform. This shifts emphasis toward glutes and hamstrings. Feet shoulder width or slightly wider, toes out slightly.\n\nExecution: Full ROM — don\'t cut depth short. The machine handles stability so focus on full depth and feeling the posterior chain work. Control the descent.\n\nNote: Start conservatively — you\'ll likely handle less load than leg press due to more demanding mechanics.'
+          short: ['High foot placement on the platform', 'Full ROM — don\'t cut depth short', 'Feet shoulder width, toes out slightly', 'To failure — both sets'],
+          full: 'SETUP\n- High foot placement on the platform — this shifts emphasis toward the glutes and hamstrings, complementing the RDL earlier in the session\n- Feet shoulder width or slightly wider, toes out to a comfortable angle\n- Back and hips pressed firmly into the pad throughout\n- Unrack and allow a brief moment to settle before descending\n\nEXECUTION\n- Descend to full depth — the machine handles stability so focus entirely on depth and feeling the posterior chain working\n- Knees track over toes throughout\n- Drive through the heels to return — not the toes\n- Do not fully lock out at the top — keep tension on the working muscles\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: firm drive through the heels.\n\nKEY CUE\n- High foot placement is everything here — dropping the feet lower immediately shifts the emphasis to quads, which is not the goal in this session\n\nWATCH FOR\n- Feet creeping lower on the platform over sets — check foot position before every set\n- Hips lifting off the pad at depth — means depth is slightly too much for current mobility, reduce slightly\n- Knees caving inward — actively push them out in line with the toes\n- Starting conservatively — loads will be lower than leg press due to more demanding mechanics'
         }
       },
       {
         id: 'lb-legcurl', name: 'Single-Leg Kneeling Leg Curl', sets: 3, repsDisplay: '10–12 ea.', rest: 90, logType: 'per-leg',
         note: 'Kneeling preserves hip flexion for stretch. 0 RIR. REST IS PER LEG — full rest between each leg.',
         cues: {
-          short: ['Kneeling preserves hip flexion — key for stretch benefit', 'Full ROM — full extension at the bottom', '0 RIR — push to failure', 'REST PER LEG — full rest between each leg'],
-          full: 'Key point: Kneeling keeps the hip in flexion throughout the curl. This is why it was chosen — hip flexion increases the hamstring stretch, similar to the seated curl benefit.\n\nExecution: Full extension at the bottom. Curl to full flexion. 0 RIR — push to failure on all sets.\n\nRest: Complete all reps on one leg. Rest the full 90 seconds. Then switch. Don\'t go directly from one leg to the other.'
+          short: ['Kneeling keeps hip in flexion — this is why it\'s chosen', 'Full extension at the bottom before each rep', 'Drive heel toward glute — full ROM', 'REST PER LEG — full rest between each leg'],
+          full: 'SETUP\n- The kneeling position keeps the hip in flexion throughout the curl — this increases the hamstring stretch, providing a similar benefit to the seated leg curl. This is why it was chosen over the lying version for this session\n- Adjust the machine so there is full tension at complete leg extension\n- The non-working leg hangs or rests — do not brace it into anything\n\nEXECUTION\n- Begin from full extension — don\'t start with the leg already partially curled\n- Curl heel toward the glute through full ROM\n- Brief pause at full flexion\n- Lower in 2s back to full extension\n- Push to failure on all sets\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled. Brief pause at full flexion.\n\nKEY CUE\n- Full extension at the bottom is non-negotiable — this is where the hamstring stretch benefit of the kneeling position is realised\n\nREST PROTOCOL\n- Complete all reps on one leg. Rest the full 90 seconds. Then the other leg. Going directly from one leg to the other removes the rest benefit entirely\n\nWATCH FOR\n- Starting with the knee already bent — always begin from full extension\n- Hips shifting or torso rotating to assist — stabilise the core\n- Shortening the ROM at either end'
         }
       },
       {
         id: 'lb-thrust', name: 'Machine Hip Thrust (Booty Builder)', sets: 3, repsDisplay: '10–12', rest: 120, logType: 'standard',
         note: 'Full hip extension. Pause and squeeze at the top. Consistent pad position every rep. 0–1 RIR.',
         cues: {
-          short: ['Consistent pad position against hip crease every session', 'Drive through heels to full hip extension', 'Pause and actively squeeze glutes at the top', '0–1 RIR all sets'],
-          full: 'Setup: Position the pad consistently against your hip crease every session — changing this changes the movement and makes progress tracking meaningless.\n\nExecution: Drive through heels to full hip extension. Pause at the top — actively squeeze the glutes. Don\'t bounce through the top position. Control the descent.\n\nKey: This provides end-range hip extension loading — glutes maximally contracted at the top. Complements squats and RDLs which load the glute most in the stretched position.'
+          short: ['Pad consistently at hip crease — same position every session', 'Drive through heels to full hip extension', 'Pause and actively squeeze glutes at the top', 'To failure — all sets'],
+          full: 'SETUP\n- Position the pad consistently against your hip crease every session — changing this changes the mechanics and makes progress tracking meaningless\n- Feet flat and slightly wider than hip width. Toes pointed slightly outward\n- Upper back against the pad, core braced before the first rep\n\nEXECUTION\n- Drive through the heels to full hip extension — hips fully open at the top\n- Pause at the top and actively squeeze the glutes — don\'t just bounce through the top position\n- The pause is what separates this from a momentum exercise\n- Lower in 2s — controlled descent\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1–2s active squeeze. Concentric: strong drive.\n\nKEY CUE\n- This provides end-range hip extension loading — the glute is maximally contracted at the top. Squats and RDLs load the glute most in the stretched position. Together they cover the full ROM\n\nWATCH FOR\n- Pad position shifting across sessions — standardise it\n- Not reaching full hip extension at the top — hips should be fully open\n- Bouncing through the top — the pause is the point\n- Lower back hyperextending at the top — squeeze the glutes, not the lower back'
         }
       },
       {
         id: 'lb-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '15–20', rest: 60, logType: 'standard',
         note: 'Deep stretch at the bottom. Vary toe angle across sets. All sets to failure.',
         cues: {
-          short: ['Deep stretch at the bottom — the key stimulus', 'Vary toe angle: neutral / slightly out / slightly in', 'Full elevation at the top', 'All sets to failure'],
-          full: 'Same cues as Legs A calf raise. Deep stretch is the primary stimulus — research supports this strongly. Vary toe angle across 3 sets: neutral, slightly out, slightly in to cover both gastrocnemius heads. All sets to failure.'
+          short: ['Deep stretch at the bottom — the primary stimulus', 'Full elevation at the top, 1s pause', 'Vary toe angle: neutral / slightly out / slightly in', 'To failure — all sets'],
+          full: 'SETUP\n- Identical setup to Legs A calf raise. Balls of feet on platform edge, heels free to drop below platform level\n- Toe angle: vary across sets — Set 1 neutral, Set 2 toes slightly out (medial head), Set 3 toes slightly in (lateral head)\n\nEXECUTION\n- Lower to a deep stretch — heel well below platform level. 2023 research strongly supports this bottom position as the primary stimulus for gastrocnemius hypertrophy\n- Pause 1s at the deep stretch before rising\n- Rise to full elevation, pause 1s at the top\n- Lower in 2s back to the deep stretch\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s.\n\nKEY CUE\n- The deep stretch is the mechanism — a calf raise that doesn\'t go low enough is significantly less effective regardless of load\n\nWATCH FOR\n- Bouncing out of the bottom — hold the stretch\n- Bending the knees — consistent soft bend throughout, not changing between reps\n- Not reaching full elevation — complete ROM both directions'
         }
       }
     ]
   }
+};
+
+// ═══════════════════════════════════════════════
+// ALTERNATE EXERCISES
+// ═══════════════════════════════════════════════
+
+const ALTS = {
+  // ─── PUSH A ───
+  'pa-bench': [{
+    id: 'pa-bench-db', name: 'Dumbbell Flat Bench Press',
+    note: 'Flat. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Greater ROM at bottom than barbell.',
+    cues: {
+      short: ['Greater ROM at bottom than barbell — use it', 'Shoulder blades retracted and depressed throughout', 'Press without fully locking out at top', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+      full: 'SETUP\n- Lie flat, natural arch, feet flat. Dumbbells at chest height, elbows at roughly 45–75° to the torso\n- Retract and depress shoulder blades before the first rep — maintain this throughout\n- Each arm moves independently — reveals asymmetries and requires slightly more stability than the barbell\n\nEXECUTION\n- Lower dumbbells to chest level, allowing a slightly wider arc than a barbell\n- The extra ROM at the bottom is an advantage — don\'t cut it short\n- Press back up without fully locking out — keeps tension on the chest\n- Slight arc inward at the top, bringing dumbbells close without touching\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent.\n\nKEY CUE\n- Spread the dumbbells apart on the way down — cues the chest stretch and prevents the shoulders from taking over\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Same gradient as barbell bench\n\nWATCH FOR\n- Dumbbells drifting too wide — slight forward angle of the upper arm is correct, not a full fly\n- Losing shoulder blade retraction mid-set\n- One dumbbell leading the other — keep both arms moving symmetrically'
+    }
+  }],
+
+  'pa-incline': [
+    {
+      id: 'pa-incline-smith', name: 'Incline Smith Machine Press',
+      note: '30–45°. Adjust bench so bar comes to upper chest naturally. 0–1 RIR all sets.',
+      cues: {
+        short: ['Bench at 30–45°, position so bar tracks to upper chest', 'Fixed path — focus entirely on the chest stretch', 'Own the deep stretch at the bottom', 'To failure — all sets'],
+        full: 'SETUP\n- Set bench to 30–45°. Position inside the Smith so the bar naturally descends to the upper chest — this takes some adjustment and is critical\n- Sit in and grip the bar. Unrack by rotating\n\nEXECUTION\n- Lower with control until a deep upper chest stretch is felt — the fixed bar path removes stabiliser demand, so focus entirely on the chest loading\n- Press back up without fully locking out\n- Use the reduced stability demand to push harder and feel the chest working more deliberately\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled but firm.\n\nKEY CUE\n- Fixed bar path removes balance demand — direct all mental focus toward the upper chest stretch at the bottom\n\nWATCH FOR\n- Bench position causing bar to track over the face — reposition before starting\n- Wrists bending back — keep stacked\n- Not reaching full depth — the stretch is the stimulus'
+      }
+    },
+    {
+      id: 'pa-incline-bar', name: 'Incline Barbell Press',
+      note: '30–45°. Bar to upper chest. Full ROM. 0–1 RIR all sets.',
+      cues: {
+        short: ['30–45° bench angle', 'Bar to upper chest — full ROM every rep', 'Slight elbow tuck — not fully flared', 'To failure — all sets'],
+        full: 'SETUP\n- Incline bench at 30–45°. Higher than 45° shifts stimulus to front delts\n- Grip slightly wider than shoulder width. Retract and depress shoulder blades before unracking\n- Eyes under the bar. Unrack and walk out minimally\n\nEXECUTION\n- Lower to upper chest in 2–3s — feel the upper chest stretching\n- Brief touch at the upper chest, no bounce\n- Press back up in a slight arc back toward the rack\n- Do not fully lock out at the top\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent.\n\nKEY CUE\n- Upper chest contact point — if the bar is coming to lower chest or stomach, the bench angle is wrong or the arch is too exaggerated\n\nWATCH FOR\n- Elbows flaring excessively — slight tuck reduces shoulder stress\n- Bar drifting forward off the upper chest\n- Shoulder blades losing tightness mid-set'
+      }
+    }
+  ],
+
+  'pa-fly': [{
+    id: 'pa-fly-db', name: 'Incline Dumbbell Fly',
+    note: '30–45°. Arms slightly bent — fixed throughout. Own the stretch. Both sets to failure.',
+    cues: {
+      short: ['30–45° bench angle', 'Arms slightly bent — fixed angle, not a press', 'Lower in a wide arc — own the upper chest stretch', 'Pause at the stretch, squeeze at the top'],
+      full: 'SETUP\n- Incline bench at 30–45°. Dumbbells held above chest, arms slightly bent — establish this elbow angle and hold it for the entire set\n- This is not a pressing movement — the elbows do not bend more\n\nEXECUTION\n- Lower in a wide controlled arc until a significant upper chest stretch is felt\n- Pause 1s at the bottom — actively feel the chest loaded in the stretched position\n- Squeeze upward and inward, hands meeting above the chest\n- Brief pause at the top for a contraction\n\nTEMPO\n- Eccentric: 2–3s with active reach into the stretch. Concentric: controlled arc upward.\n\nKEY CUE\n- "Hug a barrel" — the arc is the movement. Any pressing action (elbows bending more) reduces the stretch benefit and shifts load to the triceps\n\nWATCH FOR\n- Elbows bending progressively under fatigue — weight is too heavy\n- Cutting the bottom arc short — the stretch is the stimulus\n- Shoulders shrugging at the top\n- Note: significantly less weight than the incline press — this is correct'
+    }
+  }],
+
+  'pa-lateral': [{
+    id: 'pa-lateral-db', name: 'Dumbbell Lateral Raise',
+    note: 'Slight forward lean. Lead with elbow. No momentum. To failure — all sets.',
+    cues: {
+      short: ['Slight forward lean from the hips', 'Lead with the elbow — pinky slightly higher than thumb', 'Raise to shoulder height only', 'No swinging — to failure'],
+      full: 'SETUP\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of the lift\n- Dumbbells at sides, slight elbow bend — maintain throughout\n\nEXECUTION\n- Lead with the elbow, raising to shoulder height\n- Pinky slightly higher than thumb at the top\n- Lower in 2s — don\'t let the weight drop\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s. No momentum.\n\nKEY CUE\n- Loses cable\'s bottom-position tension but otherwise identical stimulus. Go slightly lighter than expected — the lateral delt is small\n\nWATCH FOR\n- Shrugging at the top — depress the shoulders actively\n- Leaning back to assist — lean stays fixed from setup\n- Raising above shoulder height'
+    }
+  }],
+
+  'pa-pushdown': [{
+    id: 'pa-pushdown-kb', name: 'DB Kickback',
+    note: 'Upper arm parallel to floor and completely still. Extend to full lockout. Pause 1s. To failure.',
+    cues: {
+      short: ['Hinge forward — torso nearly parallel to floor', 'Upper arm parallel to floor and completely still', 'Extend to full lockout — pause 1s', 'To failure — all sets'],
+      full: 'SETUP\n- Hinge forward until the torso is roughly parallel to the floor — this is the critical setup requirement. Most people don\'t hinge enough, making it impossible to get the upper arm parallel\n- Upper arm parallel to the floor, pinned to the side of the torso. Establish this before the first rep and hold it throughout\n- Support the non-working hand on a bench or cable machine\n\nEXECUTION\n- Extend the elbow to full lockout — the forearm swings upward and back\n- Pause 1s at full extension — this is where the tricep is fully contracted\n- Lower the forearm in 2s back to 90°\n\nTEMPO\n- Eccentric: 2s. Pause at lockout: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arm parallel to the floor and completely fixed — the only movement is the forearm rotating around the elbow joint. Any movement of the upper arm means setup has broken down\n\nELBOW NOTE\n- Safe for the distal triceps tendon — no overhead stretch component. Low risk, but monitor as always\n\nWATCH FOR\n- Upper arm dropping below parallel — re-establish position before continuing\n- Not reaching full extension — partial contraction only\n- Going too heavy — kickbacks require light weight done strictly to be effective'
+    }
+  }],
+
+  // ─── PULL A ───
+  'pla-pullup': [{
+    id: 'pla-pullup-lpd', name: 'Lat Pulldown',
+    note: 'Pronated grip, just outside shoulder width. Pull to upper chest. 0–1 RIR all sets.',
+    cues: {
+      short: ['Pronated grip, just outside shoulder width', 'Slight lean back — chest up to meet the bar', 'Pull bar to upper chest — not behind the neck', 'Drive elbows down toward hips'],
+      full: 'SETUP\n- Adjust the knee pad so thighs are locked in and hips don\'t rise during the pull\n- Pronated grip just outside shoulder width — same as pull-up grip\n- Slight lean back from the hips, chest tall before the first rep\n\nEXECUTION\n- Initiate by depressing the shoulder blades — same cue as the pull-up\n- Drive elbows down toward the hips — "elbows to hips" applies identically\n- Pull the bar to the upper chest — not the chin, not behind the neck\n- Control the return — full extension at the top, shoulder blades fully protracted\n\nTEMPO\n- Eccentric: 2–3s back to full extension. Concentric: strong intent.\n\nKEY CUE\n- "Elbows to hips" — exact same cue as weighted pull-up. The machine removes the bodyweight demand but the movement pattern is identical\n\nWATCH FOR\n- Pulling behind the neck — high cervical spine risk, never do this\n- Excessive lean back — turns it into a row\n- Not reaching full extension at the top — the lat stretch matters\n- Bar path drifting forward — keep it travelling vertically'
+    }
+  }],
+
+  'pla-hs-row': [{
+    id: 'pla-hs-row-scr', name: 'Seated Cable Row (Wide Grip)',
+    note: 'Wide pronated grip. Pull to lower chest. Brief pause. 0–1 RIR all sets.',
+    cues: {
+      short: ['Wide pronated grip attachment — not close neutral', 'Sit tall — no excessive forward lean', 'Pull to lower chest, pause and squeeze', 'Reach into the stretch at full extension'],
+      full: 'SETUP\n- Wide bar or wide pronated grip attachment. Sit with chest tall, slight forward lean — establish and maintain\n- Feet on the platform, slight knee bend\n- The wide pronated grip is what keeps this close to the HS Row stimulus — don\'t use close neutral\n\nEXECUTION\n- Row to the lower chest — brief pause and squeeze at the end position\n- Do not lean back aggressively to help the row — reduce weight if needed\n- Actively reach forward into the stretch at full extension — let shoulder blades protract and feel the mid-back stretching\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Pause at peak: 1s. Concentric: controlled.\n\nKEY CUE\n- Wide pronated grip biases the mid-back and rear delts more than close neutral — this is what makes it a close substitute for the HS Row\n\nWATCH FOR\n- Swinging the torso back — remove momentum\n- Using a close grip — changes the stimulus significantly\n- Not reaching full extension — the stretch is important'
+    }
+  }],
+
+  'pla-facepull': [{
+    id: 'pla-facepull-rpd', name: 'Reverse Pec Dec',
+    note: 'Face the machine. Arms at 90°. Light weight, full ROM. Both sets to failure.',
+    cues: {
+      short: ['Face the machine, chest lightly on pad', 'Arms at 90° to torso — horizontal abduction', 'Light weight — rear delt is the target', 'To failure — both sets'],
+      full: 'SETUP\n- Face the machine with chest lightly against the pad. Adjust arm height so arms are at 90° to the torso at the start\n- Light weight — the rear delt is a small muscle and traps easily dominate under heavier loads\n\nEXECUTION\n- Open the arms wide — horizontal abduction. Think spreading the wings, not pulling backward\n- At the end position, arms should be at roughly 90° to the torso and parallel to the floor\n- Control the return in 2s\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Often easier to isolate the rear delt on this machine than on cables. If you feel it in the traps rather than the back of the shoulder, the weight is too heavy\n\nWATCH FOR\n- Arms rising above 90° at end position — trap takes over\n- Shrugging — depress before each rep\n- Too much weight — rear delt will not be the limiting factor'
+    }
+  }],
+
+  'pla-incline-curl': [{
+    id: 'pla-incline-curl-lcc', name: 'Low Cable Curl (Single Arm)',
+    logType: 'per-arm-alt',
+    note: 'Low pulley. Step away so arm hangs behind body — long-head stretch. Alternate arms. To failure.',
+    cues: {
+      short: ['Low pulley — step well away so arm hangs behind the body', 'Arm behind torso at the bottom — same long-head stretch as incline curl', 'Full supination at the top', 'Alternate arms — each side rests while the other works'],
+      full: 'SETUP\n- Low pulley. Step away from the stack until the arm hangs behind the torso at full extension — not beside it\n- This is the critical position: the cable pulling from behind places the bicep long head in a similar stretched position to the incline curl\n- Stand upright or with a very slight forward lean\n\nEXECUTION\n- Curl from the fully stretched position — upper arm must stay behind the body throughout\n- Full supination at the top — turn the palm fully upward\n- Lower in 2s back to full stretch\n- Alternate arms within the rest period — each side rests while the other works\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth. Pause 1s at the stretched bottom position.\n\nKEY CUE\n- The further you stand from the stack, the more the arm hangs behind the body — this is the long-head stretch advantage. Don\'t stand too close\n\nWATCH FOR\n- Upper arm swinging forward on the concentric — defeats the long-head emphasis\n- Standing too close to the stack — arm doesn\'t get behind the body\n- Not supinating fully at the top'
+    }
+  }],
+
+  'pla-cable-curl': [{
+    id: 'pla-cable-curl-bar', name: 'Barbell Curl',
+    note: 'Shoulder width grip. Full ROM. Supinate hard at top. To failure — both sets.',
+    cues: {
+      short: ['Shoulder width or slightly narrower grip', 'Full extension at the bottom', 'Supinate hard at the top', 'No swinging — to failure'],
+      full: 'SETUP\n- Shoulder width grip or slightly narrower. Stand upright, elbows at sides\n- The straight bar forces full supination throughout, which is a slight advantage over the EZ bar for peak contraction\n\nEXECUTION\n- Lower to full extension at the bottom — unlike the cable, the bar unloads here, so strict form matters more\n- Curl to shoulder height, supinate hard at the top\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth.\n\nKEY CUE\n- Elbows pinned to sides throughout — the moment they drift forward, the shoulders assist and the bicep contraction range shortens\n\nWATCH FOR\n- Swinging the body — reduce weight\n- Elbows drifting forward on the concentric\n- Wrist discomfort — switch to EZ bar if persistent'
+    }
+  }],
+
+  // ─── LEGS A ───
+  'la-squat': [{
+    id: 'la-squat-lp', name: 'Leg Press',
+    note: 'Mid-platform foot position. Full ROM. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR.',
+    cues: {
+      short: ['Mid-platform foot position, shoulder width', 'Full ROM — don\'t cut the bottom short', 'Knees track over toes throughout', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+      full: 'SETUP\n- Feet at mid-platform, shoulder width, toes slightly out — balanced quad and posterior chain loading\n- Back and hips pressed firmly into the pad throughout — never let the hips rise off the seat\n- Unrack and let the weight settle before descending\n\nEXECUTION\n- Descend to full depth — hips should not rise off the pad at the bottom\n- Knees track over toes throughout — actively push them out if they cave\n- Drive through the heels to press the platform away\n- Do not fully lock out the knees at the top\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive.\n\nKEY CUE\n- Feel the weight in the heels — if you feel it in the toes, foot position is too low or depth is cutting the heels off\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Leg press allows heavier loading than squat — don\'t treat it as a light alternative\n\nWATCH FOR\n- Hips rising off the pad — reduces ROM and shifts load to the lower back\n- Knees caving — push them out actively\n- Locking out the knees — keep soft at the top\n- Not reaching adequate depth'
+    }
+  }],
+
+  'la-bss': [{
+    id: 'la-bss-db', name: 'Dumbbell Bulgarian Split Squat',
+    note: 'Same mechanics as machine BSS. Dumbbells at sides. Full depth. 0–1 RIR. REST PER LEG.',
+    cues: {
+      short: ['Same mechanics — rear foot elevated, front foot far forward', 'Dumbbells at sides — brace the core harder than on the machine', 'Full depth — back knee close to the floor', 'REST PER LEG — full rest between each leg'],
+      full: 'SETUP\n- Same setup as the machine BSS: rear foot elevated on a bench, front foot far enough forward that the shin stays vertical at depth\n- Hold dumbbells at sides. Without machine back support, core bracing becomes more important for stability and preventing forward lean\n\nEXECUTION\n- Identical mechanics to the machine version: descend until back knee is close to the floor, front knee tracks over toes, drive through the front heel\n- The dumbbell load limits how heavy you can go — acceptable for a session where the machine is unavailable\n\nTEMPO\n- Eccentric: 2–3s. Concentric: strong drive through the front foot.\n\nKEY CUE\n- Core bracing is more critical here than on the machine — actively engage throughout to prevent the torso falling forward under load\n\nWATCH FOR\n- Front foot too close — same error as machine version\n- Torso falling forward — reduce weight and prioritise bracing\n- Grip failing before the legs — use straps if needed'
+    }
+  }],
+
+  'la-curl': [{
+    id: 'la-curl-seated', name: 'Seated Leg Curl',
+    note: 'Reclined seat maintains hip flexion. Plantarflex. Full ROM. Both sets to failure.',
+    cues: {
+      short: ['Reclined seat position — maintains hip flexion throughout', 'Point toes (plantarflex) throughout', 'Full extension at the bottom before each rep', 'To failure — both sets'],
+      full: 'SETUP\n- Adjust the back pad to a reclined position — this keeps the hip in flexion during the curl, which increases hamstring stretch. This is the key advantage over lying curl\n- Pad just above the ankles. Point toes before starting and maintain throughout\n\nEXECUTION\n- From full extension, curl to full flexion — brief pause\n- Lower in 2s back to full extension\n- Both sets to failure\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- The reclined seat is non-negotiable — an upright seat removes the hip flexion and the associated hamstring stretch benefit. Don\'t use a machine with an upright seat as the substitute\n\nWATCH FOR\n- Seat too upright — loses the hip flexion stretch benefit\n- Toes releasing to neutral under fatigue\n- Hips rising off the seat'
+    }
+  }],
+
+  'la-calf': [{
+    id: 'la-calf-lp', name: 'Leg Press Calf Raise',
+    note: 'Balls of feet on bottom edge only. Full ROM — deep stretch to full elevation. To failure.',
+    cues: {
+      short: ['Balls of feet on bottom edge of platform only', 'Full ROM — heels drop below platform, full elevation at top', 'Vary toe angle across sets', 'To failure — all sets'],
+      full: 'SETUP\n- Slide down so only the balls of the feet are on the bottom edge of the platform — heels must be able to drop below platform level\n- Legs nearly straight, slight knee bend\n\nEXECUTION\n- Drop heels below platform level — deep stretch. This is the primary stimulus, same mechanism as standing raises\n- Push to full plantarflexion at the top, pause 1s\n- Lower in 2s back to the deep stretch, pause 1s\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s in the stretch.\n\nKEY CUE\n- Heels must drop below platform level every rep — a leg press calf raise without the deep stretch is significantly less effective\n\nWATCH FOR\n- Feet sliding up the platform — maintain position\n- Not achieving deep stretch\n- Bending the knees excessively\n- Note: standing raises remain superior per 2023 research — use this only when standing raises are unavailable'
+    }
+  }],
+
+  // ─── PUSH B ───
+  'pb-ohp': [{
+    id: 'pb-ohp-smith', name: 'Smith Machine Overhead Press',
+    note: '90° bench inside Smith. Fixed path — same setup and RIR as DB OHP.',
+    cues: {
+      short: ['Bench at exactly 90° inside the Smith', 'Core braced — no lower back arch', 'Press vertically — fixed path, but maintain tension', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+      full: 'SETUP\n- Position bench inside Smith at exactly 90°. Sit in and grip the bar — adjust bench so bar sits at shoulder height when unracked\n- Brace core before pressing. Feet flat, hips at 90°\n- Fixed bar path removes stability demand — don\'t let form degrade because of it\n\nEXECUTION\n- Press vertically — the Smith guides the bar, ensure the path suits your anatomy\n- Full ROM — lower until upper arms are at or just below parallel\n- Do not lock out fully at the top. Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- Ribs down throughout — if the ribcage flares as you press, the lower back arch has crept in\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR\n\nWATCH FOR\n- Lower back arching off the pad\n- Bar path not vertical for your anatomy — may need to adjust bench position\n- Over-relying on the fixed path and losing muscular tension'
+    }
+  }],
+
+  'pb-pecdec': [{
+    id: 'pb-pecdec-fly', name: 'Cable Fly (High-to-Low)',
+    note: 'Both pulleys high. Arc downward and inward. Prioritise the stretch at the top. Both sets to failure.',
+    cues: {
+      short: ['Both pulleys at the highest position', 'Slight forward lean, staggered stance', 'Arc downward — hands finish at hip/navel height', 'Pause at the open stretch position, squeeze at the bottom'],
+      full: 'SETUP\n- Both pulleys at the highest position. Stand centred between the stacks\n- Slight forward lean from the hips, staggered stance for balance\n- Arms slightly bent — maintain this angle throughout. Not a pressing movement\n\nEXECUTION\n- Start with hands at shoulder height or above, arms open wide — this is the stretch position, don\'t rush through it\n- Arc downward and inward, hands finishing at hip or navel height nearly meeting\n- Pause 1s at the bottom — squeeze the chest\n- Return in 2–3s to the top stretch position — actively reach into the stretch\n\nTEMPO\n- Eccentric: 2–3s. Pause at stretch (top): 1s. Concentric: controlled arc.\n\nKEY CUE\n- The stretch at the top (hands apart, pulleys high, arms open) is where the pec stimulus is — same principle as the pec dec. Own it\n\nWATCH FOR\n- Elbows bending more under fatigue — weight is too heavy\n- Standing too upright — forward lean is needed to direct force correctly\n- Hands finishing too high (at chest level) — they should finish lower, at hip or navel height'
+    }
+  }],
+
+  'pb-pushdown': [{
+    id: 'pb-pushdown-kb', name: 'DB Kickback',
+    note: 'Upper arm parallel to floor and completely still. Extend to full lockout. Pause 1s. To failure.',
+    cues: {
+      short: ['Hinge forward — torso nearly parallel to floor', 'Upper arm parallel to floor and completely still', 'Extend to full lockout — pause 1s', 'To failure — all sets'],
+      full: 'SETUP\n- Same as Push A kickback. Hinge forward until torso is roughly parallel to the floor. Upper arm parallel to floor, pinned to the side of the torso\n- Establish this position before the first rep and hold it throughout\n\nEXECUTION\n- Extend the elbow to full lockout — forearm swings upward and back\n- Pause 1s at full extension — full tricep contraction\n- Lower in 2s back to 90°\n\nTEMPO\n- Eccentric: 2s. Pause at lockout: 1s.\n\nKEY CUE\n- Upper arm parallel to floor and completely still — the only movement is the forearm rotating around the elbow joint\n\nELBOW NOTE\n- Safe for the distal triceps tendon — no overhead stretch component\n\nWATCH FOR\n- Upper arm dropping below parallel\n- Not reaching full extension — partial contraction only\n- Too heavy — kickbacks require light weight done strictly'
+    }
+  }],
+
+  // ─── PULL B ───
+  'plb-pendlay': [{
+    id: 'plb-pendlay-csr', name: 'Chest Supported Row',
+    note: 'Chest on pad throughout. Pronated grip. Pull to lower chest. 0–1 RIR all sets.',
+    cues: {
+      short: ['Chest firmly on pad — removes lower back demand entirely', 'Pronated grip where possible', 'Pull to lower chest — pause and squeeze', 'Reach into the full stretch at the bottom'],
+      full: 'SETUP\n- Adjust the machine or incline bench so the chest is fully supported throughout the movement\n- Pronated grip (or neutral if the machine only offers neutral) — pronated keeps it closer to the Pendlay Row stimulus\n- Arms hanging at full extension before starting\n\nEXECUTION\n- Row to the lower chest — pause briefly and squeeze\n- Chest support removes all lower back demand — focus entirely on mid-back contraction\n- Actively reach into the full stretch at the bottom — let shoulder blades protract fully\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s with active reach. Pause at peak: 1s.\n\nKEY CUE\n- Chest support removes momentum — every rep is honest. Use this to drive better mid-back engagement rather than just moving the weight\n\nWATCH FOR\n- Chest coming off the pad — defeats the purpose\n- Pulling to the upper chest — lower chest contact keeps it mid-back focused\n- Not reaching full extension at the bottom'
+    }
+  }],
+
+  'plb-cable-row': [{
+    id: 'plb-cable-row-sa', name: 'Seated Cable Row (Single Arm)',
+    logType: 'per-arm-full',
+    note: 'Neutral grip handle. Seated. Shoulder blade first, then pull. REST IS PER ARM — full rest between each arm.',
+    cues: {
+      short: ['Neutral grip single-arm handle', 'Sit tall — no excessive lean forward or back', 'Depress shoulder blade FIRST, then bend the arm', 'REST PER ARM — full rest between each arm'],
+      full: 'SETUP\n- Single-arm neutral grip handle. Sit upright with feet on the platform, slight knee bend\n- The seated position is more stable than kneeling — use this stability to focus on the shoulder blade movement\n\nEXECUTION\n- Depress and retract the shoulder blade FIRST — before the arm bends. Same key sequence as the kneeling version\n- Drive the elbow back toward the hip\n- Brief pause at the end position\n- Actively reach into the stretch at full extension — let the shoulder blade protract forward with control\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s with active reach. Pause at peak: 1s.\n\nKEY CUE\n- Shoulder blade initiates — if the arm bends first, the bicep takes over. Feel the scapula moving before the elbow bends\n\nREST PROTOCOL\n- Complete all reps on one arm. Rest the full 2 minutes. Switch. Don\'t go directly arm to arm\n\nWATCH FOR\n- Arm leading before the shoulder blade\n- Torso rotation to assist\n- Leaning back aggressively — keep torso roughly upright'
+    }
+  }],
+
+  'plb-rear-delt': [{
+    id: 'plb-rear-delt-rpd', name: 'Reverse Pec Dec',
+    note: 'Face the machine. Arms at 90°. Light weight, full ROM. Both sets to failure.',
+    cues: {
+      short: ['Face the machine, chest lightly on pad', 'Arms at 90° — horizontal abduction', 'Light weight — rear delt is the target', 'To failure — both sets'],
+      full: 'SETUP\n- Face the machine with chest lightly against the pad. Adjust arm height so arms are at 90° to the torso at the start. Light weight\n\nEXECUTION\n- Open arms wide in horizontal abduction. Control the return in 2s\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Identical to the Pull A reverse pec dec: feel the back of the shoulder working, not the traps. If you feel traps, weight is too heavy\n\nWATCH FOR\n- Arms rising above 90° at end position\n- Shrugging — depress before each rep\n- Too much weight'
+    }
+  }],
+
+  'plb-cable-curl': [{
+    id: 'plb-cable-curl-bar', name: 'Barbell Curl',
+    note: 'Shoulder width grip. Full ROM. Supinate hard at top. To failure — all sets.',
+    cues: {
+      short: ['Shoulder width grip', 'Full extension at the bottom', 'Supinate hard at the top', 'No swinging — to failure'],
+      full: 'SETUP\n- Shoulder width grip or slightly narrower. Elbows pinned to sides before starting\n\nEXECUTION\n- Lower to full extension. Curl to shoulder height, supinate hard at the top. Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth.\n\nKEY CUE\n- Loses the cable\'s constant bottom tension — compensate with strict full extension at the bottom and slow eccentric\n\nWATCH FOR\n- Swinging — reduce weight\n- Elbows drifting forward\n- Wrist discomfort with straight bar — switch to EZ bar if persistent'
+    }
+  }],
+
+  'plb-hammer': [{
+    id: 'plb-hammer-db', name: 'Dumbbell Hammer Curl',
+    note: 'Neutral grip — thumbs up throughout. Full ROM. Both sets to failure.',
+    cues: {
+      short: ['Neutral grip — thumbs pointing up throughout', 'Full extension at the bottom', 'No supination — neutral grip throughout', 'No swinging — to failure'],
+      full: 'SETUP\n- Neutral grip, thumbs up. Stand upright, elbows at sides. This is not a supinated bicep curl — neutral grip is the entire point\n\nEXECUTION\n- Lower to full extension. Curl to shoulder height with thumbs up throughout. No swinging. Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth.\n\nKEY CUE\n- Thumbs up throughout — the moment wrists rotate toward supination, the brachialis emphasis is lost\n\nWATCH FOR\n- Wrists rotating to supinate\n- Swinging — reduce weight\n- Loses cable\'s bottom tension — compensate with strict full extension'
+    }
+  }],
+
+  // ─── LEGS B ───
+  'lb-rdl': [{
+    id: 'lb-rdl-db', name: 'Dumbbell Romanian Deadlift',
+    note: 'Same hip hinge mechanics as barbell. Soft knee, dumbbells close to legs. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR.',
+    cues: {
+      short: ['Same hip hinge mechanics as barbell RDL', 'Dumbbells close to the legs throughout — don\'t let them drift forward', 'Own the hamstring stretch at the bottom', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
+      full: 'SETUP\n- Dumbbells at sides, standing tall. Soft knee bend — establish and maintain\n- Mechanics are identical to barbell RDL. Dumbbells may feel slightly more natural as they hang beside the legs\n\nEXECUTION\n- Push hips back as dumbbells descend. Keep dumbbells close to the legs — don\'t let them drift forward or the lower back absorbs load\n- Descend to a significant hamstring stretch. Pause 1s at the bottom\n- Drive hips forward to return\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled.\n\nKEY CUE\n- "Push hips back to the wall" — same cue as barbell RDL. The hip hinge pattern is identical\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Load is limited by dumbbell availability at heavier weights — the main limitation of this substitute\n\nWATCH FOR\n- Dumbbells drifting forward — keep them beside the legs\n- Knees bending more on the descent\n- Lower back rounding at depth — reduce ROM if this occurs'
+    }
+  }],
+
+  'lb-hack': [{
+    id: 'lb-hack-lp', name: 'Leg Press (High Foot)',
+    note: 'High foot placement — top third of platform. Full ROM. Posterior chain emphasis. 0–1 RIR all sets.',
+    cues: {
+      short: ['High foot placement — top third of the platform', 'Full ROM — don\'t cut depth short', 'Drive through heels — posterior chain emphasis', 'To failure — both sets'],
+      full: 'SETUP\n- High foot placement — top third of the platform. This shifts emphasis to the glutes and hamstrings, matching the posterior emphasis of the hack squat it\'s replacing\n- Feet shoulder width, toes slightly out. Back and hips firmly into the pad\n\nEXECUTION\n- Full ROM — descend until the platform is close to the torso\n- Drive through the heels — feel the glutes and hamstrings working\n- Do not lock out at the top\n\nTEMPO\n- Eccentric: 2–3s. Concentric: strong drive through heels.\n\nKEY CUE\n- High foot placement is critical — mid or low platform shifts to quad dominance, which is not the role of this exercise in this session\n\nWATCH FOR\n- Feet slipping down during the set — check position each set\n- Hips rising off the pad — reduce depth slightly\n- Knees caving — push out actively'
+    }
+  }],
+
+  'lb-legcurl': [{
+    id: 'lb-legcurl-seated', name: 'Seated Leg Curl',
+    logType: 'standard',
+    note: 'Reclined seat for hip flexion. Plantarflex. Full ROM. To failure — all sets.',
+    cues: {
+      short: ['Reclined seat — maintains hip flexion during curl', 'Point toes (plantarflex) throughout', 'Full extension at the bottom before each rep', 'To failure — all sets'],
+      full: 'SETUP\n- Adjust back pad to a reclined position — maintains hip flexion during the curl, providing a hamstring stretch benefit similar to the kneeling version\n- Pad just above the ankles. Point toes before starting — maintain throughout\n\nEXECUTION\n- From full extension, curl to full flexion. Brief pause. Lower in 2s back to full extension. All sets to failure\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- Reclined seat is non-negotiable — upright seat removes the hip flexion and the stretch benefit. Don\'t use a machine with an upright seat\n\nWATCH FOR\n- Seat too upright — loses hip flexion benefit\n- Toes releasing to neutral\n- Hips rising off the seat\n- Note: this is bilateral — trading unilateral focus for bilateral loading. Acceptable for a substitution session'
+    }
+  }],
+
+  'lb-thrust': [{
+    id: 'lb-thrust-bar', name: 'Barbell Hip Thrust',
+    note: 'Upper back on bench, bar with pad across hip crease. Full extension. Pause and squeeze at top. 0–1 RIR.',
+    cues: {
+      short: ['Upper back against bench, bar with pad at hip crease', 'Drive through heels to full hip extension', 'Pause and actively squeeze glutes at the top', 'To failure — all sets'],
+      full: 'SETUP\n- Bench behind you. Upper back rests against the bench edge — lower trap region, not the neck\n- Place a barbell pad across the hip crease. Roll the bar over your legs to position it\n- Feet flat, shoulder width, toes slightly out. Hips below bench level at the start\n\nEXECUTION\n- Drive through heels to full hip extension — hips fully open at the top\n- Pause and actively squeeze the glutes — same pause cue as the machine. Do not bounce\n- Lower in 2s — hips drop back below bench level\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1–2s active squeeze. Concentric: strong drive.\n\nKEY CUE\n- Identical stimulus to the machine — end-range hip extension with glutes maximally contracted at the top. Free weight, same mechanics\n\nWATCH FOR\n- Bar sliding off the pad — ensure pad is secure and centred\n- Upper back slipping down the bench — brace before every rep\n- Hyperextending the lower back at the top — squeeze glutes to reach extension, not by arching\n- Feet too close or far — adjust until glutes are the primary driver'
+    }
+  }],
+
+  'lb-calf': [{
+    id: 'lb-calf-lp', name: 'Leg Press Calf Raise',
+    note: 'Balls of feet on bottom edge only. Full ROM — deep stretch to full elevation. To failure.',
+    cues: {
+      short: ['Balls of feet on bottom edge of platform only', 'Full ROM — heels drop below platform, full elevation at top', 'Vary toe angle across sets', 'To failure — all sets'],
+      full: 'SETUP\n- Same as Legs A leg press calf raise. Balls of feet on bottom edge, heels free to drop below platform level\n- Legs nearly straight, slight knee bend\n\nEXECUTION\n- Drop heels below platform level — deep stretch. Push to full plantarflexion at the top, pause 1s. Lower in 2s, pause 1s at bottom\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s.\n\nKEY CUE\n- Deep stretch is the mechanism — heels must drop below platform level every rep\n\nWATCH FOR\n- Feet sliding up the platform\n- Not achieving deep stretch\n- Note: standing raises remain superior per research — use this only when standing raises are unavailable'
+    }
+  }]
 };
 
 // ═══════════════════════════════════════════════
@@ -2571,6 +2871,50 @@ function resetCycleCounter() {
 
 
 
+// ═══════════════════════════════════════════════
+// ALT EXERCISE HELPERS
+// ═══════════════════════════════════════════════
+
+function getActiveExercise(ex, activeAltIndex) {
+  if (activeAltIndex == null) return ex;
+  const alts = ALTS[ex.id];
+  if (!alts || !alts[activeAltIndex]) return ex;
+  return { ...ex, ...alts[activeAltIndex] };
+}
+
+function findLoggedExInSession(sessionRecord, ex) {
+  if (sessionRecord.exercises[ex.id]) return { id: ex.id, name: ex.name, data: sessionRecord.exercises[ex.id] };
+  const alts = ALTS[ex.id];
+  if (alts) {
+    for (const alt of alts) {
+      if (sessionRecord.exercises[alt.id]) return { id: alt.id, name: alt.name, data: sessionRecord.exercises[alt.id] };
+    }
+  }
+  return null;
+}
+
+function switchAlt(exId) {
+  const session = PROGRAM[state.sessionId];
+  const ex = session.exercises.find(e => e.id === exId);
+  if (!ex) return;
+  const alts = ALTS[ex.id];
+  if (!alts || alts.length === 0) return;
+  const exState = state.current.exercises[exId];
+  if (exState.sets.some(s => s.logged)) {
+    showToast('Unlock sets to switch exercise');
+    return;
+  }
+  const numAlts = alts.length;
+  const current = exState.activeAltIndex ?? null;
+  exState.activeAltIndex = current === null ? 0 : (current + 1 >= numAlts ? null : current + 1);
+  // Clear any pre-filled weights when switching
+  exState.sets = exState.sets.map(() => ({ weight: '', reps: '', logged: false }));
+  exState.activeSet = 0;
+  saveCurrent(state.current);
+  renderExercises();
+  renderCues();
+}
+
 function navigate(view, params = {}) {
   document.querySelectorAll('.view').forEach(v => v.classList.remove('active'));
   document.getElementById('view-' + view).classList.add('active');
@@ -2658,6 +3002,7 @@ function startSession(sessionId) {
     session.exercises.forEach(ex => {
       state.current.exercises[ex.id] = {
         activeSet: 0,
+        activeAltIndex: null,
         sets: Array(ex.sets).fill(null).map(() => ({ weight: '', reps: '', logged: false }))
       };
     });
@@ -2714,19 +3059,24 @@ function renderExercises() {
 
 function renderExerciseCard(ex) {
   const exState = state.current.exercises[ex.id];
+  const activeAltIndex = exState.activeAltIndex ?? null;
+  const activeEx = getActiveExercise(ex, activeAltIndex);
+  const isAlt = activeAltIndex !== null;
+  const hasAlts = !!(ALTS[ex.id] && ALTS[ex.id].length > 0);
+  const anyLogged = exState.sets.some(s => s.logged);
 
-  const sets = Array.from({ length: ex.sets }, (_, i) => {
+  const sets = Array.from({ length: activeEx.sets }, (_, i) => {
     const s = exState.sets[i];
     const isActive = i === exState.activeSet && !s.logged;
     const isLocked = i > exState.activeSet;
     const isCompleted = s.logged;
-    const prev = getPrevSet(state.sessionId, ex.id, i);
+    const prev = getPrevSet(state.sessionId, activeEx.id, i);
 
     let prevHtml = prev
-      ? `<div class="set-prev"><div class="prev-label">Prev</div>${ex.logType === 'hang' ? 'Hold' : `${prev.weight || '—'}${prev.weight ? 'kg' : ''} × ${prev.reps || '—'}`}</div>`
+      ? `<div class="set-prev"><div class="prev-label">Prev</div>${activeEx.logType === 'hang' ? 'Hold' : `${prev.weight || '—'}${prev.weight ? 'kg' : ''} × ${prev.reps || '—'}`}</div>`
       : `<div class="set-prev"><div class="prev-label">Prev</div>—</div>`;
 
-    if (ex.logType === 'hang') {
+    if (activeEx.logType === 'hang') {
       if (isCompleted) {
         return `<div class="set-row completed" data-ex="${ex.id}" data-set="${i}" onclick="unlockSet('${ex.id}', ${i})">
           <div class="set-num">${i + 1}</div>
@@ -2776,11 +3126,18 @@ function renderExerciseCard(ex) {
     </div>`;
   });
 
+  const altBtn = hasAlts
+    ? `<button class="alt-btn${isAlt ? ' active' : ''}${anyLogged ? ' disabled' : ''}" onclick="switchAlt('${ex.id}')">${isAlt ? '↩ Primary' : 'Alt'}</button>`
+    : '';
+
   return `<div class="ex-card" id="card-${ex.id}">
     <div class="ex-card-header">
-      <div class="ex-card-name">${ex.name}</div>
-      <div class="ex-card-note">${ex.repsDisplay} reps · ${formatRest(ex.rest)} rest${ex.note ? ' · ' + ex.note : ''}</div>
-      ${getProgressionHint(ex.id, ex.repsDisplay) ? '<div class="prog-hint">↑ hit top of range last session — add weight</div>' : ''}
+      <div class="ex-card-name-row">
+        <div class="ex-card-name">${activeEx.name}</div>
+        ${altBtn}
+      </div>
+      <div class="ex-card-note">${activeEx.repsDisplay} reps · ${formatRest(activeEx.rest)} rest${activeEx.note ? ' · ' + activeEx.note : ''}</div>
+      ${getProgressionHint(activeEx.id, activeEx.repsDisplay) ? '<div class="prog-hint">↑ hit top of range last session — add weight</div>' : ''}
     </div>
     <div class="set-list">${sets.join('')}</div>
   </div>`;
@@ -2789,19 +3146,25 @@ function renderExerciseCard(ex) {
 function renderCues() {
   const session = PROGRAM[state.sessionId];
   const panel = document.getElementById('cues-panel');
-  panel.innerHTML = session.exercises.map(ex => `
+  panel.innerHTML = session.exercises.map(ex => {
+    const exState = state.current ? state.current.exercises[ex.id] : null;
+    const activeAltIndex = exState ? (exState.activeAltIndex ?? null) : null;
+    const activeEx = getActiveExercise(ex, activeAltIndex);
+    const isAlt = activeAltIndex !== null;
+    return `
     <div class="cue-item open" id="cue-${ex.id}">
       <div class="cue-header" onclick="toggleCue('${ex.id}')">
-        <div class="cue-name">${ex.name}</div>
+        <div class="cue-name">${activeEx.name}${isAlt ? ' <span style="font-size:9px;font-family:\'DM Mono\',monospace;color:var(--warn);letter-spacing:0.08em;text-transform:uppercase;margin-left:6px">alt</span>' : ''}</div>
         <div class="cue-toggle" id="cue-toggle-${ex.id}">hide</div>
       </div>
       <div class="cue-short">
-        <ul>${ex.cues.short.map(c => `<li>${c}</li>`).join('')}</ul>
+        <ul>${activeEx.cues.short.map(c => `<li>${c}</li>`).join('')}</ul>
         <span class="expand-full-btn" id="expand-${ex.id}" onclick="toggleFullCue(event, '${ex.id}')">+ Full Cues</span>
       </div>
-      <div class="cue-full" id="full-${ex.id}">${ex.cues.full}</div>
+      <div class="cue-full" id="full-${ex.id}">${activeEx.cues.full}</div>
     </div>
-  `).join('');
+  `;
+  }).join('');
 }
 
 function toggleCue(exId) {
@@ -2842,23 +3205,26 @@ function logSet(exId, setIndex) {
 
   const session = PROGRAM[state.sessionId];
   const ex = session.exercises.find(e => e.id === exId);
+  const activeEx = getActiveExercise(ex, exState.activeAltIndex ?? null);
 
   // Find next set index for this exercise
   const nextSetIndex = setIndex + 1;
-  const hasNextSet = nextSetIndex < ex.sets;
+  const hasNextSet = nextSetIndex < activeEx.sets;
 
   // Find next exercise's first unlogged set
   const exList = session.exercises;
   const thisExIdx = exList.findIndex(e => e.id === exId);
   let nextExName = null;
   if (!hasNextSet && thisExIdx < exList.length - 1) {
-    nextExName = exList[thisExIdx + 1].name;
+    const nextEx = exList[thisExIdx + 1];
+    const nextExState = state.current.exercises[nextEx.id];
+    const nextActiveEx = getActiveExercise(nextEx, nextExState ? (nextExState.activeAltIndex ?? null) : null);
+    nextExName = nextActiveEx.name;
   }
 
   // Update active set
   if (hasNextSet) {
     exState.activeSet = nextSetIndex;
-    // Pre-fill next set with just-logged weight (user can override; prev session ref still shown as "Prev")
     if (!exState.sets[nextSetIndex].weight) {
       exState.sets[nextSetIndex].weight = weight;
     }
@@ -2875,14 +3241,14 @@ function logSet(exId, setIndex) {
   }, 50);
 
   // Start rest timer if applicable
-  if (ex.rest > 0) {
+  if (activeEx.rest > 0) {
     let nextLabel = '';
     if (hasNextSet) {
-      nextLabel = `Set ${nextSetIndex + 1} — ${ex.repsDisplay} reps · ${weight}kg`;
+      nextLabel = `Set ${nextSetIndex + 1} — ${activeEx.repsDisplay} reps · ${weight}kg`;
     } else if (nextExName) {
       nextLabel = `Next: ${nextExName}`;
     }
-    startRestTimer(ex.rest, nextLabel);
+    startRestTimer(activeEx.rest, nextLabel);
   }
 }
 
@@ -2970,8 +3336,9 @@ function saveCompletedSession() {
 
   session.exercises.forEach(ex => {
     const exState = state.current.exercises[ex.id];
-    completed.exercises[ex.id] = {
-      name: ex.name,
+    const activeEx = getActiveExercise(ex, exState.activeAltIndex ?? null);
+    completed.exercises[activeEx.id] = {
+      name: activeEx.name,
       sets: exState.sets.filter(s => s.logged)
     };
   });
@@ -3206,13 +3573,13 @@ function showCompleteOverlay(completed) {
 
   let summaryHtml = '';
   session.exercises.forEach(ex => {
-    const logged = completed.exercises[ex.id];
-    if (!logged || logged.sets.length === 0) return;
-    const setsStr = logged.sets.map(s =>
+    const found = findLoggedExInSession(completed, ex);
+    if (!found || found.data.sets.length === 0) return;
+    const setsStr = found.data.sets.map(s =>
       s.weight ? `${s.weight}×${s.reps}` : 'Done'
     ).join(' / ');
     summaryHtml += `<div class="complete-ex">
-      <div class="complete-ex-name">${ex.name}</div>
+      <div class="complete-ex-name">${found.name}</div>
       <div class="complete-ex-sets">${setsStr}</div>
     </div>`;
   });
@@ -3300,8 +3667,9 @@ function renderSessionHistory() {
 
     let exHtml = '';
     session_def.exercises.forEach(ex => {
-      const logged = session.exercises[ex.id];
-      if (!logged || logged.sets.length === 0) return;
+      const found = findLoggedExInSession(session, ex);
+      if (!found || found.data.sets.length === 0) return;
+      const { id: loggedId, name: loggedName, data: logged } = found;
       const chips = logged.sets.map(s =>
         `<span class="hist-set-chip">${s.weight ? s.weight + '×' + s.reps : 'Done'}</span>`
       ).join('');
@@ -3309,7 +3677,7 @@ function renderSessionHistory() {
           let count = 0;
           for (const s of history) {
             if (s.isDeload) continue;
-            const e = s.exercises[ex.id];
+            const e = s.exercises[loggedId];
             if (!e) continue;
             const hasWeight = e.sets.some(st => st.logged && parseFloat(st.weight) > 0);
             if (hasWeight && ++count >= 2) return true;
@@ -3318,7 +3686,7 @@ function renderSessionHistory() {
         })();
         const chartIcon = hasChart ? `<svg class="chart-tap-icon" width="13" height="13" viewBox="0 0 13 13" fill="none" xmlns="http://www.w3.org/2000/svg"><polyline points="1,10 3.5,6.5 6.5,8 9.5,3.5 12,5.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></svg>` : '';
         exHtml += `<div class="hist-ex">
-        <div class="hist-ex-name" onclick="openExChart('${ex.id}', '${ex.name}')">${ex.name}${chartIcon}</div>
+        <div class="hist-ex-name" onclick="openExChart('${loggedId}', '${loggedName}')">${loggedName}${chartIcon}</div>
         <div class="hist-ex-sets">${chips}</div>
       </div>`;
     });
@@ -3432,10 +3800,10 @@ function exportData() {
     if (!session_def) return;
     text += `${session.sessionName.toUpperCase()}${session.isDeload ? ' [DELOAD]' : ''} — ${formatDate(session.timestamp)} — ${formatDuration(session.duration)}\n`;
     session_def.exercises.forEach(ex => {
-      const logged = session.exercises[ex.id];
-      if (!logged || logged.sets.length === 0) return;
-      const setsStr = logged.sets.map(s => s.weight ? `${s.weight}×${s.reps}` : 'Done').join(' / ');
-      text += `  ${ex.name}: ${setsStr}\n`;
+      const found = findLoggedExInSession(session, ex);
+      if (!found || found.data.sets.length === 0) return;
+      const setsStr = found.data.sets.map(s => s.weight ? `${s.weight}×${s.reps}` : 'Done').join(' / ');
+      text += `  ${found.name}: ${setsStr}\n`;
     });
     if (session.notes) text += `  Notes: ${session.notes}\n`;
     text += '\n';
