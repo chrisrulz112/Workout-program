@@ -1300,6 +1300,9 @@ input { font-family: 'DM Sans', sans-serif; }
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
+.session-card.optional-card {
+  grid-column: 1 / -1;
+}
 
 /* Program view */
 .program-tabs-wrap {
@@ -1863,7 +1866,7 @@ input { font-family: 'DM Sans', sans-serif; }
   <!-- ─── HOME ─── -->
   <div id="view-home" class="view active">
     <div class="home-header">
-      <div class="home-eyebrow">8-Day Rotating Cycle</div>
+      <div class="home-eyebrow">Upper / Lower Split</div>
       <div class="home-title"><span>Training</span></div>
     </div>
     <div class="home-body">
@@ -1889,50 +1892,43 @@ input { font-family: 'DM Sans', sans-serif; }
       <div class="section-label">Cycle Structure</div>
       <div class="cycle-wrap">
         <div class="cycle-row">
-          <div class="cycle-cell push"><span class="day-num">D1</span>Push A</div>
-          <div class="cycle-cell pull"><span class="day-num">D2</span>Pull A</div>
-          <div class="cycle-cell legs"><span class="day-num">D3</span>Legs A</div>
-          <div class="cycle-cell rest"><span class="day-num">D4</span>Rest</div>
+          <div class="cycle-cell push"><span class="day-num">D1</span>Upper A</div>
+          <div class="cycle-cell legs"><span class="day-num">D2</span>Lower A</div>
+          <div class="cycle-cell rest"><span class="day-num">D3</span>Rest</div>
         </div>
         <div class="cycle-row">
-          <div class="cycle-cell push"><span class="day-num">D5</span>Push B</div>
-          <div class="cycle-cell pull"><span class="day-num">D6</span>Pull B</div>
-          <div class="cycle-cell legs"><span class="day-num">D7</span>Legs B</div>
-          <div class="cycle-cell rest"><span class="day-num">D8</span>Rest</div>
+          <div class="cycle-cell push"><span class="day-num">D4</span>Upper B</div>
+          <div class="cycle-cell legs"><span class="day-num">D5</span>Lower B</div>
+          <div class="cycle-cell rest"><span class="day-num">D6</span>Rest</div>
         </div>
       </div>
 
       <div class="section-label">Sessions</div>
       <div class="session-grid">
-        <div class="session-card push" id="scard-push-a" onclick="startSession('push-a')">
-          <div class="card-name">Push A</div>
-          <div class="card-subtitle">Chest Primary</div>
-          <div class="card-meta"><span>5 ex</span><span>·</span><span>52–58m</span></div>
+        <div class="session-card push" id="scard-upper-a" onclick="startSession('upper-a')">
+          <div class="card-name">Upper A</div>
+          <div class="card-subtitle">Chest / Back / Delts</div>
+          <div class="card-meta"><span>8 ex</span><span>·</span><span>75–85m</span></div>
         </div>
-        <div class="session-card pull" id="scard-pull-a" onclick="startSession('pull-a')">
-          <div class="card-name">Pull A</div>
-          <div class="card-subtitle">Back (Vertical)</div>
-          <div class="card-meta"><span>7 ex</span><span>·</span><span>55–62m</span></div>
+        <div class="session-card legs" id="scard-lower-a" onclick="startSession('lower-a')">
+          <div class="card-name">Lower A</div>
+          <div class="card-subtitle">Quad Bias</div>
+          <div class="card-meta"><span>6 ex</span><span>·</span><span>60–70m</span></div>
         </div>
-        <div class="session-card legs" id="scard-legs-a" onclick="startSession('legs-a')">
-          <div class="card-name">Legs A</div>
-          <div class="card-subtitle">Quad Primary</div>
-          <div class="card-meta"><span>5 ex</span><span>·</span><span>55–63m</span></div>
+        <div class="session-card push" id="scard-upper-b" onclick="startSession('upper-b')">
+          <div class="card-name">Upper B</div>
+          <div class="card-subtitle">Chest / Back / Arms</div>
+          <div class="card-meta"><span>8 ex</span><span>·</span><span>75–85m</span></div>
         </div>
-        <div class="session-card push" id="scard-push-b" onclick="startSession('push-b')">
-          <div class="card-name">Push B</div>
-          <div class="card-subtitle">Shoulders Primary</div>
-          <div class="card-meta"><span>5 ex</span><span>·</span><span>52–58m</span></div>
+        <div class="session-card legs" id="scard-lower-b" onclick="startSession('lower-b')">
+          <div class="card-name">Lower B</div>
+          <div class="card-subtitle">Hamstring Bias</div>
+          <div class="card-meta"><span>6 ex</span><span>·</span><span>55–65m</span></div>
         </div>
-        <div class="session-card pull" id="scard-pull-b" onclick="startSession('pull-b')">
-          <div class="card-name">Pull B</div>
-          <div class="card-subtitle">Back (Horizontal)</div>
-          <div class="card-meta"><span>7 ex</span><span>·</span><span>56–64m</span></div>
-        </div>
-        <div class="session-card legs" id="scard-legs-b" onclick="startSession('legs-b')">
-          <div class="card-name">Legs B</div>
-          <div class="card-subtitle">Hip / Hamstring</div>
-          <div class="card-meta"><span>5 ex</span><span>·</span><span>56–65m</span></div>
+        <div class="session-card pull optional-card" id="scard-upper-optional" onclick="startSession('upper-optional')">
+          <div class="card-name">Upper Optional</div>
+          <div class="card-subtitle">Specialisation — Chest / Lats / Delts / Biceps</div>
+          <div class="card-meta"><span>5 ex</span><span>·</span><span>40–50m</span></div>
         </div>
       </div>
 
@@ -1984,21 +1980,22 @@ input { font-family: 'DM Sans', sans-serif; }
     <!-- Volume panel -->
     <div id="prog-volume" class="prog-panel">
       <div class="prog-body">
-        <div class="section-label" style="margin-bottom:14px">Weekly Volume — Cycle Sets × 7/8</div>
+        <div class="section-label" style="margin-bottom:14px">Weekly Volume — Per 6-Day Cycle</div>
         <div class="vol-grid">
-          <div class="vol-card-app"><div class="vol-m">Chest</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:68%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~9.6</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Side Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:70%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~7</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Rear Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:30%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~3.5</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">+ indirect via rows ~4–6</div></div>
-          <div class="vol-card-app"><div class="vol-m">Upper Traps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:42%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~3.5</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s ok">Approaching MEV</div></div>
-          <div class="vol-card-app"><div class="vol-m">Triceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:62%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~5.25</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">+ compound adds ~3–5</div></div>
-          <div class="vol-card-app"><div class="vol-m">Back (Lats + Mid)</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:84%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~10.5</span><span class="vol-t">MEV ~10 · MRV ~25</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Biceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:70%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~8.75</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Quads</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:72%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~8.75</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Hamstrings</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:58%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~7</span><span class="vol-t">MEV ~6 · MRV ~18</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Glutes</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:52%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~5.25</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Calves</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:45%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~5.25</span><span class="vol-t">MEV ~6 · MRV ~16</span></div><div class="vol-s ok">Approaching MEV</div></div>
+          <div class="vol-card-app"><div class="vol-m">Chest</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:75%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~10</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Side Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:78%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~8</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Rear Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:55%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~6</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Upper Traps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:50%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Triceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:55%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">+ compound adds ~4–6</div></div>
+          <div class="vol-card-app"><div class="vol-m">Back (Lats + Mid)</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:82%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~10</span><span class="vol-t">MEV ~10 · MRV ~25</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Biceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:72%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~9</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Quads</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:70%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~9</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Hamstrings</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:72%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~9</span><span class="vol-t">MEV ~6 · MRV ~18</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Glutes</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:55%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~5</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Calves</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:62%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~6</span><span class="vol-t">MEV ~6 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Abs / Core</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:50%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
         </div>
-        <div class="vol-legend">MEV = Minimum Effective Volume · MRV = Maximum Recoverable Volume · Israetel et al.</div>
+        <div class="vol-legend">MEV = Minimum Effective Volume · MRV = Maximum Recoverable Volume · Israetel et al. · Optional session adds ~2–3 sets per targeted muscle</div>
       </div>
     </div>
 
@@ -2014,17 +2011,19 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="cn-item open" id="cn-cycle">
           <div class="cn-header" onclick="toggleCN('cycle')"><span class="cn-title">Cycle Structure</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
-            <p>The program runs on an 8-day rotating cycle — Push / Pull / Legs / Rest / Push / Pull / Legs / Rest — deliberately de-coupled from the calendar week. Training frequency is driven by recovery, not the calendar.</p>
-            <p style="margin-top:10px">Three consecutive PPL days is tolerable because each session targets largely non-overlapping muscle groups. Each muscle is trained approximately every 4 days — closer to twice-weekly frequency than once.</p>
+            <p>The program runs on a 6-day rotating cycle — Upper A / Lower A / Rest / Upper B / Lower B / Rest — de-coupled from the calendar week. Training frequency is driven by recovery, not the calendar.</p>
+            <p style="margin-top:10px">Each muscle group is trained twice per cycle (every ~6 days), hitting both an A and B variant with different primary exercises and emphases. Upper sessions cover chest, back, delts, and arms. Lower sessions cover quads, hamstrings, glutes, calves, and core.</p>
+            <p style="margin-top:10px">The Optional Upper session is a low-intensity specialisation session (~2 RIR every set). Run it when recovery allows — between Lower B and the next Upper A, or as a standalone extra. It does not count toward the deload cycle counter.</p>
             <div class="cn-callout">If you miss a session, pick up exactly where you left off. Never cram two sessions into one day to catch up, and never skip a session to stay calendar-aligned.</div>
           </div>
         </div>
 
         <div class="cn-item" id="cn-intensity">
-          <div class="cn-header" onclick="toggleCN('intensity')"><span class="cn-title">Intensity — Compounds vs Isolations</span><span class="cn-arrow">›</span></div>
+          <div class="cn-header" onclick="toggleCN('intensity')"><span class="cn-title">Intensity — RIR Targets</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
-            <p>Compounds: graduated RIR across sets — S1 at 2–3 RIR, S2 at 1–2 RIR, S3 at 0–1 RIR. Stop one rep before technical breakdown. Form breakdown on a heavy squat or RDL is where injuries happen.</p>
-            <p style="margin-top:10px">Isolations: true failure (0 RIR) across all sets. Failure on a leg extension, cable curl, or lateral raise carries no meaningful injury risk and maximises the stimulus-to-fatigue ratio.</p>
+            <p>This program uses per-set RIR targets rather than a single blanket prescription. Heavy compounds use a graduated approach (e.g. 2/2/1 across S1–S3). Isolation work typically finishes at 0–1 RIR on the final set.</p>
+            <p style="margin-top:10px">Check the note on each exercise card for the specific RIR target per set. The Optional session runs all exercises at approximately 2 RIR — it is volume accumulation, not a grinding session.</p>
+            <p style="margin-top:10px">Stop one rep before technical breakdown on heavy compounds. Form breakdown on a squat, RDL, or bench press is where injuries happen — never grind a technical failure on a barbell compound.</p>
           </div>
         </div>
 
@@ -2035,7 +2034,7 @@ input { font-family: 'DM Sans', sans-serif; }
             <ul class="cn-list">
               <li>Hit the top of the rep range across all sets at the prescribed RIR → add weight next session (2.5kg upper / 5kg lower)</li>
               <li>Adding weight drops you back to the lower end of the range — work back up over subsequent sessions</li>
-              <li>For high-rep isolations (15–20), use smaller increments where plates aren't practical</li>
+              <li>For high-rep isolations (15–25), use smaller increments where plates aren't practical</li>
               <li>For unilateral movements, let the weaker side determine the load</li>
             </ul>
           </div>
@@ -2044,7 +2043,7 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="cn-item" id="cn-calves">
           <div class="cn-header" onclick="toggleCN('calves')"><span class="cn-title">Calf Training</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
-            <p>Both leg sessions use standing raises exclusively. 2023 research found standing raises produced significantly greater gastrocnemius hypertrophy than seated, while soleus growth was comparable between both.</p>
+            <p>Both lower sessions use standing calf raises. 2023 research found standing raises produced significantly greater gastrocnemius hypertrophy than seated, while soleus growth was comparable between both.</p>
             <div class="cn-callout">Vary toe angle across sets: neutral covers both heads evenly, toes slightly out biases the medial head, toes slightly in biases the lateral head.</div>
           </div>
         </div>
@@ -2052,8 +2051,9 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="cn-item" id="cn-elbow">
           <div class="cn-header" onclick="toggleCN('elbow')"><span class="cn-title">Elbow Management</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
-            <p>Overhead tricep extension has been removed entirely — the overhead stretched position under load is the primary aggravating mechanism for the right distal triceps tendon. Rope pushdowns are the sole direct tricep isolation, loading the tricep at a comfortable angle.</p>
-            <p style="margin-top:10px">Monitor elbow response to accumulated push volume. If irritation increases, reduce pushdown sets first. Consider a sports physio for a specific eccentric loading protocol — tendons require progressive load to remodel.</p>
+            <p>Rope pushdown is the primary tricep isolation in both upper sessions, loading the tricep at a comfortable angle without an overhead stretched position.</p>
+            <p style="margin-top:10px">Overhead tricep extension is available as an alternate — but only when the right elbow is completely symptom-free. It is the primary aggravating mechanism for the right distal triceps tendon and must not be used at any sign of irritation.</p>
+            <p style="margin-top:10px">Monitor elbow response to accumulated push volume across the cycle. If irritation increases, reduce pushdown sets first before making any other changes.</p>
           </div>
         </div>
 
@@ -2069,8 +2069,8 @@ input { font-family: 'DM Sans', sans-serif; }
               <li>Rest 2 minutes after the final warm-up set, then begin working sets.</li>
             </ul>
             <p style="margin-top:10px">Secondary compounds later in the session — 1 lighter set only. Isolations — nothing needed.</p>
-            <p style="margin-top:10px"><strong style="color:var(--text)">Pull-up warm-up (specific):</strong> bodyweight is ~95% of working weight at current +5kg loading, so a full pyramid would arrive at near-working intensity. Instead: 1 set scapular pulls (8–10 reps) + 3–4 bodyweight pull-ups at easy effort. Straight into weighted sets.</p>
-            <p style="margin-top:10px"><strong style="color:var(--text)">Cardio:</strong> after Push or Pull sessions only — never after Legs. 15–20 min, 2–3× per week.</p>
+            <p style="margin-top:10px"><strong style="color:var(--text)">Pull-up warm-up (specific):</strong> bodyweight is ~95% of working weight at current loading, so a full pyramid would arrive at near-working intensity. Instead: 1 set scapular pulls (8–10 reps) + 3–4 bodyweight pull-ups at easy effort. Straight into weighted sets.</p>
+            <p style="margin-top:10px"><strong style="color:var(--text)">Cardio:</strong> after Upper sessions only — never after Lower. 15–20 min, 2–3× per week.</p>
             <div class="cn-callout">Incline: 10–12% · Speed: 5.5–6.5 km/h · Duration: 15–20 min. If resistance session quality declines, trim cardio to 12–15 min before touching the resistance program.</div>
           </div>
         </div>
@@ -2079,7 +2079,7 @@ input { font-family: 'DM Sans', sans-serif; }
           <div class="cn-header" onclick="toggleCN('deload')"><span class="cn-title">Deload Protocol</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
             <p>After every 4–5 cycles (~5–6 weeks), run a deload. Keep all exercises — reduce every session to 1–2 sets per exercise and drop load by 30–40%.</p>
-            <p style="margin-top:10px">Not optional at advanced training intensity. Accumulated joint and central fatigue blunts progress and increases injury risk. The distal triceps tendon specifically benefits from unloading regardless of current symptom status.</p>
+            <p style="margin-top:10px">Not optional at advanced training intensity. Accumulated joint and central fatigue blunts progress and increases injury risk. The deload cycle counter tracks the 4 main sessions only — the optional session does not count toward it.</p>
           </div>
         </div>
 
@@ -2194,309 +2194,295 @@ input { font-family: 'DM Sans', sans-serif; }
 // ═══════════════════════════════════════════════
 
 const PROGRAM = {
-  'push-a': {
-    id: 'push-a', name: 'Push A', subtitle: 'Chest Primary', type: 'push',
+  'upper-a': {
+    id: 'upper-a', name: 'Upper A', subtitle: 'Chest / Back / Delts', type: 'push',
     exercises: [
       {
-        id: 'pa-bench', name: 'Barbell Bench Press', sets: 3, repsDisplay: '4–6', rest: 180, logType: 'standard',
-        note: 'Flat. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Maintain technique throughout.',
+        id: 'ua-incpress', name: 'Low-Incline DB Press', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: '15–30° incline. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR. Upper chest, not front delts.',
         cues: {
-          short: ['Retract and depress shoulder blades before unracking', 'Bar to mid-chest — full ROM every rep', 'Slight elbow tuck on descent — not flared', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-          full: 'SETUP\n- Grip just outside shoulder width — forearms vertical when bar touches chest\n- Natural arch, not exaggerated. Feet flat on floor, leg drive active throughout\n- Retract and depress shoulder blades hard into the bench before unracking — hold this position for the entire set\n- Eyes under the bar. Unrack with straight arms, walk out minimally\n\nEXECUTION\n- Lower to mid-chest in 2–3s, controlled. Slight elbow tuck — not flared 90°, not tucked fully\n- Brief touch at the bottom — no bounce, no pause\n- Press in a slight arc back toward the rack, not straight up\n- Maintain leg drive and upper back tightness on every rep\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent. No pause at top.\n\nKEY CUE\n- Imagine trying to bend the bar into a U shape — this cues lat engagement and keeps the elbows from flaring\n\nRIR\n- S1: 2–3 RIR — heavy primer, crisp technique. S2: 1–2 RIR — genuine work. S3: 0–1 RIR — push hard but stop before form breaks\n- Never grind a technical failure on a barbell compound\n\nWATCH FOR\n- Shoulder blades losing tightness mid-set — re-cue between reps if needed\n- Butt coming off the bench under heavy loads\n- Bar drifting toward the face on the press — keep the arc consistent\n- Elbow note: slight tuck can reduce distal triceps tendon strain if irritation arises under heavy loads'
+          short: ['15–30° bench angle — lower than standard incline', 'Own the deep chest stretch at the bottom', 'Press to peak without fully locking out', 'S1: 2 RIR / S2: 2 RIR / S3: 1 RIR'],
+          full: 'SETUP\n- Bench at 15–30°. This lower angle than a standard incline targets the upper chest while maintaining a strong pec stretch without front delt dominance\n- Dumbbells at shoulder height, elbows slightly forward of the torso\n- Retract shoulder blades slightly before the first rep and hold throughout\n\nEXECUTION\n- Lower with control until you feel a deep upper chest stretch — this is the primary stimulus\n- Do not cut the bottom short. The lengthened position under load is the point\n- Press back up without fully locking out — keeps tension on the chest throughout\n\nTEMPO\n- Eccentric: 2–3s with intent — actively feel the stretch increasing. Concentric: controlled but firm.\n\nKEY CUE\n- Think about spreading the dumbbells apart on the way down — this cues the chest stretch rather than just dropping the weight\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Front delts dominating — if you feel it in the shoulder more than the chest, bench angle is too high or weight is too heavy\n- Bench above 30° — shifts stimulus toward front delts\n- Dumbbells drifting out of alignment — keep a consistent arc each rep'
         }
       },
       {
-        id: 'pa-incline', name: 'Incline Dumbbell Press', sets: 3, repsDisplay: '8–12', rest: 120, logType: 'standard',
-        note: '30–45°. Full ROM — the stretch at the bottom is the stimulus. 0–1 RIR all sets.',
-        cues: {
-          short: ['30–45° bench angle — not higher', 'Own the deep stretch at the bottom', 'Press to peak without fully locking out', 'To failure — upper chest, not front delts'],
-          full: 'SETUP\n- Bench at 30–45°. Higher than 45° shifts stimulus to front delts — not the goal\n- Dumbbells at shoulder height, elbows slightly forward of the line of the bar\n- Retract shoulder blades slightly before the first rep\n\nEXECUTION\n- Lower with control until you feel a deep upper chest stretch — this is where the stimulus lives\n- Do not cut the bottom short. The lengthened position under load is the point of this exercise\n- Press back up without fully locking out — keeps tension on the chest\n\nTEMPO\n- Eccentric: 2–3s with intent — actively feel the stretch increasing. Concentric: controlled but firm.\n\nKEY CUE\n- Think about spreading the dumbbells apart on the way down — this cues the chest stretch rather than just dropping the weight\n\nWATCH FOR\n- Front delts dominating — if you feel it more in the shoulder than the chest, reduce weight and slow the eccentric\n- Elbows flaring excessively wide — slight tuck is fine\n- Dumbbells drifting out of alignment — keep a consistent path each rep'
-        }
-      },
-      {
-        id: 'pa-fly', name: 'Cable Fly (Low-to-High)', sets: 2, repsDisplay: '12–15', rest: 90, logType: 'standard',
-        note: 'Upper chest arc. Arms slightly bent. Squeeze at top. Both sets to failure.',
-        cues: {
-          short: ['Both pulleys at floor level', 'Slight forward lean, staggered stance', 'Arc upward — hands finish above shoulder height', 'Arms slightly bent — fixed throughout, pause and squeeze at top'],
-          full: 'SETUP\n- Both pulleys at lowest position. Stand centred between the stacks\n- Slight forward lean from the hips, soft knees, staggered stance for balance\n- Arms slightly bent — lock this angle in and maintain it for the entire set. This is not a pressing movement\n\nEXECUTION\n- Start with hands at hip level. Arc upward and inward in a wide curve\n- Hands finish above chest height, nearly meeting at the top\n- Think hugging a large barrel — the arc is the movement\n- Pause 1s at the top and actively squeeze the upper chest fibres\n\nTEMPO\n- Eccentric: 2–3s back to start. Actively reach into the stretch at the bottom — don\'t just let the weight pull you back.\n\nKEY CUE\n- Lead with the elbows, not the hands — if you think about the hands meeting, you tend to bend the arms too much and lose the chest stretch\n\nWATCH FOR\n- Elbows bending more as fatigue sets in — this turns it into a press and removes the chest stretch\n- Shoulders shrugging up at the top\n- Standing too upright — the forward lean is necessary to direct force correctly'
-        }
-      },
-      {
-        id: 'pa-lateral', name: 'Cable Lateral Raise (Single-Arm)', sets: 3, repsDisplay: '15–20', rest: 60, logType: 'per-arm-alt',
-        note: 'Low pulley. Lead with elbow, no momentum. 0 RIR. Alternate arms within the rest period.',
-        cues: {
-          short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within rest period — to failure'],
-          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow — the hand just follows. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top — internal rotation cue for lateral head engagement\n- Lower in 2–3s back to the starting position — don\'t let the arm drop\n- Alternate arms within the rest period: one arm works while the other rests. No additional rest needed between sides\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum in either direction.\n\nKEY CUE\n- Cable provides constant tension at the bottom unlike a dumbbell — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight if this happens\n- Raising above shoulder height — trap recruitment spikes significantly past this point\n- Shrugging the working shoulder up — actively depress throughout'
-        }
-      },
-      {
-        id: 'pa-pushdown', name: 'Cable Tricep Pushdown (Rope)', sets: 3, repsDisplay: '12–15', rest: 90, logType: 'standard',
-        note: 'Flare hands at the bottom for full contraction. All sets to failure.',
-        cues: {
-          short: ['Pulley at highest position', 'Upper arms pinned to sides — non-negotiable', 'Flare hands outward at full extension', 'Own the stretch at the top — to failure'],
-          full: 'SETUP\n- Pulley at highest position. Rope attachment, grip one end in each hand\n- Stand close to the stack with a slight forward lean from the hips\n- Upper arms pinned to sides before the first rep — establish this position and hold it throughout\n\nEXECUTION\n- Push the rope down by extending the elbows — upper arms stay completely still\n- As you approach full extension, flare hands outward — palms face the floor, hands apart at the bottom\n- Pause briefly at full extension — feel the tricep fully contracted\n- Return in 2–3s, allowing the rope to rise toward the chest. Own the stretch at the top\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled.\n\nKEY CUE\n- The flare at the bottom is what separates a good pushdown from a mediocre one — the medial head of the tricep can only fully contract when the hands are pronated and spread apart\n\nELBOW NOTE\n- This movement loads the tricep at a comfortable angle. Monitor for any distal tendon irritation under accumulated push volume, though risk is low\n\nWATCH FOR\n- Elbows drifting forward as the weight rises — the moment elbows leave the sides, the shoulders take over\n- Not fully flaring at the bottom — partial contraction only\n- Rushing the eccentric — the stretch at the top matters'
-        }
-      }
-    ]
-  },
-
-  'pull-a': {
-    id: 'pull-a', name: 'Pull A', subtitle: 'Back Primary (Vertical)', type: 'pull',
-    exercises: [
-      {
-        id: 'pla-pullup', name: 'Weighted Pull-Up', sets: 3, repsDisplay: '5–8', rest: 180, logType: 'standard',
-        note: 'Pronated grip. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Sub lat pulldown if needed. Log added weight only.',
+        id: 'ua-pullup', name: 'Weighted Pull-Up', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: 'Pronated grip. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR. Log added weight only.',
         cues: {
           short: ['Pronated grip, just outside shoulder width', 'Full dead hang at the bottom every rep', 'Drive elbows down toward hips — not just pulling with arms', 'Chin clears the bar at top'],
-          full: 'SETUP\n- Pronated grip, hands just outside shoulder width\n- Warm-up: 1 set scapular pulls (dead hang, depress and retract shoulder blades without bending arms, 8–10 reps), then 3–4 bodyweight pull-ups at easy effort — technique primers, not working sets\n- Attach weight via belt or vest. Log added weight only — bodyweight is the constant baseline\n\nEXECUTION\n- Start from a full dead hang — no kipping, no partial ROM\n- Initiate by depressing the shoulder blades, then drive elbows down toward your hips\n- Chest up, slight lean back — this keeps the lats engaged rather than the biceps taking over\n- Pull until chin clears the bar\n- Lower in 2–3s back to full dead hang\n\nTEMPO\n- Eccentric: 2–3s controlled descent to full hang. Concentric: strong intent.\n\nKEY CUE\n- Think "elbows to hips" not "hands to bar" — this one shift dramatically changes lat recruitment\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. If bodyweight alone puts you in this range, drop the added weight\n\nWATCH FOR\n- Cutting the bottom short — partial dead hangs reduce ROM and lat stretch\n- Chin not clearing the bar — full rep standard, not optional\n- Kipping or using momentum — adds load to the shoulder at end range'
+          full: 'SETUP\n- Pronated grip, hands just outside shoulder width\n- Warm-up: 1 set scapular pulls (dead hang, depress and retract shoulder blades without bending arms, 8–10 reps), then 3–4 bodyweight pull-ups at easy effort — technique primers, not working sets\n- Attach weight via belt or vest. Log added weight only — bodyweight is the constant baseline\n\nEXECUTION\n- Start from a full dead hang — no kipping, no partial ROM\n- Initiate by depressing the shoulder blades, then drive elbows down toward your hips\n- Chest up, slight lean back — keeps the lats engaged rather than the biceps taking over\n- Pull until chin clears the bar\n- Lower in 2–3s back to full dead hang\n\nTEMPO\n- Eccentric: 2–3s controlled descent to full hang. Concentric: strong intent.\n\nKEY CUE\n- Think "elbows to hips" not "hands to bar" — this shift dramatically changes lat recruitment\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR. If bodyweight alone puts you in this range, drop the added weight\n\nWATCH FOR\n- Cutting the bottom short — partial dead hangs reduce ROM and lat stretch\n- Chin not clearing the bar — full rep standard, not optional\n- Kipping or using momentum — adds load to the shoulder at end range'
         }
       },
       {
-        id: 'pla-hs-row', name: 'Hammer Strength Iso-Lateral Row', sets: 3, repsDisplay: '8–12', rest: 120, logType: 'standard',
-        note: 'Pronated grip. Both arms simultaneously. Pull to lower chest. Brief pause. 0–1 RIR all sets.',
+        id: 'ua-hsrow', name: 'Hammer Strength Supported Row', sets: 2, repsDisplay: '8–12', rest: 120, logType: 'standard',
+        note: 'Pronated grip. Both arms simultaneously. Pull to lower chest. S1: 2 RIR · S2: 1 RIR.',
         cues: {
           short: ['Chest firmly on pad throughout', 'Pull to lower chest — not upper chest', 'Pause and squeeze at the peak', 'Actively reach into the stretch at the bottom'],
-          full: 'SETUP\n- Pronated grip handles. Adjust seat so handles are at lower chest height when arms are extended\n- Chest pressed firmly into the pad — maintain this contact throughout\n- Both arms work simultaneously, not alternating\n\nEXECUTION\n- Row both arms back, pulling to lower chest. Brief 1s pause and squeeze at the peak\n- Actively reach forward into the stretch at the bottom — don\'t passively let the weight drop. The machine may have a dead spot at full extension where load drops off; push through it\n- Control the eccentric in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s. Pause at peak: 1s. Concentric: controlled but firm.\n\nKEY CUE\n- Think about driving the elbows back past the torso — this keeps the mid-back and lats working rather than just the biceps\n\nWATCH FOR\n- Chest coming off the pad under heavy loads — reduces lat engagement significantly\n- Pulling to upper chest — changes the muscle emphasis away from mid-back\n- One side feeling weaker — let the weaker side set the load and let it catch up naturally'
+          full: 'SETUP\n- Pronated grip handles. Adjust seat so handles are at lower chest height when arms are extended\n- Chest pressed firmly into the pad — maintain this contact throughout\n- Both arms work simultaneously, not alternating\n\nEXECUTION\n- Row both arms back, pulling to lower chest. Brief 1s pause and squeeze at the peak\n- Actively reach forward into the stretch at the bottom — don\'t passively let the weight drop. Machine may have a dead spot at full extension; push through it\n- Control the eccentric in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s. Pause at peak: 1s. Concentric: controlled but firm.\n\nKEY CUE\n- Drive the elbows back past the torso — this keeps the mid-back and lats working rather than just the biceps\n\nWATCH FOR\n- Chest coming off the pad under heavy loads — reduces lat engagement significantly\n- Pulling to upper chest — changes the muscle emphasis away from mid-back\n- One side feeling weaker — let the weaker side set the load and let it catch up naturally'
         }
       },
       {
-        id: 'pla-facepull', name: 'Cable Face Pull', sets: 2, repsDisplay: '15–20', rest: 60, logType: 'standard',
-        note: 'Rope at eye level. External rotation at end range. Both sets to failure — light weight, full ROM.',
+        id: 'ua-fly', name: 'Low-Incline DB Fly', sets: 2, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: '15–30° to match press angle. Arms slightly bent — fixed. Own the stretch. S1: 2 RIR · S2: 1 RIR.',
         cues: {
-          short: ['Rope attachment at eye level', 'Pull to forehead — hands beside temples at end range', 'External rotation is the whole point — elbows high at the end', 'Light weight — full ROM matters more than load'],
-          full: 'SETUP\n- Rope attachment at eye level. Stand far enough back to be balanced against the cable tension throughout the full ROM\n- Light weight — this is a health and accessory movement, not a strength exercise\n\nEXECUTION\n- Pull the rope toward your forehead — not your chin or chest\n- At end range: hands beside your temples, elbows high, forearms angled outward — this is external rotation\n- The external rotation at end range is what makes this exercise valuable for rear delt and rotator cuff health\n- Control the return — don\'t let the cable snap back\n\nTEMPO\n- Full controlled ROM in both directions. Pause 1s at end range in the externally rotated position.\n\nKEY CUE\n- If your elbows drop below your hands at end range, you\'re not getting the external rotation — elbows must finish high\n\nWATCH FOR\n- Using heavy weight — immediately shifts to a bicep/trap pull rather than rear delt and rotator cuff work\n- Not reaching full external rotation at the end — the pause at end range is where the benefit is\n- Pulling to the chin instead of the forehead — shortens the ROM and reduces external rotation'
+          short: ['15–30° bench angle — matches the press', 'Arms slightly bent — fixed angle, not a pressing movement', 'Lower in a wide arc — own the chest stretch', 'Pause at the stretch, squeeze at the top'],
+          full: 'SETUP\n- Bench at 15–30° — same angle as the low-incline press. Dumbbells held above the chest, arms slightly bent — establish this elbow angle and hold it for the entire set\n- Not a pressing movement — the elbows do not bend more through the movement\n\nEXECUTION\n- Lower in a wide controlled arc until a significant chest stretch is felt\n- Pause 1s at the bottom — actively feel the chest loaded in the stretched position\n- Squeeze upward and inward, hands meeting above the chest\n- Brief pause at the top for a contraction\n\nTEMPO\n- Eccentric: 2–3s with active reach into the stretch. Concentric: controlled arc upward.\n\nKEY CUE\n- "Hug a barrel" — the arc is the movement. Any pressing action (elbows bending more) reduces the stretch benefit and shifts load to the triceps\n\nWATCH FOR\n- Elbows bending progressively under fatigue — weight is too heavy\n- Cutting the bottom arc short — the stretch is the stimulus\n- Shoulders shrugging at the top\n- Note: significantly less weight than the press — this is correct'
         }
       },
       {
-        id: 'pla-incline-curl', name: 'Incline Dumbbell Curl', sets: 3, repsDisplay: '10–12', rest: 90, logType: 'standard',
-        note: 'Arm behind torso — maximal long-head stretch. This position is the entire point. 0 RIR all sets.',
+        id: 'ua-lateral', name: 'Cable Lateral Raise (Single-Arm)', sets: 3, repsDisplay: '12–20', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley. Lead with elbow. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR. Alternate arms within rest period.',
         cues: {
-          short: ['Arm fully behind the body — do not let it drift forward', 'Full hang at the bottom — own the stretch', 'Full supination at the top', 'To failure — all sets'],
-          full: 'SETUP\n- Incline bench at ~60°. Lie back so arms hang behind the torso\n- This position puts the bicep long head at maximal stretch — it is the entire reason this exercise is in the program\n- Do not set up with the bench too upright — the arm must hang behind the body, not beside it\n\nEXECUTION\n- Curl from the fully stretched hanging position — don\'t shorten the ROM at the bottom\n- Upper arm must stay behind the torso throughout — the moment it swings forward, you lose the long-head stretch advantage\n- Supinate hard at the top — turn the palm fully upward and think about the pinky rising\n- Lower in 2–3s back to full stretch, actively resisting the weight on the way down\n\nTEMPO\n- Eccentric: 2–3s with active control. Pause at the bottom: 1s in the stretched position.\n\nKEY CUE\n- The stretch at the bottom is where the stimulus is — spending 1s there before curling makes a significant difference\n\nWATCH FOR\n- Upper arm swinging forward on the concentric — defeats the exercise entirely\n- Shortening the ROM at the bottom — always return to full hang\n- Using too much weight — this should be noticeably lighter than a standing curl'
+          short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within rest period'],
+          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow — the hand just follows. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top — internal rotation cue for lateral head engagement\n- Lower in 2–3s back to the starting position — don\'t let the arm drop\n- Alternate arms within the rest period: one arm works while the other rests\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom unlike a dumbbell — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight\n- Raising above shoulder height — trap recruitment spikes past this point\n- Shrugging the working shoulder up — actively depress throughout'
         }
       },
       {
-        id: 'pla-cable-curl', name: 'Cable Curl (Straight Bar)', sets: 2, repsDisplay: '10–12', rest: 90, logType: 'standard',
-        note: 'Straight bar attachment. Constant tension throughout. Supinate hard at the top. Both sets to failure.',
+        id: 'ua-curl', name: 'Incline DB Curl', sets: 3, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Arm behind torso — maximal long-head stretch. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR.',
         cues: {
-          short: ['Straight bar attachment, low pulley', 'Full extension at the bottom — constant tension advantage', 'Supinate hard at the top', 'To failure — both sets'],
-          full: 'SETUP\n- Straight bar attachment on low pulley. Stand with slight forward lean or seated\n- Stand far enough back that there is tension at full extension\n- Elbows pinned to sides before starting\n\nEXECUTION\n- Full extension at the bottom — the cable\'s key advantage over free weight. Constant tension in the stretched position is where the additional stimulus comes from\n- Curl smoothly, supinate hard at the top — straight bar allows full supination for maximum peak contraction\n- Lower in 2s back to full extension\n- Both sets to failure\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: smooth and deliberate.\n\nKEY CUE\n- Full extension at the bottom is non-negotiable — cutting it short removes the primary advantage of doing this exercise on a cable\n\nWATCH FOR\n- Swinging the body to assist the curl — reduce weight if this starts happening\n- Elbows drifting forward during the curl — pin them at the sides\n- Not reaching full extension at the bottom'
+          short: ['Arm fully behind the body — do not let it drift forward', 'Full hang at the bottom — own the stretch', 'Full supination at the top', 'All sets to failure on S3'],
+          full: 'SETUP\n- Incline bench at ~60°. Lie back so arms hang behind the torso\n- This position puts the bicep long head at maximal stretch — it is the entire reason this exercise is in the program\n- Do not set up with the bench too upright — the arm must hang behind the body, not beside it\n\nEXECUTION\n- Curl from the fully stretched hanging position — don\'t shorten the ROM at the bottom\n- Upper arm must stay behind the torso throughout — the moment it swings forward, you lose the long-head stretch advantage\n- Supinate hard at the top — turn the palm fully upward and think about the pinky rising\n- Lower in 2–3s back to full stretch, actively resisting the weight on the way down\n\nTEMPO\n- Eccentric: 2–3s with active control. Pause at the bottom: 1s in the stretched position.\n\nKEY CUE\n- The stretch at the bottom is where the stimulus is — spending 1s there before curling makes a significant difference\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Upper arm swinging forward on the concentric — defeats the exercise entirely\n- Shortening the ROM at the bottom — always return to full hang\n- Using too much weight — this should be noticeably lighter than a standing curl'
         }
       },
       {
-        id: 'pla-shrug', name: 'Dumbbell Shrug', sets: 2, repsDisplay: '8–12', rest: 90, logType: 'standard',
-        note: 'Full elevation — straight up and down, no rolling. Brief pause at peak. Slow descent.',
+        id: 'ua-reardelt', name: 'Rear Delt Cable Fly', sets: 2, repsDisplay: '15–25', rest: 60, logType: 'standard',
+        note: 'Cable at eye level or above. Horizontal abduction. S1: 1 RIR · S2: 0–1 RIR.',
         cues: {
-          short: ['Straight up and down — zero shoulder rolling', 'Pause 1s at peak elevation', '2–3s slow descent', 'Go heavy — upper traps are fast-twitch dominant'],
-          full: 'SETUP\n- Heavy dumbbells at sides. Stand tall, neutral spine, slight bend in the knees\n- Grip firmly — straps are acceptable here if grip becomes the limiting factor before the traps do\n\nEXECUTION\n- Elevate shoulders straight up toward the ears — think shrugging in slow motion\n- No rolling forward or backward — no benefit, and forward rolling stresses the AC joint\n- Pause 1s at peak elevation and actively squeeze\n- Lower in 2–3s — do not let the weight just drop\n\nTEMPO\n- Concentric: 1–2s controlled elevation. Pause: 1s. Eccentric: 2–3s.\n\nKEY CUE\n- Upper traps are predominantly fast-twitch and respond to heavier loading — don\'t go light here. The slow descent adds as much stimulus as the elevation itself\n\nWATCH FOR\n- Shoulder rolling — common habit, no benefit, stresses the AC joint\n- Letting the weight drop on the eccentric — the slow descent is stimulus, not a formality\n- Grip failing before the traps — use straps so the trap is the limiting factor'
+          short: ['Cable at eye level or above', 'Arms spread wide — horizontal abduction, not pulling down', 'Light weight — rear delt is a small muscle', 'S2 to failure'],
+          full: 'SETUP\n- Cable at eye level or higher. Stand centred, balanced against the cable tension with a staggered stance\n- Cross the cables (right hand to left pulley, left hand to right pulley) or use a single pulley working one side at a time\n- Light weight — the rear delt is a small muscle and is easily overpowered by the traps under heavier loads\n\nEXECUTION\n- Arms out to the sides at 90° to the torso — horizontal abduction\n- Think spreading the wings rather than pulling backward — the movement is outward, not downward\n- Control the return in 2s — don\'t let the cable snap the arms forward\n- Brief pause at end range with arms wide\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Horizontal abduction only — if the elbows drop below the wrists you\'ve shifted to a pulldown. Arms stay roughly parallel to the floor throughout\n\nWATCH FOR\n- Pulling down instead of spreading wide — immediately shifts away from the rear delt\n- Shrugging — actively depress the shoulders before each rep\n- Too much weight — traps dominate the moment load exceeds what the rear delt can control'
         }
       },
       {
-        id: 'pla-hang', name: 'Dead Hang (Passive)', sets: 1, repsDisplay: 'Hold', rest: 0, logType: 'hang',
-        note: 'Arms fully relaxed — no scapular engagement. Hang to grip failure. Go straight from last exercise.',
+        id: 'ua-pushdown', name: 'Rope Pushdown', sets: 2, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: 'Pulley high. Upper arms pinned. Flare at bottom. S1: 2 RIR · S2: 1 RIR.',
         cues: {
-          short: ['Arms fully relaxed — passive hang, zero shoulder engagement', 'No scapular engagement — the opposite of a scapular pull', 'Hang until grip completely gives out', 'No rest before — go straight from last exercise'],
-          full: 'SETUP\n- Go straight from your last exercise — no additional rest\n- Jump or step up to a comfortable grip — pronated or mixed\n\nEXECUTION\n- Let everything go. Arms straight, shoulders completely relaxed — no scapular engagement at all\n- This is the complete opposite of a scapular pull. Think of yourself hanging like a piece of clothing on a hook\n- Hang until your grip completely gives out — not until it gets uncomfortable\n\nKEY CUE\n- If your shoulders are rising or you feel the back engaging, you\'re not hanging passively enough — consciously let everything release\n\nBENEFITS\n- Grip endurance, wrist and forearm health, spinal decompression after heavy vertical and horizontal pulling\n- Passive hanging progressively increases shoulder mobility and decompresses the spine — cumulative benefit over weeks'
+          short: ['Pulley at highest position', 'Upper arms pinned to sides — non-negotiable', 'Flare hands outward at full extension', 'Own the stretch at the top between reps'],
+          full: 'SETUP\n- Pulley at highest position. Rope attachment, grip one end in each hand\n- Stand close to the stack with a slight forward lean from the hips\n- Upper arms pinned to sides before the first rep — establish this position and hold it throughout\n\nEXECUTION\n- Push the rope down by extending the elbows — upper arms remain completely still\n- Flare hands outward at full extension — palms face the floor, hands apart\n- Pause 1s at full extension — feel the tricep fully contracted\n- Return in 2–3s to the stretch position at the top — own the stretch\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arms pinned — the moment elbows drift forward, the shoulders take over and the tricep is no longer the primary mover\n\nELBOW NOTE\n- Monitor for any distal triceps tendon irritation under accumulated push volume. If any irritation appears, drop this exercise for the session\n\nWATCH FOR\n- Elbows drifting forward — re-pin and reduce weight if necessary\n- Not flaring hands at the bottom — partial contraction only without it\n- Rushing the eccentric — the stretch at the top matters'
         }
       }
     ]
   },
 
-  'legs-a': {
-    id: 'legs-a', name: 'Legs A', subtitle: 'Quad Primary', type: 'legs',
+  'lower-a': {
+    id: 'lower-a', name: 'Lower A', subtitle: 'Quad Bias', type: 'legs',
     exercises: [
       {
-        id: 'la-squat', name: 'Barbell Back Squat', sets: 3, repsDisplay: '5–7', rest: 180, logType: 'standard',
-        note: 'Full depth. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Stop before technical breakdown.',
+        id: 'la-hack', name: 'Hack Squat', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: 'Mid-platform foot position. Full ROM. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR.',
         cues: {
-          short: ['Full depth — hip crease below knee', 'Brace 360° before every single rep', 'Knees track over toes throughout', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-          full: 'SETUP\n- Bar position to preference (high or low bar). Grip the bar and actively pull it into your traps — don\'t just rest it there\n- Stance: shoulder width or slightly wider, toes out to a comfortable angle\n- Brace before every rep: breathe into your belly, create 360° circumferential pressure. This is not sucking in — it\'s expanding outward in all directions\n\nEXECUTION\n- Slight hip push back to initiate, then descend in a controlled path\n- Hit full depth — hip crease below the knee is the standard, not parallel\n- Drive knees out to track over toes throughout — especially on the ascent\n- Drive through the floor with force on the way up, maintaining the brace\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: explosive intent. No pause at the top — reset brace and go.\n\nKEY CUE\n- "Screw feet into the floor" — think about rotating your feet outward into the ground. This cues glute engagement and keeps knees tracking correctly without overthinking it\n\nRIR\n- S1: 2–3 RIR — heavy primer, perfect technique. S2: 1–2 RIR — genuine effort. S3: 0–1 RIR — push hard but stop one rep before form breaks\n- Form breakdown on a heavy squat is where injuries happen — this is non-negotiable\n\nWATCH FOR\n- Knees caving inward on the ascent — cue "knees out" aggressively\n- Forward lean increasing under fatigue — the 360° brace is what prevents this\n- Cutting depth short — full depth is required for full quad and glute stimulus\n- Butt wink at the bottom — usually means stance is too narrow or a mobility limitation'
+          short: ['Mid-platform foot position, shoulder width', 'Full ROM — don\'t cut the bottom short', 'Knees track over toes throughout', 'S1: 2 RIR / S2: 2 RIR / S3: 1 RIR'],
+          full: 'SETUP\n- Mid-platform foot position, shoulder width, toes slightly out — quad-dominant loading\n- Back and hips pressed firmly into the pad throughout — never let the hips rise off the seat\n- Unrack and let the weight settle before descending\n\nEXECUTION\n- Descend to full depth — hips should not rise off the pad at the bottom\n- Knees track over toes throughout — actively push them out if they cave\n- Drive through the heels to press the platform away\n- Do not fully lock out the knees at the top — keep tension on the quads\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive.\n\nKEY CUE\n- Feel the weight in the heels — if you feel it in the toes, the foot position is too low or depth is cutting the heels off the platform\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Hips rising off the pad at depth — reduces ROM and shifts load to the lower back\n- Knees caving — push them out actively\n- Locking out the knees — keep soft at the top\n- Not reaching adequate depth — full ROM is required for full quad stimulus'
         }
       },
       {
-        id: 'la-bss', name: 'Bulgarian Split Squat', sets: 3, repsDisplay: '8–12 ea.', rest: 120, logType: 'per-leg',
-        note: 'Rear foot elevated. Full depth. 0–1 RIR. REST IS PER LEG — complete one leg fully, rest, then switch.',
+        id: 'la-bss', name: 'Bulgarian Split Squat', sets: 2, repsDisplay: '8–12 ea.', rest: 150, logType: 'per-leg',
+        note: 'Rear foot elevated. Full depth. S1: 2 RIR · S2: 1 RIR. REST IS PER LEG.',
         cues: {
           short: ['Front foot far enough forward — shin stays vertical at depth', 'Back knee close to floor at full depth', 'Drive through front heel on the way up', 'REST PER LEG — full rest between each leg'],
-          full: 'SETUP\n- Rear foot elevated on a bench. Front foot far enough forward that your front shin stays roughly vertical at the bottom — this is critical for knee health and loading the right muscles\n- If the front foot is too close, you\'ll feel it in the knee. Too far, you\'ll feel it in the hip flexor. Find the position where you feel it in the quad and glute\n- Dumbbells at sides or machine\n\nEXECUTION\n- Descend until the back knee is close to the floor — full ROM\n- Front knee tracks directly over the toes — no caving inward\n- Drive through the front heel and mid-foot on the ascent\n- Stay upright through the torso — don\'t lean excessively forward\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive through the front foot.\n\nKEY CUE\n- Feel the weight in your front heel — if you feel it in the front toes, the foot is too close or you\'re leaning too far forward\n\nREST PROTOCOL\n- Complete ALL reps on one leg. Rest the full 2 minutes. Then the other leg. The systemic demand is too high to go directly to the other side\n\nWATCH FOR\n- Front foot too close to the bench — most common setup error\n- Knee caving inward on the ascent — actively cue "knee out"\n- Torso falling forward — engage the core and stay tall\n- Rear foot rolling on the bench — position the laces side down, not the toes'
+          full: 'SETUP\n- Rear foot elevated on a bench. Front foot far enough forward that your front shin stays roughly vertical at the bottom — critical for knee health and loading the right muscles\n- If the front foot is too close, you\'ll feel it in the knee. Too far and you\'ll feel it in the hip flexor. Find the position where you feel it in the quad and glute\n- Dumbbells at sides or machine\n\nEXECUTION\n- Descend until the back knee is close to the floor — full ROM\n- Front knee tracks directly over the toes — no caving inward\n- Drive through the front heel and mid-foot on the ascent\n- Stay upright through the torso — don\'t lean excessively forward\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive through the front foot.\n\nKEY CUE\n- Feel the weight in your front heel — if you feel it in the front toes, the foot is too close or you\'re leaning too far forward\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nREST PROTOCOL\n- Complete ALL reps on one leg. Rest the full 2–3 minutes. Then the other leg. The systemic demand is too high to go directly to the other side\n\nWATCH FOR\n- Front foot too close to the bench — most common setup error\n- Knee caving inward on the ascent — actively cue "knee out"\n- Torso falling forward — engage the core and stay tall\n- Rear foot rolling on the bench — position the laces side down, not the toes'
         }
       },
       {
-        id: 'la-ext', name: 'Leg Extension', sets: 2, repsDisplay: '12–15', rest: 90, logType: 'standard',
-        note: '3s eccentric. Hard peak contraction at the top. 0 RIR all sets.',
+        id: 'la-legcurl', name: 'Seated Leg Curl', sets: 3, repsDisplay: '8–12', rest: 120, logType: 'standard',
+        note: 'Reclined seat for hip flexion benefit. Plantarflex. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR.',
         cues: {
-          short: ['Full ROM — from full flexion to full extension', 'Hard contraction and 1s pause at the top', '3s eccentric — non-negotiable', 'To failure — both sets'],
-          full: 'SETUP\n- Adjust the machine so the pad sits just above the ankle, not mid-shin\n- Sit fully back in the seat — hips at 90°. This positions the rectus femoris in a stretched starting position\n- Feet roughly hip-width, toes pointed slightly upward or neutral\n\nEXECUTION\n- Extend to full lockout — don\'t stop short. Full extension is where the quad is maximally contracted\n- Hold the contraction hard at the top for 1s — actively squeeze\n- Lower in 3 full seconds — this is not optional. The 3s eccentric provides significant additional mechanical stimulus\n- Return to full flexion at the bottom\n\nTEMPO\n- Eccentric: 3s. Pause at top: 1s. Concentric: controlled, 1–2s.\n\nKEY CUE\n- If you can\'t control the 3s descent, the weight is too heavy — reduce it. The slow eccentric is the mechanism, not just a guideline\n\nWATCH FOR\n- Hips lifting off the seat — means you\'re using momentum\n- Cutting the top position short — you need full extension for full quad contraction\n- Rushing the eccentric — the 3s is the stimulus, not a formality'
+          short: ['Reclined seat position — maintains hip flexion throughout', 'Point toes (plantarflex) throughout the set', 'Full extension at the bottom before each rep', 'S3 to failure'],
+          full: 'SETUP\n- Adjust the back pad to a reclined position — this keeps the hip in flexion during the curl, which increases hamstring stretch. This is the key advantage of the seated over the lying version\n- Pad just above the ankles. Point toes (plantarflex) before starting and maintain throughout — this shortens the gastrocnemius so more demand falls on the hamstrings\n\nEXECUTION\n- Begin from full extension — don\'t start with the leg already partially curled\n- Curl to full flexion. Brief pause\n- Lower in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- Reclined seat is non-negotiable — an upright seat removes the hip flexion and the hamstring stretch benefit. Don\'t use a machine with an upright seat\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Seat too upright — loses hip flexion and stretch benefit\n- Toes releasing to neutral under fatigue — maintain plantarflexion throughout\n- Hips rising off the seat to help curl — reduce weight if this happens\n- Shortening the ROM at the bottom — return to full extension every rep'
         }
       },
       {
-        id: 'la-curl', name: 'Lying Leg Curl', sets: 2, repsDisplay: '10–12', rest: 90, logType: 'standard',
-        note: 'Plantarflex (point toes) to increase hamstring stretch. Both sets to failure.',
+        id: 'la-legext', name: 'Leg Extension', sets: 2, repsDisplay: '12–20', rest: 90, logType: 'standard',
+        note: '3s eccentric. Hard peak contraction. S1: 1 RIR · S2: 0–1 RIR.',
         cues: {
-          short: ['Point toes (plantarflex) throughout the set', 'Full extension at the bottom — own the stretch', '2s eccentric — controlled descent', 'To failure — both sets'],
-          full: 'SETUP\n- Lie face down, pad just above the heels\n- Point your toes (plantarflex) before the first rep and hold this throughout — plantarflexion shortens the gastrocnemius, meaning more of the curl demand falls on the hamstrings specifically\n- Hips stay flat on the pad throughout\n\nEXECUTION\n- Curl from full extension to full flexion — don\'t start with the pad already partially curled\n- Brief squeeze at full flexion\n- Lower in 2s back to full extension — actively resist the weight on the way down\n- Return to full stretch at the bottom before the next rep\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled. Brief pause at full extension between reps.\n\nKEY CUE\n- Keeping the toes pointed is easy to forget under fatigue — actively remind yourself at the start of each rep\n\nWATCH FOR\n- Hips rising off the pad to help curl the weight — reduce load if this happens\n- Toes releasing back to neutral under fatigue — maintain plantarflexion throughout\n- Shortening the ROM at the bottom — return to full extension every rep'
+          short: ['Full ROM — from full flexion to full extension', 'Hard contraction and 1s pause at the top', '3s eccentric — non-negotiable', 'S2 to failure'],
+          full: 'SETUP\n- Adjust the machine so the pad sits just above the ankle, not mid-shin\n- Sit fully back in the seat — hips at 90°. This positions the rectus femoris in a stretched starting position\n- Feet roughly hip-width, toes pointed slightly upward or neutral\n\nEXECUTION\n- Extend to full lockout — don\'t stop short. Full extension is where the quad is maximally contracted\n- Hold the contraction hard at the top for 1s — actively squeeze\n- Lower in 3 full seconds — not optional. The 3s eccentric provides significant additional mechanical stimulus\n- Return to full flexion at the bottom\n\nTEMPO\n- Eccentric: 3s. Pause at top: 1s. Concentric: controlled, 1–2s.\n\nKEY CUE\n- If you can\'t control the 3s descent, the weight is too heavy — reduce it. The slow eccentric is the mechanism, not a guideline\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Hips lifting off the seat — means you\'re using momentum\n- Cutting the top position short — you need full extension for full quad contraction\n- Rushing the eccentric — the 3s is the stimulus, not a formality'
         }
       },
       {
-        id: 'la-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '15–20', rest: 60, logType: 'standard',
-        note: 'Deep stretch at the bottom is the stimulus. Vary toe angle across sets. All sets to failure.',
+        id: 'la-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Deep stretch at bottom. Vary toe angle across sets. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR.',
         cues: {
-          short: ['Deep stretch at bottom — research-supported primary stimulus', 'Full elevation at the top, 1s pause', 'Vary toe angle: neutral / slightly out / slightly in across sets', 'To failure — all sets'],
-          full: 'SETUP\n- Stand with the balls of the feet on the edge of the platform — heels must be able to drop below the platform level for the stretch\n- Hold a support lightly for balance only — do not use it to assist the movement\n- Toe angle: vary across your 3 sets — Set 1 neutral, Set 2 toes slightly out (medial head bias), Set 3 toes slightly in (lateral head bias)\n\nEXECUTION\n- Lower to a deep stretch — heel well below platform level. This is where the growth stimulus is concentrated. 2023 research on stretch-mediated hypertrophy strongly supports this bottom position\n- Rise to full elevation — don\'t stop halfway. Pause 1s at the top\n- Lower in 2s back to the deep stretch, pause 1s before the next rep\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s in the deep stretch.\n\nKEY CUE\n- The deep stretch at the bottom is the mechanism — a calf raise without the stretch is significantly less effective regardless of load. Go low\n\nWATCH FOR\n- Bouncing out of the bottom position — the stretch must be held, not immediately reversed\n- Not reaching full elevation — partial ROM both ways reduces effectiveness significantly\n- Bending the knees — keep them soft but consistent throughout'
+          short: ['Deep stretch at bottom — research-supported primary stimulus', 'Full elevation at the top, 1s pause', 'Vary toe angle: neutral / slightly out / slightly in across sets', 'S3 to failure'],
+          full: 'SETUP\n- Stand with the balls of the feet on the edge of the platform — heels must be able to drop below the platform level for the stretch\n- Hold a support lightly for balance only — not to assist the movement\n- Toe angle: vary across your 3 sets — Set 1 neutral, Set 2 toes slightly out (medial head bias), Set 3 toes slightly in (lateral head bias)\n\nEXECUTION\n- Lower to a deep stretch — heel well below platform level. This is where the growth stimulus is concentrated. 2023 research on stretch-mediated hypertrophy strongly supports this bottom position\n- Rise to full elevation. Pause 1s at the top\n- Lower in 2s back to the deep stretch, pause 1s before the next rep\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s in the deep stretch.\n\nKEY CUE\n- The deep stretch at the bottom is the mechanism — a calf raise without the stretch is significantly less effective regardless of load. Go low\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Bouncing out of the bottom position — the stretch must be held, not immediately reversed\n- Not reaching full elevation — partial ROM reduces effectiveness significantly\n- Bending the knees — keep them soft but consistent throughout'
+        }
+      },
+      {
+        id: 'la-shrug', name: 'Dumbbell Shrug', sets: 2, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Straight up and down — no rolling. Pause at peak. Slow descent. S1: 2 RIR · S2: 1 RIR.',
+        cues: {
+          short: ['Straight up and down — zero shoulder rolling', 'Pause 1s at peak elevation', '2–3s slow descent', 'Go heavy — upper traps are fast-twitch dominant'],
+          full: 'SETUP\n- Heavy dumbbells at sides. Stand tall, neutral spine, slight bend in the knees\n- Grip firmly — straps are acceptable here if grip becomes the limiting factor before the traps do\n\nEXECUTION\n- Elevate shoulders straight up toward the ears — think shrugging in slow motion\n- No rolling forward or backward — no benefit, and forward rolling stresses the AC joint\n- Pause 1s at peak elevation and actively squeeze\n- Lower in 2–3s — do not let the weight just drop\n\nTEMPO\n- Concentric: 1–2s controlled elevation. Pause: 1s. Eccentric: 2–3s.\n\nKEY CUE\n- Upper traps are predominantly fast-twitch and respond to heavier loading — don\'t go light here. The slow descent adds as much stimulus as the elevation itself\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Shoulder rolling — common habit, no benefit, stresses the AC joint\n- Letting the weight drop on the eccentric — slow descent is stimulus, not a formality\n- Grip failing before the traps — use straps so the trap is the limiting factor'
         }
       }
     ]
   },
 
-  'push-b': {
-    id: 'push-b', name: 'Push B', subtitle: 'Shoulders Primary', type: 'push',
+  'upper-b': {
+    id: 'upper-b', name: 'Upper B', subtitle: 'Chest / Back / Arms', type: 'push',
     exercises: [
       {
-        id: 'pb-ohp', name: 'Seated DB Overhead Press', sets: 3, repsDisplay: '6–8', rest: 180, logType: 'standard',
-        note: '90° bench, fully upright. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Brace core, don\'t arch lower back.',
+        id: 'ub-bench', name: 'Barbell Bench Press', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: 'Flat. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR. Maintain technique throughout.',
         cues: {
-          short: ['Bench fully upright — exactly 90°', 'Feet flat, hips at 90°, seat slightly tilted up', 'Core braced — no lower back arch', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-          full: 'SETUP\n- Bench at exactly 90° — even a slight incline shifts load to upper chest and reduces delt stimulus\n- Seat height so feet are flat on the floor with hips at 90°. Seat pad slightly tilted upward to prevent sliding forward under load\n- Sit back firmly so lower back stays in contact with the pad throughout\n- Brace the core before pressing — prevents lower back compensation\n\nEXECUTION\n- Press vertically — dumbbells travel straight up, not angled forward\n- Full ROM — lower until upper arms are at or just below parallel to the floor\n- Do not fully lock out at the top — keeps tension on the delts\n- Control the descent in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled but firm. No pause at top.\n\nKEY CUE\n- Keep the ribs down — if the ribcage flares upward as you press, the lower back arch has crept in and the core brace is gone\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. The seated position makes it harder to cheat load through the lower body — respect the RIR targets\n\nWATCH FOR\n- Lower back arching off the pad — reduce weight or brace harder\n- Dumbbells drifting forward instead of pressing vertically\n- Losing core tension mid-set — re-brace between reps if needed\n- Wrists bending back excessively — keep wrists stacked over elbows'
+          short: ['Retract and depress shoulder blades before unracking', 'Bar to mid-chest — full ROM every rep', 'Slight elbow tuck on descent — not flared', 'S1: 2 RIR / S2: 2 RIR / S3: 1 RIR'],
+          full: 'SETUP\n- Grip just outside shoulder width — forearms vertical when bar touches chest\n- Natural arch, not exaggerated. Feet flat on floor, leg drive active throughout\n- Retract and depress shoulder blades hard into the bench before unracking — hold this position for the entire set\n- Eyes under the bar. Unrack with straight arms, walk out minimally\n\nEXECUTION\n- Lower to mid-chest in 2–3s, controlled. Slight elbow tuck — not flared 90°, not tucked fully\n- Brief touch at the bottom — no bounce, no pause\n- Press in a slight arc back toward the rack, not straight up\n- Maintain leg drive and upper back tightness on every rep\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent. No pause at top.\n\nKEY CUE\n- Imagine trying to bend the bar into a U shape — this cues lat engagement and keeps the elbows from flaring\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Shoulder blades losing tightness mid-set — re-cue between reps if needed\n- Butt coming off the bench under heavy loads\n- Bar drifting toward the face on the press — keep the arc consistent\n- Elbow note: slight tuck can reduce distal triceps tendon strain if irritation arises under heavy loads'
         }
       },
       {
-        id: 'pb-db-lat', name: 'Dumbbell Lateral Raise', sets: 3, repsDisplay: '12–15', rest: 60, logType: 'standard',
-        note: 'Slight forward lean, lead with elbow. No swinging. 0–1 RIR all sets.',
+        id: 'ub-pulldown', name: 'Neutral-Grip Pulldown', sets: 3, repsDisplay: '8–12', rest: 180, logType: 'standard',
+        note: 'V-bar or parallel handles. Pull to upper chest. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR.',
         cues: {
-          short: ['Slight forward lean from the hips', 'Lead with the elbow — think pouring a jug', 'No swinging or body lean', '0–1 RIR all sets'],
-          full: 'SETUP\n- Stand with a slight forward lean from the hips — approximately 10–15°. This aligns the lateral delt with the direction of the lift and reduces front delt involvement\n- Dumbbells at the sides, slight bend in the elbows — maintain this angle throughout\n\nEXECUTION\n- Lead with the elbow — think "pour a jug of water out to the side"\n- Pinky slightly higher than thumb at the top — internal rotation cue that maximises lateral head engagement\n- Raise to shoulder height — stopping here keeps the load on the lateral delt. Past this point the trap takes over\n- Lower in 2s — don\'t let the weight drop\n\nTEMPO\n- Concentric: 1–2s controlled. Eccentric: 2s. No momentum in either direction.\n\nKEY CUE\n- If you have to lean back or jerk to get the dumbbell up, it\'s too heavy — the lateral delt is a small muscle and requires honest loading\n\nWATCH FOR\n- Shrugging the shoulders up as the dumbbells rise — actively depress the shoulders throughout\n- Leaning back during the raise — the lean stays fixed from setup\n- Wrists rising above the elbows — elbows should lead\n- Raising above shoulder height — trap recruitment spikes past this point'
+          short: ['Neutral grip V-bar or parallel handles', 'Slight lean back, chest tall throughout', 'Drive elbows down toward hips', 'Full extension at the top — own the lat stretch'],
+          full: 'SETUP\n- Neutral grip attachment — V-bar, parallel handles, or individual D-handles. Adjust knee pad to lock thighs in\n- Grip just outside shoulder width or slightly narrower — neutral grip naturally allows this\n- Slight lean back from the hips, chest tall before starting\n\nEXECUTION\n- Initiate by depressing the shoulder blades before the arms bend — this ensures the lats do the work\n- Drive elbows down toward the hips — "elbows to hips", not "hands to bar"\n- Pull to upper chest\n- Control the return to full extension — shoulder blades fully protracted at the top\n\nTEMPO\n- Eccentric: 2–3s back to full extension. Concentric: strong intent.\n\nKEY CUE\n- Neutral grip is wrist-friendly and allows a strong bottom contraction — use this to feel a stronger lat squeeze than pronated grip often allows\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Not reaching full extension at the top — the lat stretch matters\n- Excessive lean back — turns it into a row\n- Elbows flaring outward — keep them driving down toward the hips'
         }
       },
       {
-        id: 'pb-cable-lat', name: 'Cable Lateral Raise (Single-Arm)', sets: 2, repsDisplay: '15–20', rest: 60, logType: 'per-arm-alt',
-        note: 'Low pulley. Alternate arms within rest period. Both sets to failure.',
+        id: 'ub-cablerow', name: 'Single-Arm Cable Row (Elbow Tucked)', sets: 2, repsDisplay: '10–15 ea.', rest: 120, logType: 'per-arm-full',
+        note: 'Elbow tucked — drive toward hip, not out to side. Lat focus. S1: 2 RIR · S2: 1 RIR. REST IS PER ARM.',
         cues: {
-          short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within the rest period — to failure'],
-          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow — the hand just follows. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top — internal rotation cue for lateral head engagement\n- Lower in 2s back to the starting position — don\'t let the arm drop\n- Alternate arms within the rest period: one arm works while the other rests. No additional rest needed between sides\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom unlike a dumbbell — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight\n- Raising above shoulder height — trap recruitment spikes significantly past this point\n- Shrugging the working shoulder up — depress actively'
+          short: ['Elbow tucked close to the torso throughout', 'Drive elbow toward the hip — not out to the side', 'Actively reach into the stretch at the bottom', 'REST PER ARM — full rest between each arm'],
+          full: 'SETUP\n- Single-arm cable handle. Standing or half-kneeling. Pulley at mid-height or slightly lower\n- Hip-width stance, slight forward lean, core braced\n- Elbow tucked close to the torso throughout — this shifts emphasis toward the lats rather than the mid-back\n\nEXECUTION\n- Drive the elbow back and down toward the hip — tucked close to the torso. This is the key distinction from a wider-elbow row\n- Brief pause at full retraction\n- Actively reach into the stretch at the bottom — let the shoulder blade protract forward\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s with active reach. Concentric: elbow drives back and down.\n\nKEY CUE\n- "Elbow to hip pocket" — this cue ensures the elbow stays tucked, keeping the lat as the primary mover rather than the rear delt and rhomboids\n\nREST PROTOCOL\n- Complete all reps on one arm. Rest the full 2 minutes. Switch. Don\'t go directly arm to arm\n\nWATCH FOR\n- Elbow flaring out to the side — immediately shifts to a rear delt and mid-back exercise instead of lat focus\n- Torso rotating to assist — stabilise the core\n- Not reaching full extension at the bottom — the lat stretch matters'
         }
       },
       {
-        id: 'pb-pecdec', name: 'Pec Dec / Machine Fly', sets: 3, repsDisplay: '12–15', rest: 90, logType: 'standard',
-        note: 'Prioritise the stretch position. Squeeze pecs, not front delts. 0 RIR all sets.',
+        id: 'ub-pecdec', name: 'Pec Dec / Machine Fly', sets: 2, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: 'Prioritise stretch position. Squeeze chest at close. S1: 2 RIR · S2: 1 RIR.',
         cues: {
-          short: ['Arms at 90° to torso — adjust the machine', 'Prioritise the stretch position — the stimulus is here', 'Squeeze chest — not front delts', '0 RIR — to failure'],
-          full: 'SETUP\n- Adjust the machine so the arms are at exactly 90° to the torso when open — too high and it becomes a front delt exercise\n- Sit tall, chest up, shoulders retracted slightly before starting\n- The back stays in contact with the pad throughout\n\nEXECUTION\n- Open to the full stretch position — don\'t cut the ROM short at the back. The pec stretch at this open position is the primary stimulus\n- Pause 1s in the stretched position — feel the chest loading under the stretch\n- Squeeze at the closed position by thinking about the chest, not the front delts. If you feel it in the shoulder, the weight is too heavy or the arms are positioned too high\n- Control the return to the open position in 2s\n\nTEMPO\n- Eccentric: 2s to full stretch. Pause at stretch: 1s. Concentric: controlled squeeze.\n\nKEY CUE\n- This is stretch-focused chest work — loading the pec in the lengthened position is the mechanism. Don\'t rush through the open position\n\nWATCH FOR\n- Front delts dominating — reduce weight and focus on chest activation\n- Not reaching the full open position each rep\n- Arms drifting above 90° to the torso during the movement\n- Shoulders rounding forward at the closed position — chest up throughout'
+          short: ['Adjust machine so arms are at 90° to the torso', 'Prioritise the stretch position — the stimulus is here', 'Squeeze chest at the closed position — not front delts', 'S2 to failure'],
+          full: 'SETUP\n- Adjust the machine so the arms are at exactly 90° to the torso when open — too high and it becomes a front delt exercise\n- Sit tall, chest up, shoulders retracted slightly before starting\n- The back stays in contact with the pad throughout\n\nEXECUTION\n- Open to the full stretch position — don\'t cut the ROM short at the back. The pec stretch at this open position is the primary stimulus\n- Pause 1s in the stretched position — feel the chest loading under the stretch\n- Squeeze at the closed position by thinking about the chest, not the front delts\n- Control the return to the open position in 2s\n\nTEMPO\n- Eccentric: 2s to full stretch. Pause at stretch: 1s. Concentric: controlled squeeze.\n\nKEY CUE\n- This is stretch-focused chest work — loading the pec in the lengthened position is the mechanism. Don\'t rush through the open position\n\nWATCH FOR\n- Front delts dominating — reduce weight and focus on chest activation\n- Not reaching the full open position each rep\n- Arms drifting above 90° to the torso during the movement\n- Shoulders rounding forward at the closed position — chest up throughout'
         }
       },
       {
-        id: 'pb-pushdown', name: 'Cable Tricep Pushdown (Rope)', sets: 3, repsDisplay: '12–15', rest: 90, logType: 'standard',
-        note: 'Overhead extension removed due to elbow. Flare hands at the bottom. All sets to failure.',
+        id: 'ub-lateral', name: 'Cable Lateral Raise (Single-Arm)', sets: 3, repsDisplay: '12–20', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley. Lead with elbow. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR. Alternate arms.',
         cues: {
-          short: ['Pulley at highest position', 'Upper arms pinned to sides — non-negotiable', 'Flare hands outward at full extension', 'Own the stretch at the top — to failure'],
-          full: 'SETUP\n- Pulley at highest position. Rope attachment, grip one end in each hand\n- Stand close to the stack with a slight forward lean from the hips\n- Upper arms pinned to sides before the first rep — establish this and hold it throughout\n\nEXECUTION\n- Push the rope down by extending the elbows — upper arms remain completely still\n- Flare hands outward at full extension — palms face the floor, hands apart\n- Pause 1s at full extension — feel the tricep fully contracted\n- Return in 2–3s to the stretch position at the top — own the stretch\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arms pinned — the moment elbows drift forward, the shoulders take over and the tricep is no longer the primary mover\n\nELBOW NOTE\n- Overhead extension removed entirely due to distal triceps tendon irritation — pushdowns load the tricep at a comfortable angle without the provocative overhead stretch\n- Monitor for any elbow response under accumulated push volume across the cycle\n\nWATCH FOR\n- Elbows drifting forward — re-pin them and reduce weight if necessary\n- Not flaring hands at the bottom — partial contraction only without it\n- Rushing the eccentric — the stretch at the top matters'
+          short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within rest period'],
+          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top — internal rotation cue for lateral head engagement\n- Lower in 2–3s. Alternate arms within the rest period\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight\n- Raising above shoulder height — trap recruitment spikes past this point\n- Shrugging the working shoulder — actively depress throughout'
+        }
+      },
+      {
+        id: 'ub-cabcurl', name: 'Cable Curl (Straight Bar)', sets: 3, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: 'Straight bar, low pulley. Full extension at bottom. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR.',
+        cues: {
+          short: ['Straight bar attachment, low pulley', 'Full extension at the bottom — constant tension advantage', 'Supinate hard at the top — straight bar allows full supination', 'S3 to failure'],
+          full: 'SETUP\n- Straight bar attachment on low pulley. Stand with slight forward lean or seated\n- Stand far enough back that there is tension at full extension\n- Elbows pinned to sides before starting\n\nEXECUTION\n- Full extension at the bottom — the cable\'s key advantage over free weight. Constant tension in the stretched position provides additional stimulus\n- Curl smoothly, supinate hard at the top — straight bar allows full supination for maximum peak contraction\n- Lower in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: smooth and deliberate.\n\nKEY CUE\n- Full extension at the bottom is the whole point of using a cable — cutting it short removes the primary advantage over a barbell curl\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Swinging the body to assist the curl — reduce weight\n- Elbows drifting forward during the curl — pin them at the sides\n- Not reaching full extension at the bottom'
+        }
+      },
+      {
+        id: 'ub-rpecdec', name: 'Reverse Pec Dec', sets: 2, repsDisplay: '15–25', rest: 60, logType: 'standard',
+        note: 'Face machine. Arms at 90°. Light weight — rear delt is the target. S1: 1 RIR · S2: 0–1 RIR.',
+        cues: {
+          short: ['Face the machine, chest lightly on pad', 'Arms at 90° to torso — horizontal abduction', 'Light weight — rear delt is the target', 'S2 to failure'],
+          full: 'SETUP\n- Face the machine with chest lightly against the pad\n- Adjust arm height so arms are at 90° to the torso at the start position — too high and the traps take over\n- Light weight — the rear delt is a small muscle and is easily overpowered under heavier loads\n\nEXECUTION\n- Open the arms wide — horizontal abduction. Spread the wings rather than pulling backward\n- At the end position, arms at roughly 90° to the torso, parallel to the floor\n- Pause briefly at the end position\n- Control the return in 2s — don\'t let the machine pull the arms back\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Feel the back of the shoulder contracting — not the traps. If you feel the traps working more than the rear delt, the weight is too heavy\n\nWATCH FOR\n- Arms rising above 90° at the end position — trap recruitment spikes past this point\n- Shrugging — actively depress the shoulders before each rep\n- Too much weight — the rear delt will not be the limiting factor'
+        }
+      },
+      {
+        id: 'ub-pushdown', name: 'Rope Pushdown', sets: 2, repsDisplay: '15–20', rest: 90, logType: 'standard',
+        note: 'Pulley high. Upper arms pinned. Flare at bottom. S1: 2 RIR · S2: 1 RIR.',
+        cues: {
+          short: ['Pulley at highest position', 'Upper arms pinned to sides — non-negotiable', 'Flare hands outward at full extension', 'Own the stretch at the top between reps'],
+          full: 'SETUP\n- Pulley at highest position. Rope attachment, grip one end in each hand\n- Stand close to the stack with a slight forward lean from the hips\n- Upper arms pinned to sides before the first rep — establish this position and hold it throughout\n\nEXECUTION\n- Push the rope down by extending the elbows — upper arms remain completely still\n- Flare hands outward at full extension — palms face the floor, hands apart\n- Pause 1s at full extension — feel the tricep fully contracted\n- Return in 2–3s to the stretch position at the top — own the stretch\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arms pinned — the moment elbows drift forward, the shoulders take over and the tricep is no longer the primary mover\n\nELBOW NOTE\n- Monitor for any distal triceps tendon irritation. If any irritation appears, stop and switch to the overhead extension alternate only if fully symptom-free — otherwise skip\n\nWATCH FOR\n- Elbows drifting forward — re-pin and reduce weight if necessary\n- Not flaring hands at the bottom — partial contraction only without it\n- Rushing the eccentric — the stretch at the top matters'
         }
       }
     ]
   },
 
-  'pull-b': {
-    id: 'pull-b', name: 'Pull B', subtitle: 'Back Primary (Horizontal)', type: 'pull',
+  'lower-b': {
+    id: 'lower-b', name: 'Lower B', subtitle: 'Hamstring Bias', type: 'legs',
     exercises: [
       {
-        id: 'plb-pendlay', name: 'Pendlay Row', sets: 3, repsDisplay: '5–7', rest: 180, logType: 'standard',
-        note: 'Torso parallel. Dead stop on floor between every rep. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR.',
+        id: 'lb-rdl', name: 'Barbell Romanian Deadlift', sets: 3, repsDisplay: '6–10', rest: 210, logType: 'standard',
+        note: 'Hip hinge, soft knee, bar close. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR. Own the stretch.',
         cues: {
-          short: ['Torso close to parallel to floor', 'Bar returns to floor — dead stop — every single rep', 'Overhand grip', 'Reset and brace before every rep'],
-          full: 'SETUP\n- Bar on floor. Hinge to torso close to parallel — stricter than a standard bent-over row\n- Overhand grip just outside shoulder width. Feet hip-width\n- Treat every rep like a partial deadlift setup — neutral spine, lats engaged, 360° brace before pulling\n\nEXECUTION\n- Pull explosively from the floor to the lower chest — bar travels vertically\n- Bar returns to the floor — full dead stop. Release tension briefly, reset brace, then pull again\n- This eliminates all momentum carry-over between reps — each rep is a true concentric effort\n- You will use noticeably less load than a standard bent-over row — this is correct and expected\n\nTEMPO\n- Concentric: explosive. Eccentric: controlled 1–2s to the floor. Full stop. Reset. Repeat.\n\nKEY CUE\n- Pull the bar into the lower chest by driving the elbows back — think "elbows to the ceiling" rather than just pulling with the arms\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. The dead stop means each rep is maximal effort — respect the RIR targets\n\nWATCH FOR\n- Torso rising above parallel to help the pull — defeats the purpose\n- Bar bouncing off the floor instead of a true dead stop\n- Lower back rounding — brace is the prevention\n- Comparing loads to bent-over row numbers — always less here and that\'s correct'
+          short: ['Hip hinge — not a squat, knees stay soft and fixed', 'Bar stays close to legs throughout — almost dragging', 'Own the hamstring stretch at the bottom', 'S1: 2 RIR / S2: 2 RIR / S3: 1 RIR'],
+          full: 'SETUP\n- Bar in hands at hip height, standing tall. Overhand or mixed grip\n- Soft knee bend — establish this angle before the first rep and maintain it throughout. The knees must not bend more on the descent\n- Lats engaged, neutral spine, slight chest up\n\nEXECUTION\n- Push the hips back as the bar descends — the hips moving back is the movement, not the bar moving down\n- Bar stays in contact with or very close to the legs throughout — if it drifts away, the lower back takes load it shouldn\'t\n- Descend until a significant hamstring stretch is felt, typically mid-shin\n- Pause 1s at the bottom — feel the hamstrings loaded under stretch before driving the hips forward\n- Drive hips forward to return to standing, squeeze glutes at the top\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Pause at bottom: 1s. Concentric: controlled drive through the hips.\n\nKEY CUE\n- "Push hips back to the wall behind you" — hips moving backward is the movement. This keeps the hinge honest and prevents it becoming a squat\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR. Never lose the hip hinge pattern under fatigue — if form starts to break, stop the set\n\nWATCH FOR\n- Knees bending more on the descent — maintains the soft fixed knee bend\n- Bar drifting away from the legs — increases lumbar strain significantly\n- Lower back rounding at the bottom — reduce the depth before allowing this\n- Rushing through the bottom stretch — this is where the stimulus is'
         }
       },
       {
-        id: 'plb-cable-row', name: 'Single-Arm Cable Row (Kneeling)', sets: 3, repsDisplay: '8–12 ea.', rest: 120, logType: 'per-arm-full',
-        note: 'Single leg kneel, opposite foot forward. Pulley at shoulder height. REST IS PER ARM — full rest between each arm.',
+        id: 'lb-legpress', name: 'Leg Press', sets: 3, repsDisplay: '8–12', rest: 180, logType: 'standard',
+        note: 'Mid-platform, deep controlled knee flexion. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR.',
         cues: {
-          short: ['Single leg kneel — opposite foot forward to working arm', 'Pulley at shoulder height (NOT floor)', 'Depress shoulder blade BEFORE bending the arm', 'Actively reach into the stretch at the bottom'],
-          full: 'SETUP\n- Single leg kneeling. The foot forward is opposite to the working arm — creates a diagonal brace that resists the cable pull and keeps you stable\n- Pulley at shoulder height — from a kneeling position this gives a horizontal pull angle. A low pulley from kneeling creates an upward pull, changing the muscle emphasis\n- Adjust position so there is full tension at complete arm extension\n\nEXECUTION\n- Depress and retract the shoulder blade BEFORE the arm bends — this is the key sequence. If the arm bends first, the bicep drives the movement instead of the lat and mid-back\n- Drive the elbow back toward the hip — the hand is just a hook\n- Brief pause and squeeze at the end position\n- Actively reach into the stretch at the bottom — let the shoulder blade protract forward with control\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s with active reach into the stretch. Concentric: controlled retraction then pull.\n\nKEY CUE\n- Shoulder blade first, always — scapular retraction initiates the movement, the arm follows. Feel the scapula moving before the elbow bends\n\nREST PROTOCOL\n- Complete all reps on one arm. Rest the full 2 minutes. Switch. Don\'t go directly arm to arm\n\nWATCH FOR\n- Arm bending before the shoulder blade moves — most common error\n- Rotating the torso to assist the row\n- Elbow flaring out wide instead of driving back toward the hip\n- Pulley too low — check height each session'
+          short: ['Mid-platform foot position, shoulder width', 'Full ROM — deep controlled knee flexion every rep', 'Knees track over toes throughout', 'S1: 2 RIR / S2: 2 RIR / S3: 1 RIR'],
+          full: 'SETUP\n- Feet at mid-platform, shoulder width, toes slightly out — balanced quad and posterior chain loading\n- Back and hips pressed firmly into the pad throughout — never let the hips rise off the seat\n- Unrack and let the weight settle before descending\n\nEXECUTION\n- Descend to full depth with controlled knee flexion — hips should not rise off the pad at the bottom\n- The deep knee flexion is the target: go as low as hip mobility allows without the hips rounding under\n- Knees track over toes throughout — actively push them out if they cave\n- Drive through the heels to press the platform away\n- Do not fully lock out the knees at the top\n\nTEMPO\n- Eccentric: 2–3s controlled, deliberate descent. Concentric: strong drive.\n\nKEY CUE\n- Feel the weight in the heels — if you feel it in the toes, foot position is too low or you\'re not reaching full depth\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Hips rising off the pad — reduces ROM and shifts load to the lower back\n- Knees caving — push them out actively\n- Locking out the knees — keep soft at the top\n- Not reaching adequate depth — deep knee flexion is explicitly the goal here'
         }
       },
       {
-        id: 'plb-rear-delt', name: 'Rear Delt Cable Fly', sets: 2, repsDisplay: '15–20', rest: 60, logType: 'standard',
-        note: 'Cable at eye level or above. Arms out at 90°. Both sets to failure.',
+        id: 'lb-legcurl', name: 'Seated Leg Curl', sets: 3, repsDisplay: '10–15', rest: 120, logType: 'standard',
+        note: 'Reclined seat. Plantarflex. Full ROM. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR.',
         cues: {
-          short: ['Cable at eye level or above', 'Arms spread wide — horizontal abduction, not pulling down', 'Light weight — rear delt is a small muscle', 'To failure — both sets'],
-          full: 'SETUP\n- Cable at eye level or higher. Stand centred, balanced against the cable tension with a staggered stance\n- Cross the cables (right hand to left pulley, left hand to right) or use a single pulley and work one side at a time\n- Light weight — the rear delt is a small muscle and is easily overpowered by the traps under heavier loads\n\nEXECUTION\n- Arms out to the sides at 90° to the torso — horizontal abduction\n- Think spreading the wings rather than pulling backward — the movement is outward, not downward\n- Control the return in 2s — don\'t let the cable snap the arms forward\n- Brief pause at end range with arms wide\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Horizontal abduction only — if the elbows start dropping below the wrists, you\'ve shifted to a pulldown. Arms stay roughly parallel to the floor throughout\n\nWATCH FOR\n- Pulling down instead of spreading wide — immediately shifts away from the rear delt\n- Shrugging — actively depress the shoulders before each rep\n- Too much weight — traps dominate the moment load exceeds what the rear delt can control'
+          short: ['Reclined seat — maintains hip flexion and hamstring stretch', 'Point toes (plantarflex) throughout', 'Full extension at the bottom before each rep', 'S3 to failure'],
+          full: 'SETUP\n- Adjust the back pad to a reclined position — maintains hip flexion during the curl, increasing hamstring stretch throughout the movement\n- Pad just above the ankles. Point toes (plantarflex) before starting and maintain throughout\n\nEXECUTION\n- Begin from full extension — don\'t start with the leg already partially curled\n- Curl to full flexion. Brief pause\n- Lower in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- Reclined seat is non-negotiable — an upright seat removes the hip flexion and the hamstring stretch benefit. If the machine only has an upright seat, use the lying leg curl alternate\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Seat too upright — loses hip flexion and stretch benefit\n- Toes releasing to neutral under fatigue — maintain plantarflexion\n- Hips rising off the seat — reduce weight\n- Shortening the ROM at the bottom — return to full extension every rep'
         }
       },
       {
-        id: 'plb-cable-curl', name: 'Cable Curl (Straight Bar)', sets: 3, repsDisplay: '10–12', rest: 90, logType: 'standard',
-        note: 'Straight bar attachment. Constant tension through full ROM. Supinate hard at the top. All sets to failure.',
+        id: 'lb-legext', name: 'Leg Extension', sets: 1, repsDisplay: '12–20', rest: 90, logType: 'standard',
+        note: '3s eccentric. Hard peak contraction. 0–1 RIR. Single finisher set.',
         cues: {
-          short: ['Straight bar attachment, low pulley', 'Full extension at the bottom — don\'t cut it short', 'Supinate hard at the top — straight bar allows full supination', 'To failure — all sets'],
-          full: 'SETUP\n- Straight bar attachment on low pulley. Stand with slight forward lean or seated\n- Stand far enough back that there is tension at full extension\n- Elbows pinned to sides before starting\n\nEXECUTION\n- Lower to full extension — this is the cable\'s primary advantage over free weight. Constant tension in the stretched position provides additional stimulus compared to a barbell\n- Curl smoothly, supinate hard at the top — straight bar allows full supination for maximum peak contraction\n- Lower in 2s back to full extension\n- All sets to failure\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: smooth and deliberate.\n\nKEY CUE\n- Full extension at the bottom is the whole point of using a cable here — cutting it short removes the primary advantage over a barbell curl\n\nWATCH FOR\n- Swinging the torso to assist — reduce weight\n- Elbows drifting forward during the curl — pin them at the sides\n- Not reaching full extension at the bottom'
+          short: ['Full ROM — from full flexion to full extension', 'Hard contraction and 1s pause at the top', '3s eccentric — non-negotiable', 'Single set — push to 0–1 RIR'],
+          full: 'SETUP\n- Adjust the machine so the pad sits just above the ankle, not mid-shin\n- Sit fully back in the seat — hips at 90°\n- Feet roughly hip-width, toes pointed slightly upward or neutral\n\nEXECUTION\n- Extend to full lockout — don\'t stop short. Full extension is where the quad is maximally contracted\n- Hold the contraction hard at the top for 1s — actively squeeze\n- Lower in 3 full seconds — the slow eccentric is the mechanism\n- Return to full flexion at the bottom\n\nTEMPO\n- Eccentric: 3s. Pause at top: 1s. Concentric: controlled, 1–2s.\n\nKEY CUE\n- This is a single finisher set after heavy hamstring work — the quad is pre-fatigued from the leg press. Use a weight you can control properly for the full 3s eccentric\n\nRIR\n- Single set to 0–1 RIR — push hard but keep the 3s eccentric intact.\n\nWATCH FOR\n- Hips lifting off the seat — means you\'re using momentum\n- Cutting the top position short — full extension for full quad contraction\n- Rushing the eccentric — the 3s is the stimulus'
         }
       },
       {
-        id: 'plb-hammer', name: 'Hammer Curl (Cable, Rope)', sets: 2, repsDisplay: '10–12', rest: 90, logType: 'standard',
-        note: 'Rope attachment, low pulley. Neutral grip. Full extension at bottom. Both sets to failure.',
+        id: 'lb-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '10–20', rest: 90, logType: 'standard',
+        note: 'Deep stretch at bottom. Vary toe angle. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR.',
         cues: {
-          short: ['Rope attachment, low pulley', 'Neutral grip — thumbs up throughout', 'Full extension at the bottom — cable maintains tension here', 'No swinging — to failure'],
-          full: 'SETUP\n- Rope attachment on low pulley. Stand back far enough that there\'s tension at full extension\n- Grip one end of the rope in each hand, thumbs pointing up — neutral grip throughout\n\nEXECUTION\n- Full extension at the bottom — the cable\'s key advantage over dumbbells is constant tension in the stretched position. Don\'t cut it short\n- Curl to shoulder height keeping thumbs pointing up. No supination — this is not a standard curl\n- No swinging or body momentum\n- Lower in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: smooth.\n\nKEY CUE\n- Thumbs up throughout — the moment the wrists rotate toward supination, the brachialis and brachioradialis emphasis is lost. Keep strictly neutral\n\nWATCH FOR\n- Wrists rotating to supinate — turns it into a standard curl\n- Body swinging to assist — reduce weight\n- Elbows drifting forward — pin them at the sides\n- Not reaching full extension — loses the cable\'s constant bottom tension advantage'
+          short: ['Deep stretch at bottom — the primary stimulus', 'Full elevation at the top, 1s pause', 'Vary toe angle: neutral / slightly out / slightly in', 'S3 to failure'],
+          full: 'SETUP\n- Balls of feet on the platform edge, heels free to drop below platform level. Hold the support lightly for balance only — not to assist the movement\n- Toe angle: vary across sets — Set 1 neutral, Set 2 toes slightly out (medial head), Set 3 toes slightly in (lateral head)\n\nEXECUTION\n- Lower to a deep stretch — heel well below platform level. 2023 research strongly supports this bottom position as the primary stimulus for gastrocnemius hypertrophy\n- Pause 1s at the deep stretch before rising\n- Rise to full elevation, pause 1s at the top\n- Lower in 2s back to the deep stretch\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s.\n\nKEY CUE\n- The deep stretch is the mechanism — a calf raise that doesn\'t go low enough is significantly less effective regardless of load\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Bouncing out of the bottom — hold the stretch\n- Not reaching full elevation\n- Bending the knees — consistent soft bend throughout'
         }
       },
       {
-        id: 'plb-shrug', name: 'Dumbbell Shrug', sets: 2, repsDisplay: '8–12', rest: 90, logType: 'standard',
-        note: 'Full elevation — straight up and down, no rolling. Pause at peak. Slow descent.',
+        id: 'lb-legraise', name: 'Hanging Leg Raise', sets: 2, repsDisplay: '8–15', rest: 60, logType: 'standard',
+        note: 'Dead hang. Straight legs if possible — slight knee bend if needed for control. 1 RIR both sets.',
         cues: {
-          short: ['Straight up and down — no rolling', 'Pause at peak elevation', '2–3s slow descent', 'Upper traps respond to heavier loading'],
-          full: 'Identical cues to Pull A shrug. Straight elevation only — no rolling. Pause at the top. Slow descent. Upper traps are fast-twitch dominant and respond to heavier loads.'
-        }
-      },
-      {
-        id: 'plb-hang', name: 'Dead Hang (Passive)', sets: 1, repsDisplay: 'Hold', rest: 0, logType: 'hang',
-        note: 'Arms fully relaxed — no scapular engagement. Hang to grip failure. Go straight from last exercise.',
-        cues: {
-          short: ['Fully relaxed — passive hang', 'No scapular engagement', 'Hang to grip failure', 'Go straight from last exercise — no rest'],
-          full: 'Fully relaxed passive hang. No shoulder engagement — just gravity. Hang until grip fails. Go straight from last exercise. Benefits: grip endurance, wrist health, spinal decompression.'
+          short: ['Dead hang, arms fully extended — let any swing settle first', 'Raise legs with control — straight if possible', 'Pull hips toward chest at the top', 'No swinging or momentum — control the descent'],
+          full: 'SETUP\n- Hang from a pull-up bar, arms fully extended, shoulder-width grip\n- Let the body settle completely before starting — any swing from mounting the bar must stop\n- Straight legs target the rectus abdominis and hip flexors more than knee raises. Use a slight knee bend if needed to maintain control while you build strength\n\nEXECUTION\n- Raise legs with control — straight if possible, slight knee bend acceptable\n- Aim to reach horizontal or above — the higher the legs go, the greater the posterior pelvic tilt and rectus abdominis engagement\n- Pause briefly at the top\n- Lower in 2–3s back to full hang — do not let gravity pull the legs down\n\nTEMPO\n- Eccentric: 2–3s. Pause at top: 1s. Concentric: controlled.\n\nKEY CUE\n- Think about pulling the hips toward the chest at the top — this ensures posterior pelvic tilt and maximum rectus abdominis contraction rather than pure hip flexor lifting\n\nWATCH FOR\n- Swinging — stop completely and reset if momentum builds. Momentum removes the abdominal demand\n- Knees bending excessively — work toward straighter legs progressively\n- Dropping the legs quickly — control the descent for full eccentric stimulus\n- Shoulders shrugging — stay passive at the shoulder joint throughout'
         }
       }
     ]
   },
 
-  'legs-b': {
-    id: 'legs-b', name: 'Legs B', subtitle: 'Hip / Hamstring Primary', type: 'legs',
+  'upper-optional': {
+    id: 'upper-optional', name: 'Upper Optional', subtitle: 'Specialisation — 2 RIR Every Set', type: 'pull',
     exercises: [
       {
-        id: 'lb-rdl', name: 'Barbell Romanian Deadlift', sets: 3, repsDisplay: '6–8', rest: 180, logType: 'standard',
-        note: 'Hip hinge, soft knee, bar close. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Own the stretch.',
+        id: 'uo-press', name: 'Low-Incline DB Press', sets: 2, repsDisplay: '10–15', rest: 120, logType: 'standard',
+        note: '15–30°. All sets at 2 RIR — this is volume work, not grinding.',
         cues: {
-          short: ['Hip hinge — not a squat, knees stay soft and fixed', 'Bar stays close to legs throughout — almost dragging', 'Own the hamstring stretch at the bottom', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-          full: 'SETUP\n- Bar in hands at hip height, standing tall. Overhand or mixed grip\n- Soft knee bend — establish this angle before the first rep and maintain it throughout. The knees must not bend more on the descent — this is what separates an RDL from a deadlift\n- Lats engaged, neutral spine, slight chest up\n\nEXECUTION\n- Push the hips back as the bar descends — the hips moving back is the movement, not the bar moving down\n- Bar stays in contact with or very close to the legs throughout — if it drifts away, the lower back takes load it shouldn\'t\n- Descend until a significant hamstring stretch is felt, typically mid-shin — ROM is limited by hamstring flexibility, not a fixed point\n- Pause 1s at the bottom — feel the hamstrings loaded under stretch before driving the hips forward\n- Drive hips forward to return to standing — squeeze glutes at the top\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Pause at bottom: 1s. Concentric: controlled drive through the hips.\n\nKEY CUE\n- "Push the hips back to the wall behind you" — this keeps the hinge pattern honest and prevents the movement from becoming a squat\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Never lose the hip hinge pattern under fatigue — if form starts to break, stop the set\n\nWATCH FOR\n- Knees bending more on the descent — this shifts load away from the hamstrings\n- Bar drifting away from the legs — increases lumbar strain significantly\n- Lower back rounding at the bottom — reduce the depth before allowing this\n- Rushing through the bottom stretch — this is where the stimulus is'
+          short: ['15–30° bench angle', 'Own the deep chest stretch at the bottom', 'Press to peak without fully locking out', '2 RIR — controlled volume, not grinding'],
+          full: 'SETUP\n- Bench at 15–30°. Dumbbells at shoulder height, elbows slightly forward\n- Retract shoulder blades slightly before the first rep\n\nEXECUTION\n- Lower with control until you feel a deep upper chest stretch\n- Do not cut the bottom short\n- Press back up without fully locking out\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled.\n\nKEY CUE\n- This is a specialisation session — all sets at 2 RIR. Quality over intensity. Focus on the chest stretch and mind-muscle connection rather than pushing load\n\nWATCH FOR\n- Front delts dominating — bench too high or weight too heavy\n- Losing the stretch at the bottom — own it every rep'
         }
       },
       {
-        id: 'lb-hack', name: 'Hack Squat', sets: 2, repsDisplay: '10–12', rest: 120, logType: 'standard',
-        note: 'High foot placement for posterior emphasis. Full ROM. 0–1 RIR all sets.',
+        id: 'uo-pulldown', name: 'Single-Arm Cable Pulldown', sets: 2, repsDisplay: '10–15 ea.', rest: 90, logType: 'per-arm-alt',
+        note: 'High pulley, D-handle. Drive elbow toward hip. 2 RIR. Alternate arms.',
         cues: {
-          short: ['High foot placement on the platform', 'Full ROM — don\'t cut depth short', 'Feet shoulder width, toes out slightly', 'To failure — both sets'],
-          full: 'SETUP\n- High foot placement on the platform — this shifts emphasis toward the glutes and hamstrings, complementing the RDL earlier in the session\n- Feet shoulder width or slightly wider, toes out to a comfortable angle\n- Back and hips pressed firmly into the pad throughout\n- Unrack and allow a brief moment to settle before descending\n\nEXECUTION\n- Descend to full depth — the machine handles stability so focus entirely on depth and feeling the posterior chain working\n- Knees track over toes throughout\n- Drive through the heels to return — not the toes\n- Do not fully lock out at the top — keep tension on the working muscles\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: firm drive through the heels.\n\nKEY CUE\n- High foot placement is everything here — dropping the feet lower immediately shifts the emphasis to quads, which is not the goal in this session\n\nWATCH FOR\n- Feet creeping lower on the platform over sets — check foot position before every set\n- Hips lifting off the pad at depth — means depth is slightly too much for current mobility, reduce slightly\n- Knees caving inward — actively push them out in line with the toes\n- Starting conservatively — loads will be lower than leg press due to more demanding mechanics'
+          short: ['High pulley, single D-handle', 'Drive elbow down toward the hip pocket', 'Full extension at the top — own the lat stretch', 'Alternate arms within the rest period'],
+          full: 'SETUP\n- Single D-handle on high pulley. Sit side-on or slightly angled toward the stack\n- Arm extended overhead at the start — full lat stretch at the top is the advantage of single-arm pulldowns\n\nEXECUTION\n- Drive the elbow down toward the hip — "elbow to hip pocket"\n- Pull until the elbow is at the side, hand approximately at chest height\n- Control the return to full extension at the top — own the overhead lat stretch\n- Alternate arms within the rest period\n\nTEMPO\n- Eccentric: 2–3s with active reach into the overhead stretch. Concentric: strong intent.\n\nKEY CUE\n- The overhead stretch at the top is the primary advantage over a standard pulldown — the lat is in a maximally lengthened position. Take 1s at the top to feel it\n\nWATCH FOR\n- Not reaching full extension at the top — the lat stretch is the whole point\n- Torso leaning or rotating to assist — keep stable\n- Elbow flaring outward instead of driving straight down'
         }
       },
       {
-        id: 'lb-legcurl', name: 'Single-Leg Kneeling Leg Curl', sets: 3, repsDisplay: '10–12 ea.', rest: 90, logType: 'per-leg',
-        note: 'Kneeling preserves hip flexion for stretch. 0 RIR. REST IS PER LEG — full rest between each leg.',
+        id: 'uo-lateral', name: 'Cable Lateral Raise', sets: 3, repsDisplay: '15–25', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley. Lead with elbow. 2 RIR all sets. Alternate arms.',
         cues: {
-          short: ['Kneeling keeps hip in flexion — this is why it\'s chosen', 'Full extension at the bottom before each rep', 'Drive heel toward glute — full ROM', 'REST PER LEG — full rest between each leg'],
-          full: 'SETUP\n- The kneeling position keeps the hip in flexion throughout the curl — this increases the hamstring stretch, providing a similar benefit to the seated leg curl. This is why it was chosen over the lying version for this session\n- Adjust the machine so there is full tension at complete leg extension\n- The non-working leg hangs or rests — do not brace it into anything\n\nEXECUTION\n- Begin from full extension — don\'t start with the leg already partially curled\n- Curl heel toward the glute through full ROM\n- Brief pause at full flexion\n- Lower in 2s back to full extension\n- Push to failure on all sets\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled. Brief pause at full flexion.\n\nKEY CUE\n- Full extension at the bottom is non-negotiable — this is where the hamstring stretch benefit of the kneeling position is realised\n\nREST PROTOCOL\n- Complete all reps on one leg. Rest the full 90 seconds. Then the other leg. Going directly from one leg to the other removes the rest benefit entirely\n\nWATCH FOR\n- Starting with the knee already bent — always begin from full extension\n- Hips shifting or torso rotating to assist — stabilise the core\n- Shortening the ROM at either end'
+          short: ['Low pulley, stand side-on', 'Lead with the elbow — not the hand', 'Raise to shoulder height only', '2 RIR — all sets, both arms'],
+          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips, free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top\n- Lower in 2–3s. Alternate arms within the rest period\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Volume session — all at 2 RIR. The goal is accumulating quality lateral delt stimulus without grinding. Focus on feel and control\n\nWATCH FOR\n- Body leaning away to assist — reduce weight\n- Raising above shoulder height — trap takes over\n- Shrugging the working shoulder'
         }
       },
       {
-        id: 'lb-thrust', name: 'Machine Hip Thrust (Booty Builder)', sets: 3, repsDisplay: '10–12', rest: 120, logType: 'standard',
-        note: 'Full hip extension. Pause and squeeze at the top. Consistent pad position every rep. 0–1 RIR.',
+        id: 'uo-curl', name: 'Bayesian Cable Curl', sets: 3, repsDisplay: '10–15 ea.', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley behind body. Arm hangs behind torso — long-head stretch. 2 RIR. Alternate arms.',
         cues: {
-          short: ['Pad consistently at hip crease — same position every session', 'Drive through heels to full hip extension', 'Pause and actively squeeze glutes at the top', 'To failure — all sets'],
-          full: 'SETUP\n- Position the pad consistently against your hip crease every session — changing this changes the mechanics and makes progress tracking meaningless\n- Feet flat and slightly wider than hip width. Toes pointed slightly outward\n- Upper back against the pad, core braced before the first rep\n\nEXECUTION\n- Drive through the heels to full hip extension — hips fully open at the top\n- Pause at the top and actively squeeze the glutes — don\'t just bounce through the top position\n- The pause is what separates this from a momentum exercise\n- Lower in 2s — controlled descent\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1–2s active squeeze. Concentric: strong drive.\n\nKEY CUE\n- This provides end-range hip extension loading — the glute is maximally contracted at the top. Squats and RDLs load the glute most in the stretched position. Together they cover the full ROM\n\nWATCH FOR\n- Pad position shifting across sessions — standardise it\n- Not reaching full hip extension at the top — hips should be fully open\n- Bouncing through the top — the pause is the point\n- Lower back hyperextending at the top — squeeze the glutes, not the lower back'
+          short: ['Low pulley — step forward so arm hangs behind the body', 'Arm behind torso at the bottom — long-head stretch', 'Full supination at the top', 'Alternate arms — 2 RIR all sets'],
+          full: 'SETUP\n- Low pulley. Step forward and turn so the cable pulls the arm behind the body at full extension\n- The arm hanging behind the torso is the critical position — places the bicep long head at maximal stretch\n- Stand upright, grip a D-handle. The further forward you step from the stack, the more the arm hangs behind the body\n\nEXECUTION\n- Curl from the fully stretched position behind the body — upper arm must remain behind the torso throughout\n- Full supination at the top — turn the palm fully upward\n- Lower in 2–3s back to the fully stretched position\n- Alternate arms within the rest period\n\nTEMPO\n- Eccentric: 2–3s. Pause 1s at the bottom stretch. Concentric: smooth.\n\nKEY CUE\n- The arm must hang behind the body at the bottom — not beside it. Step far enough forward from the stack to achieve this. This is what maximises long-head bicep stimulus\n\nWATCH FOR\n- Upper arm swinging forward on the concentric — removes the long-head emphasis\n- Standing too close to the stack — arm doesn\'t get behind the body\n- Not supinating fully at the top'
         }
       },
       {
-        id: 'lb-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '15–20', rest: 60, logType: 'standard',
-        note: 'Deep stretch at the bottom. Vary toe angle across sets. All sets to failure.',
+        id: 'uo-rpecdec', name: 'Reverse Pec Dec', sets: 2, repsDisplay: '15–25', rest: 60, logType: 'standard',
+        note: 'Face machine. Arms at 90°. Light weight — rear delt focus. 2 RIR all sets.',
         cues: {
-          short: ['Deep stretch at the bottom — the primary stimulus', 'Full elevation at the top, 1s pause', 'Vary toe angle: neutral / slightly out / slightly in', 'To failure — all sets'],
-          full: 'SETUP\n- Balls of feet on the platform edge, heels free to drop below platform level. Hold the support lightly for balance only — not to assist the movement\n- Toe angle: vary across sets — Set 1 neutral, Set 2 toes slightly out (medial head), Set 3 toes slightly in (lateral head)\n\nEXECUTION\n- Lower to a deep stretch — heel well below platform level. 2023 research strongly supports this bottom position as the primary stimulus for gastrocnemius hypertrophy\n- Pause 1s at the deep stretch before rising\n- Rise to full elevation, pause 1s at the top\n- Lower in 2s back to the deep stretch\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s.\n\nKEY CUE\n- The deep stretch is the mechanism — a calf raise that doesn\'t go low enough is significantly less effective regardless of load\n\nWATCH FOR\n- Bouncing out of the bottom — hold the stretch\n- Bending the knees — consistent soft bend throughout, not changing between reps\n- Not reaching full elevation — complete ROM both directions'
+          short: ['Face the machine, chest lightly on pad', 'Arms at 90° — horizontal abduction', 'Light weight — rear delt is the target', '2 RIR — both sets'],
+          full: 'SETUP\n- Face the machine with chest lightly against the pad\n- Adjust arm height so arms are at 90° to the torso at the start — too high and the traps take over\n- Light weight — the rear delt is a small muscle\n\nEXECUTION\n- Open the arms wide — horizontal abduction. Spread the wings, not pulling backward\n- Arms at roughly 90° to the torso, parallel to the floor at end range\n- Pause briefly at end range\n- Control the return in 2s\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Volume session — 2 RIR, not grinding. Feel the back of the shoulder contracting. If you feel the traps more than the rear delt, the weight is too heavy\n\nWATCH FOR\n- Arms rising above 90° at end position — trap takes over\n- Shrugging — actively depress before each rep\n- Too much weight'
         }
       }
     ]
@@ -2508,265 +2494,43 @@ const PROGRAM = {
 // ═══════════════════════════════════════════════
 
 const ALTS = {
-  // ─── PUSH A ───
-  'pa-bench': [{
-    id: 'pa-bench-db', name: 'Dumbbell Flat Bench Press',
-    note: 'Flat. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR. Greater ROM at bottom than barbell.',
+  // ─── UPPER A ───
+  'ua-pushdown': [{
+    id: 'ua-pushdown-ohe', name: 'Overhead Tricep Extension (Rope)',
+    note: 'Low pulley. Face away from stack. ONLY USE if right elbow is fully symptom-free.',
     cues: {
-      short: ['Greater ROM at bottom than barbell — use it', 'Shoulder blades retracted and depressed throughout', 'Press without fully locking out at top', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-      full: 'SETUP\n- Lie flat, natural arch, feet flat. Dumbbells at chest height, elbows at roughly 45–75° to the torso\n- Retract and depress shoulder blades before the first rep — maintain this throughout\n- Each arm moves independently — reveals asymmetries and requires slightly more stability than the barbell\n\nEXECUTION\n- Lower dumbbells to chest level, allowing a slightly wider arc than a barbell\n- The extra ROM at the bottom is an advantage — don\'t cut it short\n- Press back up without fully locking out — keeps tension on the chest\n- Slight arc inward at the top, bringing dumbbells close without touching\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent.\n\nKEY CUE\n- Spread the dumbbells apart on the way down — cues the chest stretch and prevents the shoulders from taking over\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Same gradient as barbell bench\n\nWATCH FOR\n- Dumbbells drifting too wide — slight forward angle of the upper arm is correct, not a full fly\n- Losing shoulder blade retraction mid-set\n- One dumbbell leading the other — keep both arms moving symmetrically'
+      short: ['Low pulley, face away from stack — rope behind head', 'Elbows narrow, framing the head — do not flare', 'Extend to full lockout overhead', 'CAUTION: right elbow — stop immediately if any irritation'],
+      full: 'SETUP\n- Rope attachment at low pulley. Face away from the stack, step forward\n- Grip the rope behind your head, elbows framing the face and pointing forward\n- Elbows must stay narrow throughout — flaring outward reduces tricep engagement and stresses the elbow\n\nEXECUTION\n- Extend arms overhead to full lockout\n- The overhead stretch position loads the tricep long head maximally — this is what differentiates it from pushdowns\n- Control the descent in 2–3s back to the fully stretched position behind the head\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled extension.\n\nKEY CUE\n- Elbows point forward and stay narrow — the only movement is the forearms extending overhead around the fixed upper arm\n\nELBOW NOTE\n- This exercise was previously removed from the program due to right distal triceps tendon irritation — the overhead stretched position under load is the primary aggravating mechanism\n- Only use this alternate when the elbow is completely symptom-free. At any sign of irritation, switch back to rope pushdown immediately and do not continue\n\nWATCH FOR\n- Elbows flaring outward — re-narrow immediately\n- Not reaching full extension at the top\n- Going too heavy — overhead extension requires honest loading and strict form'
     }
   }],
 
-  'pa-incline': [
-    {
-      id: 'pa-incline-smith', name: 'Incline Smith Machine Press',
-      note: '30–45°. Adjust bench so bar comes to upper chest naturally. 0–1 RIR all sets.',
-      cues: {
-        short: ['Bench at 30–45°, position so bar tracks to upper chest', 'Fixed path — focus entirely on the chest stretch', 'Own the deep stretch at the bottom', 'To failure — all sets'],
-        full: 'SETUP\n- Set bench to 30–45°. Position inside the Smith so the bar naturally descends to the upper chest — this takes some adjustment and is critical\n- Sit in and grip the bar. Unrack by rotating\n\nEXECUTION\n- Lower with control until a deep upper chest stretch is felt — the fixed bar path removes stabiliser demand, so focus entirely on the chest loading\n- Press back up without fully locking out\n- Use the reduced stability demand to push harder and feel the chest working more deliberately\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled but firm.\n\nKEY CUE\n- Fixed bar path removes balance demand — direct all mental focus toward the upper chest stretch at the bottom\n\nWATCH FOR\n- Bench position causing bar to track over the face — reposition before starting\n- Wrists bending back — keep stacked\n- Not reaching full depth — the stretch is the stimulus'
-      }
-    },
-    {
-      id: 'pa-incline-bar', name: 'Incline Barbell Press',
-      note: '30–45°. Bar to upper chest. Full ROM. 0–1 RIR all sets.',
-      cues: {
-        short: ['30–45° bench angle', 'Bar to upper chest — full ROM every rep', 'Slight elbow tuck — not fully flared', 'To failure — all sets'],
-        full: 'SETUP\n- Incline bench at 30–45°. Higher than 45° shifts stimulus to front delts\n- Grip slightly wider than shoulder width. Retract and depress shoulder blades before unracking\n- Eyes under the bar. Unrack and walk out minimally\n\nEXECUTION\n- Lower to upper chest in 2–3s — feel the upper chest stretching\n- Brief touch at the upper chest, no bounce\n- Press back up in a slight arc back toward the rack\n- Do not fully lock out at the top\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent.\n\nKEY CUE\n- Upper chest contact point — if the bar is coming to lower chest or stomach, the bench angle is wrong or the arch is too exaggerated\n\nWATCH FOR\n- Elbows flaring excessively — slight tuck reduces shoulder stress\n- Bar drifting forward off the upper chest\n- Shoulder blades losing tightness mid-set'
-      }
-    }
-  ],
-
-  'pa-fly': [{
-    id: 'pa-fly-db', name: 'Incline Dumbbell Fly',
-    note: '30–45°. Arms slightly bent — fixed throughout. Own the stretch. Both sets to failure.',
+  // ─── UPPER B ───
+  'ub-pushdown': [{
+    id: 'ub-pushdown-ohe', name: 'Overhead Tricep Extension (Rope)',
+    note: 'Low pulley. Face away from stack. ONLY USE if right elbow is fully symptom-free.',
     cues: {
-      short: ['30–45° bench angle', 'Arms slightly bent — fixed angle, not a press', 'Lower in a wide arc — own the upper chest stretch', 'Pause at the stretch, squeeze at the top'],
-      full: 'SETUP\n- Incline bench at 30–45°. Dumbbells held above chest, arms slightly bent — establish this elbow angle and hold it for the entire set\n- This is not a pressing movement — the elbows do not bend more\n\nEXECUTION\n- Lower in a wide controlled arc until a significant upper chest stretch is felt\n- Pause 1s at the bottom — actively feel the chest loaded in the stretched position\n- Squeeze upward and inward, hands meeting above the chest\n- Brief pause at the top for a contraction\n\nTEMPO\n- Eccentric: 2–3s with active reach into the stretch. Concentric: controlled arc upward.\n\nKEY CUE\n- "Hug a barrel" — the arc is the movement. Any pressing action (elbows bending more) reduces the stretch benefit and shifts load to the triceps\n\nWATCH FOR\n- Elbows bending progressively under fatigue — weight is too heavy\n- Cutting the bottom arc short — the stretch is the stimulus\n- Shoulders shrugging at the top\n- Note: significantly less weight than the incline press — this is correct'
+      short: ['Low pulley, face away from stack — rope behind head', 'Elbows narrow, framing the head — do not flare', 'Extend to full lockout overhead', 'CAUTION: right elbow — stop immediately if any irritation'],
+      full: 'SETUP\n- Rope attachment at low pulley. Face away from the stack, step forward\n- Grip the rope behind your head, elbows framing the face and pointing forward\n- Elbows must stay narrow throughout\n\nEXECUTION\n- Extend arms overhead to full lockout\n- The overhead stretch position loads the tricep long head maximally\n- Control the descent in 2–3s back to the fully stretched position behind the head\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled extension.\n\nKEY CUE\n- Elbows point forward and stay narrow — the only movement is the forearms extending overhead around the fixed upper arm\n\nELBOW NOTE\n- This exercise was previously removed from the program due to right distal triceps tendon irritation — the overhead stretched position under load is the primary aggravating mechanism\n- Only use this alternate when the elbow is completely symptom-free. At any sign of irritation, switch back to rope pushdown immediately\n\nWATCH FOR\n- Elbows flaring outward — re-narrow immediately\n- Not reaching full extension\n- Going too heavy — requires honest loading and strict form'
     }
   }],
 
-  'pa-lateral': [{
-    id: 'pa-lateral-db', name: 'Dumbbell Lateral Raise',
-    note: 'Slight forward lean. Lead with elbow. No momentum. To failure — all sets.',
+  // ─── LOWER A ───
+  'la-legcurl': [{
+    id: 'la-legcurl-lying', name: 'Lying Leg Curl',
+    note: 'Use if no seated leg curl available. Plantarflex throughout. Full ROM.',
     cues: {
-      short: ['Slight forward lean from the hips', 'Lead with the elbow — pinky slightly higher than thumb', 'Raise to shoulder height only', 'No swinging — to failure'],
-      full: 'SETUP\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of the lift\n- Dumbbells at sides, slight elbow bend — maintain throughout\n\nEXECUTION\n- Lead with the elbow, raising to shoulder height\n- Pinky slightly higher than thumb at the top\n- Lower in 2s — don\'t let the weight drop\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s. No momentum.\n\nKEY CUE\n- Loses cable\'s bottom-position tension but otherwise identical stimulus. Go slightly lighter than expected — the lateral delt is small\n\nWATCH FOR\n- Shrugging at the top — depress the shoulders actively\n- Leaning back to assist — lean stays fixed from setup\n- Raising above shoulder height'
+      short: ['Pad just above the heels', 'Point toes (plantarflex) and hold throughout', 'Full extension at the bottom — own the stretch', '2s eccentric — controlled descent'],
+      full: 'SETUP\n- Lie face down, pad just above the heels\n- Point your toes (plantarflex) before the first rep and hold this throughout — plantarflexion shortens the gastrocnemius, shifting more demand to the hamstrings specifically\n- Hips stay flat on the pad throughout\n\nEXECUTION\n- Curl from full extension to full flexion — don\'t start with the pad already partially curled\n- Brief squeeze at full flexion\n- Lower in 2s back to full extension — actively resist the weight on the way down\n- Return to full stretch at the bottom before the next rep\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled. Brief pause at full extension between reps.\n\nKEY CUE\n- Keeping the toes pointed is easy to forget under fatigue — actively remind yourself at the start of each rep\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Hips rising off the pad to help curl — reduce load if this happens\n- Toes releasing back to neutral under fatigue — maintain plantarflexion throughout\n- Shortening the ROM at the bottom — return to full extension every rep\n- Note: seated leg curl with reclined seat is preferred — it provides more hamstring stretch via hip flexion. Use lying only when seated is unavailable'
     }
   }],
 
-  'pa-pushdown': [{
-    id: 'pa-pushdown-kb', name: 'DB Kickback',
-    note: 'Upper arm parallel to floor and completely still. Extend to full lockout. Pause 1s. To failure.',
-    cues: {
-      short: ['Hinge forward — torso nearly parallel to floor', 'Upper arm parallel to floor and completely still', 'Extend to full lockout — pause 1s', 'To failure — all sets'],
-      full: 'SETUP\n- Hinge forward until the torso is roughly parallel to the floor — this is the critical setup requirement. Most people don\'t hinge enough, making it impossible to get the upper arm parallel\n- Upper arm parallel to the floor, pinned to the side of the torso. Establish this before the first rep and hold it throughout\n- Support the non-working hand on a bench or cable machine\n\nEXECUTION\n- Extend the elbow to full lockout — the forearm swings upward and back\n- Pause 1s at full extension — this is where the tricep is fully contracted\n- Lower the forearm in 2s back to 90°\n\nTEMPO\n- Eccentric: 2s. Pause at lockout: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arm parallel to the floor and completely fixed — the only movement is the forearm rotating around the elbow joint. Any movement of the upper arm means setup has broken down\n\nELBOW NOTE\n- Safe for the distal triceps tendon — no overhead stretch component. Low risk, but monitor as always\n\nWATCH FOR\n- Upper arm dropping below parallel — re-establish position before continuing\n- Not reaching full extension — partial contraction only\n- Going too heavy — kickbacks require light weight done strictly to be effective'
-    }
-  }],
-
-  // ─── PULL A ───
-  'pla-pullup': [{
-    id: 'pla-pullup-lpd', name: 'Lat Pulldown',
-    note: 'Pronated grip, just outside shoulder width. Pull to upper chest. 0–1 RIR all sets.',
-    cues: {
-      short: ['Pronated grip, just outside shoulder width', 'Slight lean back — chest up to meet the bar', 'Pull bar to upper chest — not behind the neck', 'Drive elbows down toward hips'],
-      full: 'SETUP\n- Adjust the knee pad so thighs are locked in and hips don\'t rise during the pull\n- Pronated grip just outside shoulder width\n- Slight lean back from the hips, chest tall before the first rep\n\nEXECUTION\n- Initiate by depressing the shoulder blades before the arm bends — this is what ensures the lats do the work\n- Drive elbows down toward the hips — think "elbows to hips", not "hands to bar"\n- Pull the bar to the upper chest — not the chin, not behind the neck\n- Control the return — full extension at the top, shoulder blades fully protracted\n\nTEMPO\n- Eccentric: 2–3s back to full extension. Concentric: strong intent.\n\nKEY CUE\n- "Elbows to hips" — this is the primary lat engagement cue for any vertical pull. Pulling with the hands instead lets the biceps take over and reduces lat stimulus\n\nWATCH FOR\n- Pulling behind the neck — high cervical spine risk, never do this\n- Excessive lean back — turns it into a row\n- Not reaching full extension at the top — the lat stretch at the top matters\n- Bar path drifting forward — keep it travelling vertically'
-    }
-  }],
-
-  'pla-hs-row': [{
-    id: 'pla-hs-row-scr', name: 'Seated Cable Row (Wide Grip)',
-    note: 'Wide pronated grip. Pull to lower chest. Brief pause. 0–1 RIR all sets.',
-    cues: {
-      short: ['Wide pronated grip attachment — not close neutral', 'Sit tall — no excessive forward lean', 'Pull to lower chest, pause and squeeze', 'Reach into the stretch at full extension'],
-      full: 'SETUP\n- Wide bar or wide pronated grip attachment. Sit with chest tall, slight forward lean — establish and maintain\n- Feet on the platform, slight knee bend\n- The wide pronated grip is what keeps this close to the HS Row stimulus — don\'t use close neutral\n\nEXECUTION\n- Row to the lower chest — brief pause and squeeze at the end position\n- Do not lean back aggressively to help the row — reduce weight if needed\n- Actively reach forward into the stretch at full extension — let shoulder blades protract and feel the mid-back stretching\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Pause at peak: 1s. Concentric: controlled.\n\nKEY CUE\n- Wide pronated grip biases the mid-back and rear delts more than close neutral — this is what makes it a close substitute for the HS Row\n\nWATCH FOR\n- Swinging the torso back — remove momentum\n- Using a close grip — changes the stimulus significantly\n- Not reaching full extension — the stretch is important'
-    }
-  }],
-
-  'pla-facepull': [{
-    id: 'pla-facepull-rpd', name: 'Reverse Pec Dec',
-    note: 'Face the machine. Arms at 90°. Light weight, full ROM. Both sets to failure.',
-    cues: {
-      short: ['Face the machine, chest lightly on pad', 'Arms at 90° to torso — horizontal abduction', 'Light weight — rear delt is the target', 'To failure — both sets'],
-      full: 'SETUP\n- Face the machine with chest lightly against the pad. Adjust arm height so arms are at 90° to the torso at the start\n- Light weight — the rear delt is a small muscle and traps easily dominate under heavier loads\n\nEXECUTION\n- Open the arms wide — horizontal abduction. Think spreading the wings, not pulling backward\n- At the end position, arms should be at roughly 90° to the torso and parallel to the floor\n- Control the return in 2s\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Often easier to isolate the rear delt on this machine than on cables. If you feel it in the traps rather than the back of the shoulder, the weight is too heavy\n\nWATCH FOR\n- Arms rising above 90° at end position — trap takes over\n- Shrugging — depress before each rep\n- Too much weight — rear delt will not be the limiting factor'
-    }
-  }],
-
-  'pla-incline-curl': [{
-    id: 'pla-incline-curl-lcc', name: 'Low Cable Curl (Single Arm)',
-    logType: 'per-arm-alt',
-    note: 'Low pulley. Step away so arm hangs behind body — long-head stretch. Alternate arms. To failure.',
-    cues: {
-      short: ['Low pulley — step well away so arm hangs behind the body', 'Arm behind torso at the bottom — same long-head stretch as incline curl', 'Full supination at the top', 'Alternate arms — each side rests while the other works'],
-      full: 'SETUP\n- Low pulley. Step away from the stack until the arm hangs behind the torso at full extension — not beside it\n- This is the critical position: the cable pulling from behind places the bicep long head in a similar stretched position to the incline curl\n- Stand upright or with a very slight forward lean\n\nEXECUTION\n- Curl from the fully stretched position — upper arm must stay behind the body throughout\n- Full supination at the top — turn the palm fully upward\n- Lower in 2s back to full stretch\n- Alternate arms within the rest period — each side rests while the other works\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth. Pause 1s at the stretched bottom position.\n\nKEY CUE\n- The further you stand from the stack, the more the arm hangs behind the body — this is the long-head stretch advantage. Don\'t stand too close\n\nWATCH FOR\n- Upper arm swinging forward on the concentric — defeats the long-head emphasis\n- Standing too close to the stack — arm doesn\'t get behind the body\n- Not supinating fully at the top'
-    }
-  }],
-
-  'pla-cable-curl': [{
-    id: 'pla-cable-curl-bar', name: 'Barbell Curl',
-    note: 'Shoulder width grip. Full ROM. Supinate hard at top. To failure — both sets.',
-    cues: {
-      short: ['Shoulder width or slightly narrower grip', 'Full extension at the bottom', 'Supinate hard at the top', 'No swinging — to failure'],
-      full: 'SETUP\n- Shoulder width grip or slightly narrower. Stand upright, elbows at sides\n- The straight bar forces full supination throughout, which is a slight advantage over the EZ bar for peak contraction\n\nEXECUTION\n- Lower to full extension at the bottom — unlike the cable, the bar unloads here, so strict form matters more\n- Curl to shoulder height, supinate hard at the top\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth.\n\nKEY CUE\n- Elbows pinned to sides throughout — the moment they drift forward, the shoulders assist and the bicep contraction range shortens\n\nWATCH FOR\n- Swinging the body — reduce weight\n- Elbows drifting forward on the concentric\n- Wrist discomfort — switch to EZ bar if persistent'
-    }
-  }],
-
-  // ─── LEGS A ───
-  'la-squat': [{
-    id: 'la-squat-lp', name: 'Leg Press',
-    note: 'Mid-platform foot position. Full ROM. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR.',
-    cues: {
-      short: ['Mid-platform foot position, shoulder width', 'Full ROM — don\'t cut the bottom short', 'Knees track over toes throughout', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-      full: 'SETUP\n- Feet at mid-platform, shoulder width, toes slightly out — balanced quad and posterior chain loading\n- Back and hips pressed firmly into the pad throughout — never let the hips rise off the seat\n- Unrack and let the weight settle before descending\n\nEXECUTION\n- Descend to full depth — hips should not rise off the pad at the bottom\n- Knees track over toes throughout — actively push them out if they cave\n- Drive through the heels to press the platform away\n- Do not fully lock out the knees at the top\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive.\n\nKEY CUE\n- Feel the weight in the heels — if you feel it in the toes, foot position is too low or depth is cutting the heels off\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Leg press allows heavier loading than squat — don\'t treat it as a light alternative\n\nWATCH FOR\n- Hips rising off the pad — reduces ROM and shifts load to the lower back\n- Knees caving — push them out actively\n- Locking out the knees — keep soft at the top\n- Not reaching adequate depth'
-    }
-  }],
-
-  'la-bss': [{
-    id: 'la-bss-db', name: 'Dumbbell Bulgarian Split Squat',
-    note: 'Rear foot elevated, dumbbells at sides. Full depth. 0–1 RIR. REST PER LEG.',
-    cues: {
-      short: ['Rear foot elevated — front foot far enough forward so shin stays vertical at depth', 'Dumbbells at sides — brace the core harder than on the machine', 'Full depth — back knee close to the floor', 'REST PER LEG — full rest between each leg'],
-      full: 'SETUP\n- Rear foot elevated on a bench. Front foot far enough forward that the shin stays roughly vertical at depth — too close and you\'ll feel it in the knee, too far and you\'ll feel it in the hip flexor. Find the position where you feel it in the quad and glute\n- Hold dumbbells at sides. Without machine back support, core bracing becomes more important for stability and preventing forward lean\n\nEXECUTION\n- Descend until the back knee is close to the floor — full ROM\n- Front knee tracks directly over the toes — no caving inward\n- Drive through the front heel and mid-foot on the ascent\n- Stay upright through the torso — don\'t lean excessively forward\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive through the front foot.\n\nKEY CUE\n- Core bracing is more critical here than on a machine — actively engage throughout to prevent the torso falling forward under load\n\nWATCH FOR\n- Front foot too close to the bench — most common setup error, causes excess knee stress\n- Torso falling forward — reduce weight and prioritise bracing\n- Grip failing before the legs — use straps so the legs remain the limiting factor'
-    }
-  }],
-
-  'la-curl': [{
-    id: 'la-curl-seated', name: 'Seated Leg Curl',
-    note: 'Reclined seat maintains hip flexion. Plantarflex. Full ROM. Both sets to failure.',
-    cues: {
-      short: ['Reclined seat position — maintains hip flexion throughout', 'Point toes (plantarflex) throughout', 'Full extension at the bottom before each rep', 'To failure — both sets'],
-      full: 'SETUP\n- Adjust the back pad to a reclined position — this keeps the hip in flexion during the curl, which increases hamstring stretch. This is the key advantage over lying curl\n- Pad just above the ankles. Point toes before starting and maintain throughout\n\nEXECUTION\n- From full extension, curl to full flexion — brief pause\n- Lower in 2s back to full extension\n- Both sets to failure\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- The reclined seat is non-negotiable — an upright seat removes the hip flexion and the associated hamstring stretch benefit. Don\'t use a machine with an upright seat as the substitute\n\nWATCH FOR\n- Seat too upright — loses the hip flexion stretch benefit\n- Toes releasing to neutral under fatigue\n- Hips rising off the seat'
-    }
-  }],
-
-  'la-calf': [{
-    id: 'la-calf-lp', name: 'Leg Press Calf Raise',
-    note: 'Balls of feet on bottom edge only. Full ROM — deep stretch to full elevation. To failure.',
-    cues: {
-      short: ['Balls of feet on bottom edge of platform only', 'Full ROM — heels drop below platform, full elevation at top', 'Vary toe angle across sets', 'To failure — all sets'],
-      full: 'SETUP\n- Slide down so only the balls of the feet are on the bottom edge of the platform — heels must be able to drop below platform level\n- Legs nearly straight, slight knee bend\n\nEXECUTION\n- Drop heels below platform level — deep stretch. This is the primary stimulus, same mechanism as standing raises\n- Push to full plantarflexion at the top, pause 1s\n- Lower in 2s back to the deep stretch, pause 1s\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s in the stretch.\n\nKEY CUE\n- Heels must drop below platform level every rep — a leg press calf raise without the deep stretch is significantly less effective\n\nWATCH FOR\n- Feet sliding up the platform — maintain position\n- Not achieving deep stretch\n- Bending the knees excessively\n- Note: standing raises remain superior per 2023 research — use this only when standing raises are unavailable'
-    }
-  }],
-
-  // ─── PUSH B ───
-  'pb-ohp': [{
-    id: 'pb-ohp-smith', name: 'Smith Machine Overhead Press',
-    note: '90° bench inside Smith. Core braced throughout. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR.',
-    cues: {
-      short: ['Bench at exactly 90° inside the Smith', 'Core braced — no lower back arch', 'Press vertically — fixed path, but maintain tension', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-      full: 'SETUP\n- Position bench inside Smith at exactly 90°. Sit in and grip the bar — adjust bench so bar sits at shoulder height when unracked\n- Brace core before pressing. Feet flat, hips at 90°\n- Fixed bar path removes stability demand — don\'t let form degrade because of it\n\nEXECUTION\n- Press vertically — the Smith guides the bar, ensure the path suits your anatomy\n- Full ROM — lower until upper arms are at or just below parallel\n- Do not lock out fully at the top. Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- Ribs down throughout — if the ribcage flares as you press, the lower back arch has crept in\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR\n\nWATCH FOR\n- Lower back arching off the pad\n- Bar path not vertical for your anatomy — may need to adjust bench position\n- Over-relying on the fixed path and losing muscular tension'
-    }
-  }],
-
-  'pb-pecdec': [{
-    id: 'pb-pecdec-fly', name: 'Cable Fly (High-to-Low)',
-    note: 'Both pulleys high. Arc downward and inward. Prioritise the stretch at the top. Both sets to failure.',
-    cues: {
-      short: ['Both pulleys at the highest position', 'Slight forward lean, staggered stance', 'Arc downward — hands finish at hip/navel height', 'Pause at the open stretch position, squeeze at the bottom'],
-      full: 'SETUP\n- Both pulleys at the highest position. Stand centred between the stacks\n- Slight forward lean from the hips, staggered stance for balance\n- Arms slightly bent — maintain this angle throughout. Not a pressing movement\n\nEXECUTION\n- Start with hands at shoulder height or above, arms open wide — this is the stretch position, don\'t rush through it\n- Arc downward and inward, hands finishing at hip or navel height nearly meeting\n- Pause 1s at the bottom — squeeze the chest\n- Return in 2–3s to the top stretch position — actively reach into the stretch\n\nTEMPO\n- Eccentric: 2–3s. Pause at stretch (top): 1s. Concentric: controlled arc.\n\nKEY CUE\n- The stretch at the top (hands apart, pulleys high, arms open) is where the pec stimulus is — same principle as the pec dec. Own it\n\nWATCH FOR\n- Elbows bending more under fatigue — weight is too heavy\n- Standing too upright — forward lean is needed to direct force correctly\n- Hands finishing too high (at chest level) — they should finish lower, at hip or navel height'
-    }
-  }],
-
-  'pb-pushdown': [{
-    id: 'pb-pushdown-kb', name: 'DB Kickback',
-    note: 'Upper arm parallel to floor and completely still. Extend to full lockout. Pause 1s. To failure.',
-    cues: {
-      short: ['Hinge forward — torso nearly parallel to floor', 'Upper arm parallel to floor and completely still', 'Extend to full lockout — pause 1s', 'To failure — all sets'],
-      full: 'SETUP\n- Hinge forward until the torso is roughly parallel to the floor — most people don\'t hinge enough, making it impossible to get the upper arm parallel to the floor\n- Upper arm parallel to the floor, pinned to the side of the torso. Establish this before the first rep and hold it throughout\n- Support the non-working hand on a bench or cable machine for stability\n\nEXECUTION\n- Extend the elbow to full lockout — forearm swings upward and back\n- Pause 1s at full extension — full tricep contraction\n- Lower in 2s back to 90°\n\nTEMPO\n- Eccentric: 2s. Pause at lockout: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arm parallel to floor and completely still — the only movement is the forearm rotating around the elbow joint. Any movement of the upper arm means the setup has broken down\n\nELBOW NOTE\n- Safe for the distal triceps tendon — no overhead stretch component. Low risk, but monitor as always\n\nWATCH FOR\n- Upper arm dropping below parallel — re-establish position before continuing\n- Not reaching full extension — partial contraction only\n- Going too heavy — kickbacks require light weight done strictly to be effective'
-    }
-  }],
-
-  // ─── PULL B ───
-  'plb-pendlay': [{
-    id: 'plb-pendlay-csr', name: 'Chest Supported Row',
-    note: 'Chest on pad throughout. Pronated grip. Pull to lower chest. 0–1 RIR all sets.',
-    cues: {
-      short: ['Chest firmly on pad — removes lower back demand entirely', 'Pronated grip where possible', 'Pull to lower chest — pause and squeeze', 'Reach into the full stretch at the bottom'],
-      full: 'SETUP\n- Adjust the machine or incline bench so the chest is fully supported throughout the movement\n- Pronated grip (or neutral if the machine only offers neutral) — pronated keeps it closer to the Pendlay Row stimulus\n- Arms hanging at full extension before starting\n\nEXECUTION\n- Row to the lower chest — pause briefly and squeeze\n- Chest support removes all lower back demand — focus entirely on mid-back contraction\n- Actively reach into the full stretch at the bottom — let shoulder blades protract fully\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s with active reach. Pause at peak: 1s.\n\nKEY CUE\n- Chest support removes momentum — every rep is honest. Use this to drive better mid-back engagement rather than just moving the weight\n\nWATCH FOR\n- Chest coming off the pad — defeats the purpose\n- Pulling to the upper chest — lower chest contact keeps it mid-back focused\n- Not reaching full extension at the bottom'
-    }
-  }],
-
-  'plb-cable-row': [{
-    id: 'plb-cable-row-sa', name: 'Seated Cable Row (Single Arm)',
-    logType: 'per-arm-full',
-    note: 'Neutral grip handle. Seated. Shoulder blade first, then pull. REST IS PER ARM — full rest between each arm.',
-    cues: {
-      short: ['Neutral grip single-arm handle', 'Sit tall — no excessive lean forward or back', 'Depress shoulder blade FIRST, then bend the arm', 'REST PER ARM — full rest between each arm'],
-      full: 'SETUP\n- Single-arm neutral grip handle. Sit upright with feet on the platform, slight knee bend\n- The seated position is more stable than kneeling — use this stability to focus on the shoulder blade movement\n\nEXECUTION\n- Depress and retract the shoulder blade FIRST — before the arm bends. Same key sequence as the kneeling version\n- Drive the elbow back toward the hip\n- Brief pause at the end position\n- Actively reach into the stretch at full extension — let the shoulder blade protract forward with control\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s with active reach. Pause at peak: 1s.\n\nKEY CUE\n- Shoulder blade initiates — if the arm bends first, the bicep takes over. Feel the scapula moving before the elbow bends\n\nREST PROTOCOL\n- Complete all reps on one arm. Rest the full 2 minutes. Switch. Don\'t go directly arm to arm\n\nWATCH FOR\n- Arm leading before the shoulder blade\n- Torso rotation to assist\n- Leaning back aggressively — keep torso roughly upright'
-    }
-  }],
-
-  'plb-rear-delt': [{
-    id: 'plb-rear-delt-rpd', name: 'Reverse Pec Dec',
-    note: 'Face the machine. Arms at 90°. Light weight, full ROM. Both sets to failure.',
-    cues: {
-      short: ['Face the machine, chest lightly on pad', 'Arms at 90° — horizontal abduction', 'Light weight — rear delt is the target', 'To failure — both sets'],
-      full: 'SETUP\n- Face the machine with chest lightly against the pad\n- Adjust arm height so arms are at 90° to the torso at the start position — too high and the traps take over\n- Select a light weight — the rear delt is a small muscle and is easily overpowered\n\nEXECUTION\n- Open the arms wide — horizontal abduction. Spread the wings rather than pulling backward\n- At the end position, arms at roughly 90° to the torso, parallel to the floor\n- Pause briefly at the end position\n- Control the return in 2s — don\'t let the machine pull the arms back\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Feel the back of the shoulder contracting — not the traps. If you feel the traps working more than the rear delt, the weight is too heavy\n\nWATCH FOR\n- Arms rising above 90° at the end position — trap recruitment spikes past this point\n- Shrugging — actively depress the shoulders before each rep\n- Too much weight — the rear delt will not be the limiting factor, undermining the whole exercise'
-    }
-  }],
-
-  'plb-cable-curl': [{
-    id: 'plb-cable-curl-bar', name: 'Barbell Curl',
-    note: 'Shoulder width grip. Full ROM. Supinate hard at top. To failure — all sets.',
-    cues: {
-      short: ['Shoulder width grip', 'Full extension at the bottom', 'Supinate hard at the top', 'No swinging — to failure'],
-      full: 'SETUP\n- Shoulder width grip or slightly narrower. Elbows pinned to sides before starting\n\nEXECUTION\n- Lower to full extension. Curl to shoulder height, supinate hard at the top. Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth.\n\nKEY CUE\n- Loses the cable\'s constant bottom tension — compensate with strict full extension at the bottom and slow eccentric\n\nWATCH FOR\n- Swinging — reduce weight\n- Elbows drifting forward\n- Wrist discomfort with straight bar — switch to EZ bar if persistent'
-    }
-  }],
-
-  'plb-hammer': [{
-    id: 'plb-hammer-db', name: 'Dumbbell Hammer Curl',
-    note: 'Neutral grip — thumbs up throughout. Full ROM. Both sets to failure.',
-    cues: {
-      short: ['Neutral grip — thumbs pointing up throughout', 'Full extension at the bottom', 'No supination — neutral grip throughout', 'No swinging — to failure'],
-      full: 'SETUP\n- Neutral grip, thumbs up. Stand upright, elbows at sides. This is not a supinated bicep curl — neutral grip is the entire point\n\nEXECUTION\n- Lower to full extension. Curl to shoulder height with thumbs up throughout. No swinging. Lower in 2s\n\nTEMPO\n- Eccentric: 2s. Concentric: smooth.\n\nKEY CUE\n- Thumbs up throughout — the moment wrists rotate toward supination, the brachialis emphasis is lost\n\nWATCH FOR\n- Wrists rotating to supinate\n- Swinging — reduce weight\n- Loses cable\'s bottom tension — compensate with strict full extension'
-    }
-  }],
-
-  // ─── LEGS B ───
-  'lb-rdl': [{
-    id: 'lb-rdl-db', name: 'Dumbbell Romanian Deadlift',
-    note: 'Same hip hinge mechanics as barbell. Soft knee, dumbbells close to legs. S1: 2–3 RIR · S2: 1–2 RIR · S3: 0–1 RIR.',
-    cues: {
-      short: ['Same hip hinge mechanics as barbell RDL', 'Dumbbells close to the legs throughout — don\'t let them drift forward', 'Own the hamstring stretch at the bottom', 'S1: 2–3 RIR / S2: 1–2 RIR / S3: 0–1 RIR'],
-      full: 'SETUP\n- Dumbbells at sides, standing tall. Soft knee bend — establish this angle and maintain it throughout. The knees must not bend more on the descent\n- Lats engaged, neutral spine before the first rep\n\nEXECUTION\n- Push hips back as dumbbells descend. Keep dumbbells close to the legs throughout — don\'t let them drift forward or the lower back absorbs the load\n- Descend until a significant hamstring stretch is felt, typically mid-shin\n- Pause 1s at the bottom — feel the hamstrings loaded under stretch before driving hips forward\n- Drive hips forward to return, squeeze glutes at the top\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled drive through the hips.\n\nKEY CUE\n- "Push hips back to the wall behind you" — hips moving backward is the movement, not the dumbbells moving down. This keeps the hinge honest and prevents it becoming a squat\n\nRIR\n- S1: 2–3 RIR. S2: 1–2 RIR. S3: 0–1 RIR. Load is limited by dumbbell availability at heavier weights — the main limitation of this substitute\n\nWATCH FOR\n- Dumbbells drifting forward away from the legs — increases lumbar strain significantly\n- Knees bending more on the descent — maintain the soft fixed knee bend\n- Lower back rounding at depth — reduce the ROM before allowing this'
-    }
-  }],
-
-  'lb-hack': [{
-    id: 'lb-hack-lp', name: 'Leg Press (High Foot)',
-    note: 'High foot placement — top third of platform. Full ROM. Posterior chain emphasis. 0–1 RIR all sets.',
-    cues: {
-      short: ['High foot placement — top third of the platform', 'Full ROM — don\'t cut depth short', 'Drive through heels — posterior chain emphasis', 'To failure — both sets'],
-      full: 'SETUP\n- High foot placement — top third of the platform. This shifts emphasis to the glutes and hamstrings, matching the posterior emphasis of the hack squat it\'s replacing\n- Feet shoulder width, toes slightly out. Back and hips firmly into the pad\n\nEXECUTION\n- Full ROM — descend until the platform is close to the torso\n- Drive through the heels — feel the glutes and hamstrings working\n- Do not lock out at the top\n\nTEMPO\n- Eccentric: 2–3s. Concentric: strong drive through heels.\n\nKEY CUE\n- High foot placement is critical — mid or low platform shifts to quad dominance, which is not the role of this exercise in this session\n\nWATCH FOR\n- Feet slipping down during the set — check position each set\n- Hips rising off the pad — reduce depth slightly\n- Knees caving — push out actively'
-    }
-  }],
-
+  // ─── LOWER B ───
   'lb-legcurl': [{
-    id: 'lb-legcurl-seated', name: 'Seated Leg Curl',
-    logType: 'standard',
-    note: 'Reclined seat for hip flexion. Plantarflex. Full ROM. To failure — all sets.',
+    id: 'lb-legcurl-lying', name: 'Lying Leg Curl',
+    note: 'Use if no seated leg curl available. Plantarflex throughout. Full ROM.',
     cues: {
-      short: ['Reclined seat — maintains hip flexion during curl', 'Point toes (plantarflex) throughout', 'Full extension at the bottom before each rep', 'To failure — all sets'],
-      full: 'SETUP\n- Adjust back pad to a reclined position — maintains hip flexion during the curl, providing a hamstring stretch benefit similar to the kneeling version\n- Pad just above the ankles. Point toes before starting — maintain throughout\n\nEXECUTION\n- From full extension, curl to full flexion. Brief pause. Lower in 2s back to full extension. All sets to failure\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- Reclined seat is non-negotiable — upright seat removes the hip flexion and the stretch benefit. Don\'t use a machine with an upright seat\n\nWATCH FOR\n- Seat too upright — loses hip flexion benefit\n- Toes releasing to neutral\n- Hips rising off the seat\n- Note: this is bilateral — trading unilateral focus for bilateral loading. Acceptable for a substitution session'
-    }
-  }],
-
-  'lb-thrust': [{
-    id: 'lb-thrust-bar', name: 'Barbell Hip Thrust',
-    note: 'Upper back on bench, bar with pad across hip crease. Full extension. Pause and squeeze at top. 0–1 RIR.',
-    cues: {
-      short: ['Upper back against bench, bar with pad at hip crease', 'Drive through heels to full hip extension', 'Pause and actively squeeze glutes at the top', 'To failure — all sets'],
-      full: 'SETUP\n- Bench behind you. Upper back rests against the bench edge — lower trap region, not the neck\n- Place a barbell pad across the hip crease. Roll the bar over your legs to position it\n- Feet flat, shoulder width, toes slightly out. Hips below bench level at the start\n\nEXECUTION\n- Drive through heels to full hip extension — hips fully open at the top\n- Pause at the top and actively squeeze the glutes — do not bounce through the top position\n- Lower in 2s — hips drop back below bench level\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1–2s active squeeze. Concentric: strong drive.\n\nKEY CUE\n- This is end-range hip extension loading — the glutes are maximally contracted at the top. Squats and RDLs load the glute most in the stretched position; this covers the opposite end, making them excellent complements\n\nWATCH FOR\n- Bar sliding off the pad — ensure pad is secure and centred\n- Upper back slipping down the bench — brace before every rep\n- Hyperextending the lower back at the top — squeeze glutes to reach extension, not by arching\n- Feet too close or far — adjust until glutes are the primary driver'
-    }
-  }],
-
-  'lb-calf': [{
-    id: 'lb-calf-lp', name: 'Leg Press Calf Raise',
-    note: 'Balls of feet on bottom edge only. Full ROM — deep stretch to full elevation. To failure.',
-    cues: {
-      short: ['Balls of feet on bottom edge of platform only', 'Full ROM — heels drop below platform, full elevation at top', 'Vary toe angle across sets', 'To failure — all sets'],
-      full: 'SETUP\n- Slide down so only the balls of the feet are on the bottom edge of the platform — heels must be able to drop below platform level for the stretch\n- Legs nearly straight, slight knee bend throughout\n\nEXECUTION\n- Drop heels below platform level — deep stretch. Push to full plantarflexion at the top, pause 1s. Lower in 2s, pause 1s at bottom\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s.\n\nKEY CUE\n- Deep stretch is the mechanism — heels must drop below platform level every rep. A leg press calf raise without the deep stretch is significantly less effective\n\nWATCH FOR\n- Feet sliding up the platform during the set — reset position between sets if needed\n- Not achieving the deep stretch — partial ROM significantly reduces effectiveness\n- Note: standing raises remain superior per 2023 research — use this only when standing raises are unavailable'
+      short: ['Pad just above the heels', 'Point toes (plantarflex) and hold throughout', 'Full extension at the bottom — own the stretch', '2s eccentric — controlled descent'],
+      full: 'SETUP\n- Lie face down, pad just above the heels\n- Point your toes (plantarflex) before the first rep and hold this throughout — plantarflexion shortens the gastrocnemius, shifting more demand to the hamstrings specifically\n- Hips stay flat on the pad throughout\n\nEXECUTION\n- Curl from full extension to full flexion — don\'t start with the pad already partially curled\n- Brief squeeze at full flexion\n- Lower in 2s back to full extension — actively resist the weight on the way down\n- Return to full stretch at the bottom before the next rep\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled. Brief pause at full extension between reps.\n\nKEY CUE\n- Keeping the toes pointed is easy to forget under fatigue — actively remind yourself at the start of each rep\n\nWATCH FOR\n- Hips rising off the pad to help curl — reduce load if this happens\n- Toes releasing back to neutral under fatigue — maintain plantarflexion\n- Shortening the ROM at the bottom — return to full extension every rep\n- Note: seated leg curl with reclined seat is preferred — it provides more hamstring stretch via hip flexion. Use lying only when seated is unavailable'
     }
   }]
 };
@@ -2858,18 +2622,21 @@ function getCycleData() {
 }
 function saveCycleData(d) { localStorage.setItem('wt_cycles', JSON.stringify(d)); }
 
-const ALL_SESSIONS = ['push-a', 'pull-a', 'legs-a', 'push-b', 'pull-b', 'legs-b'];
+const ALL_SESSIONS = ['upper-a', 'lower-a', 'upper-b', 'lower-b'];
 const DELOAD_THRESHOLD = 5;
 
 function recordSessionInCycle(sessionId, isDeload) {
-  if (isDeload) return; // deload sessions don't count toward next cycle
   const d = getCycleData();
+  // Always add to buffer so the next-session indicator advances correctly
   if (!d.buffer.includes(sessionId)) d.buffer.push(sessionId);
   const allDone = ALL_SESSIONS.every(s => d.buffer.includes(s));
   if (allDone) {
-    d.count++;
+    // Only increment cycle count if the completing session wasn't a deload
+    if (!isDeload) {
+      d.count++;
+      if (d.count >= DELOAD_THRESHOLD) d.deloadDue = true;
+    }
     d.buffer = [];
-    if (d.count >= DELOAD_THRESHOLD) d.deloadDue = true;
   }
   saveCycleData(d);
 }
@@ -3940,7 +3707,7 @@ function renderWarmup() {
     <div class="warmup-section">
       <div class="warmup-section-title">Cardio</div>
       <div class="warmup-body">
-        <p><strong style="color:var(--text)">After Push or Pull sessions only — never after Legs.</strong> 15–20 minutes, 2–3× per week.</p>
+        <p><strong style="color:var(--text)">After Upper sessions only — never after Lower.</strong> 15–20 minutes, 2–3× per week.</p>
         <div class="warmup-callout"><strong>Target Settings</strong>Incline: 10–12% · Speed: 5.5–6.5 km/h · Duration: 15–20 min</div>
         <p>If session quality on resistance days starts to decline, trim to 12–15 minutes before touching the resistance program.</p>
       </div>
@@ -3986,7 +3753,7 @@ function switchProgTab(tab) {
 }
 
 function renderProgSessions() {
-  const ORDER = ['push-a', 'pull-a', 'legs-a', 'push-b', 'pull-b', 'legs-b'];
+  const ORDER = ['upper-a', 'lower-a', 'upper-b', 'lower-b', 'upper-optional'];
   const TYPE_LABEL = { push: 'Push', pull: 'Pull', legs: 'Legs' };
 
   const html = ORDER.map(sid => {
