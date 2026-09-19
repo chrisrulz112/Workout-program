@@ -21,6 +21,8 @@
   --push: #d4ff00;
   --pull: #c084fc;
   --legs: #64a0ff;
+  --upper: #ffb347;
+  --soccer: #4ade80;
   --rest: #ff5252;
   --warn: #ffb347;
   --text: #e8e8e8;
@@ -140,6 +142,8 @@ input { font-family: 'DM Sans', sans-serif; }
 .cycle-cell.push { background: rgba(212,255,0,0.07); border-color: rgba(212,255,0,0.25); color: var(--push); }
 .cycle-cell.pull { background: rgba(192,132,252,0.07); border-color: rgba(192,132,252,0.25); color: var(--pull); }
 .cycle-cell.legs { background: rgba(100,160,255,0.07); border-color: rgba(100,160,255,0.25); color: #64a0ff; }
+.cycle-cell.upper { background: rgba(255,179,71,0.07); border-color: rgba(255,179,71,0.25); color: var(--upper); }
+.cycle-cell.soccer { background: rgba(74,222,128,0.07); border-color: rgba(74,222,128,0.25); color: var(--soccer); }
 .cycle-cell.rest { background: rgba(255,255,255,0.02); border-color: var(--border); color: var(--muted); }
 
 /* Session cards */
@@ -171,15 +175,18 @@ input { font-family: 'DM Sans', sans-serif; }
 .session-card.push::before { background: var(--push); }
 .session-card.pull::before { background: var(--pull); }
 .session-card.legs::before { background: var(--legs); }
+.session-card.upper::before { background: var(--upper); }
 .session-card:active { transform: scale(0.97); background: var(--surface2); }
 
 .session-card.active-session.push { border-color: rgba(212,255,0,0.5); box-shadow: 0 0 0 1px rgba(212,255,0,0.15), 0 0 16px rgba(212,255,0,0.12); }
 .session-card.active-session.pull { border-color: rgba(192,132,252,0.5); box-shadow: 0 0 0 1px rgba(192,132,252,0.15), 0 0 16px rgba(192,132,252,0.12); }
 .session-card.active-session.legs { border-color: rgba(100,160,255,0.5); box-shadow: 0 0 0 1px rgba(100,160,255,0.15), 0 0 16px rgba(100,160,255,0.12); }
+.session-card.active-session.upper { border-color: rgba(255,179,71,0.5); box-shadow: 0 0 0 1px rgba(255,179,71,0.15), 0 0 16px rgba(255,179,71,0.12); }
 
 .session-card.next-session.push { border-color: rgba(212,255,0,0.5); box-shadow: 0 0 0 1px rgba(212,255,0,0.15), 0 0 20px rgba(212,255,0,0.18); }
 .session-card.next-session.pull { border-color: rgba(192,132,252,0.5); box-shadow: 0 0 0 1px rgba(192,132,252,0.15), 0 0 20px rgba(192,132,252,0.18); }
 .session-card.next-session.legs { border-color: rgba(100,160,255,0.5); box-shadow: 0 0 0 1px rgba(100,160,255,0.15), 0 0 20px rgba(100,160,255,0.18); }
+.session-card.next-session.upper { border-color: rgba(255,179,71,0.5); box-shadow: 0 0 0 1px rgba(255,179,71,0.15), 0 0 20px rgba(255,179,71,0.18); }
 
 .card-name {
   font-family: 'Bebas Neue', sans-serif;
@@ -191,6 +198,7 @@ input { font-family: 'DM Sans', sans-serif; }
 .push .card-name { color: var(--push); }
 .pull .card-name { color: var(--pull); }
 .legs .card-name { color: var(--legs); }
+.upper .card-name { color: var(--upper); }
 
 .card-subtitle {
   font-size: 11px;
@@ -267,6 +275,7 @@ input { font-family: 'DM Sans', sans-serif; }
 .session-name.push { color: var(--push); }
 .session-name.pull { color: var(--pull); }
 .session-name.legs { color: var(--legs); }
+.session-name.upper { color: var(--upper); }
 .session-name-sub {
   font-family: 'DM Mono', monospace;
   font-size: 10px;
@@ -958,6 +967,7 @@ input { font-family: 'DM Sans', sans-serif; }
 .hist-dot.push { background: var(--push); }
 .hist-dot.pull { background: var(--pull); }
 .hist-dot.legs { background: var(--legs); }
+.hist-dot.upper { background: var(--upper); }
 .hist-info { flex: 1; }
 .hist-session-name {
   font-size: 14px;
@@ -1702,6 +1712,7 @@ input { font-family: 'DM Sans', sans-serif; }
 .resume-dot.push { background: var(--push); box-shadow: 0 0 6px rgba(212,255,0,0.4); }
 .resume-dot.pull { background: var(--pull); box-shadow: 0 0 6px rgba(192,132,252,0.4); }
 .resume-dot.legs { background: var(--legs); box-shadow: 0 0 6px rgba(100,160,255,0.4); }
+.resume-dot.upper { background: var(--upper); box-shadow: 0 0 6px rgba(255,179,71,0.4); }
 .resume-info { flex: 1; min-width: 0; }
 .resume-label {
   font-family: 'DM Mono', monospace;
@@ -1866,7 +1877,7 @@ input { font-family: 'DM Sans', sans-serif; }
   <!-- ─── HOME ─── -->
   <div id="view-home" class="view active">
     <div class="home-header">
-      <div class="home-eyebrow">Upper / Lower Split</div>
+      <div class="home-eyebrow">Push / Pull / Legs / Upper</div>
       <div class="home-title"><span>Training</span></div>
     </div>
     <div class="home-body">
@@ -1889,46 +1900,43 @@ input { font-family: 'DM Sans', sans-serif; }
         </div>
         <div class="deload-banner-btn" onclick="confirmDeloadDone()">Mark Done</div>
       </div>
-      <div class="section-label">Cycle Structure</div>
+      <div class="section-label">Weekly Schedule</div>
       <div class="cycle-wrap">
         <div class="cycle-row">
-          <div class="cycle-cell push"><span class="day-num">D1</span>Upper A</div>
-          <div class="cycle-cell legs"><span class="day-num">D2</span>Lower A</div>
-          <div class="cycle-cell rest"><span class="day-num">D3</span>Rest</div>
+          <div class="cycle-cell rest"><span class="day-num">MON</span>Rest</div>
+          <div class="cycle-cell soccer"><span class="day-num">TUE</span>Soccer</div>
+          <div class="cycle-cell push"><span class="day-num">WED</span>Push</div>
+          <div class="cycle-cell rest"><span class="day-num">THU</span>Rest*</div>
         </div>
         <div class="cycle-row">
-          <div class="cycle-cell push"><span class="day-num">D4</span>Upper B</div>
-          <div class="cycle-cell legs"><span class="day-num">D5</span>Lower B</div>
-          <div class="cycle-cell rest"><span class="day-num">D6</span>Rest</div>
+          <div class="cycle-cell pull"><span class="day-num">FRI</span>Pull</div>
+          <div class="cycle-cell legs"><span class="day-num">SAT</span>Legs</div>
+          <div class="cycle-cell upper"><span class="day-num">SUN</span>Upper</div>
         </div>
       </div>
+      <div class="vol-legend" style="margin:-16px 0 20px">*Thursday is a flex option — swap it with Friday's Pull in a given week if it fits better.</div>
 
       <div class="section-label">Sessions</div>
       <div class="session-grid">
-        <div class="session-card push" id="scard-upper-a" onclick="startSession('upper-a')">
-          <div class="card-name">Upper A</div>
-          <div class="card-subtitle">Chest / Back / Delts</div>
+        <div class="session-card push" id="scard-push" onclick="startSession('push')">
+          <div class="card-name">Push</div>
+          <div class="card-subtitle">Chest / Delts / Triceps</div>
+          <div class="card-meta"><span>5 ex</span><span>·</span><span>50–58m</span></div>
+        </div>
+        <div class="session-card pull" id="scard-pull" onclick="startSession('pull')">
+          <div class="card-name">Pull</div>
+          <div class="card-subtitle">Back / Rear Delts / Biceps</div>
+          <div class="card-meta"><span>7 ex</span><span>·</span><span>65–75m</span></div>
+        </div>
+        <div class="session-card legs" id="scard-legs" onclick="startSession('legs')">
+          <div class="card-name">Legs</div>
+          <div class="card-subtitle">Quads / Hamstrings / Calves / Core</div>
+          <div class="card-meta"><span>8 ex</span><span>·</span><span>70–80m</span></div>
+        </div>
+        <div class="session-card upper" id="scard-upper" onclick="startSession('upper')">
+          <div class="card-name">Upper</div>
+          <div class="card-subtitle">Full Upper — Higher Volume</div>
           <div class="card-meta"><span>8 ex</span><span>·</span><span>75–85m</span></div>
-        </div>
-        <div class="session-card legs" id="scard-lower-a" onclick="startSession('lower-a')">
-          <div class="card-name">Lower A</div>
-          <div class="card-subtitle">Quad Bias</div>
-          <div class="card-meta"><span>6 ex</span><span>·</span><span>60–70m</span></div>
-        </div>
-        <div class="session-card push" id="scard-upper-b" onclick="startSession('upper-b')">
-          <div class="card-name">Upper B</div>
-          <div class="card-subtitle">Chest / Back / Arms</div>
-          <div class="card-meta"><span>8 ex</span><span>·</span><span>75–85m</span></div>
-        </div>
-        <div class="session-card legs" id="scard-lower-b" onclick="startSession('lower-b')">
-          <div class="card-name">Lower B</div>
-          <div class="card-subtitle">Hamstring Bias</div>
-          <div class="card-meta"><span>6 ex</span><span>·</span><span>55–65m</span></div>
-        </div>
-        <div class="session-card pull optional-card" id="scard-upper-optional" onclick="startSession('upper-optional')">
-          <div class="card-name">Upper Optional</div>
-          <div class="card-subtitle">Specialisation — Chest / Lats / Delts / Biceps</div>
-          <div class="card-meta"><span>5 ex</span><span>·</span><span>40–50m</span></div>
         </div>
       </div>
 
@@ -1980,22 +1988,22 @@ input { font-family: 'DM Sans', sans-serif; }
     <!-- Volume panel -->
     <div id="prog-volume" class="prog-panel">
       <div class="prog-body">
-        <div class="section-label" style="margin-bottom:14px">Weekly Volume — Per 6-Day Cycle</div>
+        <div class="section-label" style="margin-bottom:14px">Weekly Volume — Direct Sets per Week</div>
         <div class="vol-grid">
-          <div class="vol-card-app"><div class="vol-m">Chest</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:75%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~10</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Side Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:78%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~8</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Rear Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:55%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~6</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Upper Traps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:50%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Triceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:55%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">+ compound adds ~4–6</div></div>
-          <div class="vol-card-app"><div class="vol-m">Back (Lats + Mid)</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:82%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~10</span><span class="vol-t">MEV ~10 · MRV ~25</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Biceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:72%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~9</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Quads</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:70%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~9</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Hamstrings</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:72%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~9</span><span class="vol-t">MEV ~6 · MRV ~18</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Glutes</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:55%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~5</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Calves</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:62%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~6</span><span class="vol-t">MEV ~6 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
-          <div class="vol-card-app"><div class="vol-m">Abs / Core</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:50%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Chest</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:55%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~11</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Side Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:35%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~7</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Rear Delts</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:25%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~5</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">Approaching MEV</div></div>
+          <div class="vol-card-app"><div class="vol-m">Upper Traps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:25%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">At MEV</div></div>
+          <div class="vol-card-app"><div class="vol-m">Triceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:25%;background:var(--push)"></div></div><div class="vol-row"><span class="vol-n">~5</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s ok">Approaching MEV · + compound adds ~3–5</div></div>
+          <div class="vol-card-app"><div class="vol-m">Back (Lats + Mid)</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:52%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~13</span><span class="vol-t">MEV ~10 · MRV ~25</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Biceps</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:35%;background:var(--pull)"></div></div><div class="vol-row"><span class="vol-n">~7</span><span class="vol-t">MEV ~6 · MRV ~20</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Quads</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:35%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~7</span><span class="vol-t">MEV ~8 · MRV ~20</span></div><div class="vol-s ok">Approaching MEV — single leg day</div></div>
+          <div class="vol-card-app"><div class="vol-m">Hamstrings</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:33%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~6</span><span class="vol-t">MEV ~6 · MRV ~18</span></div><div class="vol-s ok">At MEV — soccer supplements</div></div>
+          <div class="vol-card-app"><div class="vol-m">Glutes</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:31%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~5</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">On Target</div></div>
+          <div class="vol-card-app"><div class="vol-m">Calves</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:19%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~3</span><span class="vol-t">MEV ~6 · MRV ~16</span></div><div class="vol-s ok">Below MEV — single leg day, monitor</div></div>
+          <div class="vol-card-app"><div class="vol-m">Abs / Core</div><div class="vol-bar-w"><div class="vol-bar-f" style="width:25%;background:var(--legs)"></div></div><div class="vol-row"><span class="vol-n">~4</span><span class="vol-t">MEV ~4 · MRV ~16</span></div><div class="vol-s good">At MEV</div></div>
         </div>
-        <div class="vol-legend">MEV = Minimum Effective Volume · MRV = Maximum Recoverable Volume · Israetel et al. · Optional session adds ~2–3 sets per targeted muscle</div>
+        <div class="vol-legend">MEV = Minimum Effective Volume · MRV = Maximum Recoverable Volume · Israetel et al. · Figures are direct sets/week now that each session runs once weekly — no cycle conversion needed.</div>
       </div>
     </div>
 
@@ -2011,10 +2019,10 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="cn-item open" id="cn-cycle">
           <div class="cn-header" onclick="toggleCN('cycle')"><span class="cn-title">Cycle Structure</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
-            <p>The program runs on a 6-day rotating cycle — Upper A / Lower A / Rest / Upper B / Lower B / Rest — de-coupled from the calendar week. Training frequency is driven by recovery, not the calendar.</p>
-            <p style="margin-top:10px">Each muscle group is trained twice per cycle (every ~6 days), hitting both an A and B variant with different primary exercises and emphases. Upper sessions cover chest, back, delts, and arms. Lower sessions cover quads, hamstrings, glutes, calves, and core.</p>
-            <p style="margin-top:10px">The Optional Upper session is a low-intensity specialisation session (~2 RIR every set). Run it when recovery allows — between Lower B and the next Upper A, or as a standalone extra. It does not count toward the deload cycle counter.</p>
-            <div class="cn-callout">If you miss a session, pick up exactly where you left off. Never cram two sessions into one day to catch up, and never skip a session to stay calendar-aligned.</div>
+            <p>The program now runs on a fixed weekly schedule rather than a rotating cycle: Rest (Mon) → Soccer (Tue) → Push (Wed) → Pull (Thu flex or Fri default) → Legs (Sat) → Upper (Sun). Each of the 4 lifting sessions runs once per week.</p>
+            <p style="margin-top:10px">This trades the old twice-weekly-per-muscle frequency for a single higher-volume Upper day that adds a second weekly exposure for chest, back, shoulders, traps, and arms — while Legs consolidates to one session, with Tuesday soccer supplementing lower-body conditioning.</p>
+            <p style="margin-top:10px">Pull is deliberately flexible between Thursday and Friday — use whichever fits that week. Everything else is fixed to its day.</p>
+            <div class="cn-callout">If you miss a session, do it on the next available day rather than skipping it or doubling up. The app tracks completion by session type, not calendar day, so it doesn't matter which order you hit them in within a week.</div>
           </div>
         </div>
 
@@ -2043,7 +2051,7 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="cn-item" id="cn-calves">
           <div class="cn-header" onclick="toggleCN('calves')"><span class="cn-title">Calf Training</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
-            <p>Both lower sessions use standing calf raises. 2023 research found standing raises produced significantly greater gastrocnemius hypertrophy than seated, while soleus growth was comparable between both.</p>
+            <p>Legs day uses standing calf raises, now the sole direct calf work in the week since the program consolidated to one leg day. 2023 research found standing raises produced significantly greater gastrocnemius hypertrophy than seated, while soleus growth was comparable between both.</p>
             <div class="cn-callout">Vary toe angle across sets: neutral covers both heads evenly, toes slightly out biases the medial head, toes slightly in biases the lateral head.</div>
           </div>
         </div>
@@ -2051,9 +2059,9 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="cn-item" id="cn-elbow">
           <div class="cn-header" onclick="toggleCN('elbow')"><span class="cn-title">Elbow Management</span><span class="cn-arrow">›</span></div>
           <div class="cn-body">
-            <p>Rope pushdown is the primary tricep isolation in both upper sessions, loading the tricep at a comfortable angle without an overhead stretched position.</p>
-            <p style="margin-top:10px">Overhead tricep extension is available as an alternate — but only when the right elbow is completely symptom-free. It is the primary aggravating mechanism for the right distal triceps tendon and must not be used at any sign of irritation.</p>
-            <p style="margin-top:10px">Monitor elbow response to accumulated push volume across the cycle. If irritation increases, reduce pushdown sets first before making any other changes.</p>
+            <p>Rope pushdown is the primary tricep isolation on Push day, loading the tricep at a comfortable angle without an overhead stretched position.</p>
+            <p style="margin-top:10px">Upper day now uses single-arm cable overhead triceps extension instead of a second pushdown. This is the exercise that previously aggravated the right distal triceps tendon and was removed for that reason — it has since resolved, but this remains the highest-risk exercise in the program for that joint. Stop immediately at any sign of irritation and swap back to a pushdown variant for the rest of that week if it recurs.</p>
+            <p style="margin-top:10px">Monitor elbow response across the week, especially with two tricep-loading sessions (Push + Upper) now in the schedule. If irritation increases, drop the overhead extension first before making any other changes.</p>
           </div>
         </div>
 
@@ -2070,7 +2078,7 @@ input { font-family: 'DM Sans', sans-serif; }
             </ul>
             <p style="margin-top:10px">Secondary compounds later in the session — 1 lighter set only. Isolations — nothing needed.</p>
             <p style="margin-top:10px"><strong style="color:var(--text)">Pull-up warm-up (specific):</strong> bodyweight is ~95% of working weight at current loading, so a full pyramid would arrive at near-working intensity. Instead: 1 set scapular pulls (8–10 reps) + 3–4 bodyweight pull-ups at easy effort. Straight into weighted sets.</p>
-            <p style="margin-top:10px"><strong style="color:var(--text)">Cardio:</strong> after Upper sessions only — never after Lower. 15–20 min, 2–3× per week.</p>
+            <p style="margin-top:10px"><strong style="color:var(--text)">Cardio:</strong> after Push or Pull sessions only — never after Legs. Tuesday's soccer session already covers conditioning for the week. 15–20 min, on your Push/Pull days as needed.</p>
             <div class="cn-callout">Incline: 10–12% · Speed: 5.5–6.5 km/h · Duration: 15–20 min. If resistance session quality declines, trim cardio to 12–15 min before touching the resistance program.</div>
           </div>
         </div>
@@ -2322,11 +2330,11 @@ const PROGRAM = {
     id: 'upper-b', name: 'Upper B', subtitle: 'Chest / Back / Arms', type: 'push',
     exercises: [
       {
-        id: 'ub-bench', name: 'Barbell Bench Press', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
-        note: 'Flat. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR. Maintain technique throughout.',
+        id: 'ub-bench', name: 'Incline Barbell Bench Press', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: '30–45°. S1: 2 RIR · S2: 2 RIR · S3: 1 RIR. Bar to upper chest. Maintain technique throughout.',
         cues: {
-          short: ['Retract and depress shoulder blades before unracking', 'Bar to mid-chest — full ROM every rep', 'Slight elbow tuck on descent — not flared', 'S1: 2 RIR / S2: 2 RIR / S3: 1 RIR'],
-          full: 'SETUP\n- Grip just outside shoulder width — forearms vertical when bar touches chest\n- Natural arch, not exaggerated. Feet flat on floor, leg drive active throughout\n- Retract and depress shoulder blades hard into the bench before unracking — hold this position for the entire set\n- Eyes under the bar. Unrack with straight arms, walk out minimally\n\nEXECUTION\n- Lower to mid-chest in 2–3s, controlled. Slight elbow tuck — not flared 90°, not tucked fully\n- Brief touch at the bottom — no bounce, no pause\n- Press in a slight arc back toward the rack, not straight up\n- Maintain leg drive and upper back tightness on every rep\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent. No pause at top.\n\nKEY CUE\n- Imagine trying to bend the bar into a U shape — this cues lat engagement and keeps the elbows from flaring\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Shoulder blades losing tightness mid-set — re-cue between reps if needed\n- Butt coming off the bench under heavy loads\n- Bar drifting toward the face on the press — keep the arc consistent\n- Elbow note: slight tuck can reduce distal triceps tendon strain if irritation arises under heavy loads'
+          short: ['30–45° bench angle', 'Retract and depress shoulder blades before unracking', 'Bar to upper chest — full ROM every rep', 'S1: 2 RIR / S2: 2 RIR / S3: 1 RIR'],
+          full: 'SETUP\n- Bench at 30–45°. Higher than 45° shifts stimulus to front delts — not the goal\n- Grip slightly wider than shoulder width. Retract and depress shoulder blades hard into the bench before unracking — hold this position for the entire set\n- Eyes under the bar. Unrack with straight arms, walk out minimally\n\nEXECUTION\n- Lower to the upper chest in 2–3s, controlled. Slight elbow tuck — not flared 90°, not tucked fully\n- Brief touch at the upper chest — no bounce. Bar contact point should be upper chest, not mid-chest\n- Press in a slight arc back toward the rack\n- Maintain upper back tightness and leg drive on every rep\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent. No pause at top.\n\nKEY CUE\n- Shoulder blades retracted and depressed throughout — if you feel this slipping mid-set, reset between reps. Losing upper back tightness shifts load to the front delts and shoulder\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Bar drifting to mid-chest — contact point should stay at upper chest\n- Bench angle above 45° — front delt takeover increases significantly\n- Shoulder blades losing tightness mid-set\n- Butt coming off the bench under heavy loads'
         }
       },
       {
@@ -2486,7 +2494,261 @@ const PROGRAM = {
         }
       }
     ]
-  }
+  },
+
+  // ─── NEW WEEKLY SCHEDULE (Push / Pull / Legs / Upper) ───
+  // Exercise ids are reused from the Upper/Lower sessions above wherever the
+  // movement carries over, so prior-set lookups and progress charts (which
+  // key off exercise id across the whole history) stay continuous through
+  // the switch instead of resetting.
+
+  'push': {
+    id: 'push', name: 'Push', subtitle: 'Chest / Delts / Triceps', type: 'push',
+    exercises: [
+      {
+        id: 'ub-bench', name: 'Incline Barbell Bench Press', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: '30–45°. RIR 2/2/1. Bar to upper chest. Maintain technique throughout.',
+        cues: {
+          short: ['30–45° bench angle', 'Retract and depress shoulder blades before unracking', 'Bar to upper chest — full ROM every rep', 'RIR 2/2/1 across the three sets'],
+          full: 'SETUP\n- Bench at 30–45°. Higher than 45° shifts stimulus to front delts — not the goal\n- Grip slightly wider than shoulder width. Retract and depress shoulder blades hard into the bench before unracking — hold this position for the entire set\n- Eyes under the bar. Unrack with straight arms, walk out minimally\n\nEXECUTION\n- Lower to the upper chest in 2–3s, controlled. Slight elbow tuck — not flared 90°, not tucked fully\n- Brief touch at the upper chest — no bounce\n- Press in a slight arc back toward the rack\n- Maintain upper back tightness and leg drive on every rep\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent. No pause at top.\n\nKEY CUE\n- Shoulder blades retracted and depressed throughout — if you feel this slipping mid-set, reset between reps\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Bar drifting to mid-chest\n- Bench angle above 45°\n- Butt coming off the bench under heavy loads'
+        }
+      },
+      {
+        id: 'p-flatbench', name: 'Flat DB Bench Press', sets: 3, repsDisplay: '8–12', rest: 150, logType: 'standard',
+        note: 'Flat bench. RIR 2/2/1. Second, lower-angle chest exercise of the session.',
+        cues: {
+          short: ['Flat bench, dumbbells at chest height', 'Elbows ~45–75° from torso — not flared to 90°', 'Full stretch at the bottom, press to just short of lockout', 'RIR 2/2/1 across the three sets'],
+          full: 'SETUP\n- Flat bench. Dumbbells brought up to chest height, elbows roughly 45–75° from the torso — not flared straight out to the sides\n- Feet flat on the floor, slight arch, shoulder blades retracted and depressed into the bench before the first rep\n\nEXECUTION\n- Lower with control until the dumbbells sit level with the chest and a strong stretch is felt — don\'t cut the bottom short\n- Press up and slightly in, stopping just short of a hard lockout to keep tension on the chest\n- Keep the wrists stacked directly over the elbows throughout\n\nTEMPO\n- Eccentric: 2–3s. Concentric: firm, controlled drive.\n\nKEY CUE\n- This is the flatter, heavier-feeling complement to the incline press earlier in the session — different loading angle on the same muscle group\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Elbows flaring to 90° — increases shoulder strain, shifts stimulus away from the chest\n- Bouncing the dumbbells at the bottom\n- Shoulder blades losing retraction under fatigue'
+        }
+      },
+      {
+        id: 'ub-pecdec', name: 'Pec Deck / Machine Fly', sets: 2, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: 'Prioritise stretch position. Squeeze chest at close. RIR 2/1.',
+        cues: {
+          short: ['Adjust machine so arms are at 90° to the torso', 'Prioritise the stretch position — the stimulus is here', 'Squeeze chest at the closed position — not front delts', 'RIR 2/1'],
+          full: 'SETUP\n- Adjust the machine so arms are at 90° to the torso when open\n- Sit tall, chest up, shoulders retracted slightly before starting\n\nEXECUTION\n- Open to the full stretch position — don\'t cut the ROM short\n- Pause 1s in the stretched position\n- Squeeze at the closed position by thinking about the chest, not the front delts\n- Control the return in 2s\n\nTEMPO\n- Eccentric: 2s to full stretch. Pause: 1s. Concentric: controlled squeeze.\n\nKEY CUE\n- Loading the pec in the lengthened position is the mechanism — don\'t rush through the open position\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Front delts dominating\n- Not reaching the full open position\n- Shoulders rounding forward at the closed position'
+        }
+      },
+      {
+        id: 'ua-lateral', name: 'Cable Lateral Raise (Single-Arm)', sets: 3, repsDisplay: '12–20', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley. Lead with elbow. RIR 2/1/0–1. Alternate arms within rest period.',
+        cues: {
+          short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within rest period'],
+          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°)\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top\n- Lower in 2–3s. Alternate arms within the rest period\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom unlike a dumbbell\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Body leaning away to assist\n- Raising above shoulder height\n- Shrugging the working shoulder'
+        }
+      },
+      {
+        id: 'ua-pushdown', name: 'Rope Pushdown', sets: 3, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: 'Pulley high. Upper arms pinned. Flare at bottom. RIR 2/2/1.',
+        cues: {
+          short: ['Pulley at highest position', 'Upper arms pinned to sides — non-negotiable', 'Flare hands outward at full extension', 'Own the stretch at the top between reps'],
+          full: 'SETUP\n- Pulley at highest position. Rope attachment, grip one end in each hand\n- Stand close to the stack with a slight forward lean\n- Upper arms pinned to sides before the first rep\n\nEXECUTION\n- Push the rope down by extending the elbows — upper arms remain still\n- Flare hands outward at full extension\n- Pause 1s at full extension\n- Return in 2–3s to the stretch position at the top\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arms pinned — the moment elbows drift forward, the shoulders take over\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nELBOW NOTE\n- Monitor for any distal triceps tendon irritation under accumulated push volume. If any irritation appears, drop this exercise for the session\n\nWATCH FOR\n- Elbows drifting forward\n- Not flaring hands at the bottom\n- Rushing the eccentric'
+        }
+      }
+    ]
+  },
+
+  'pull': {
+    id: 'pull', name: 'Pull', subtitle: 'Back / Rear Delts / Biceps', type: 'pull',
+    exercises: [
+      {
+        id: 'ua-pullup', name: 'Weighted Pull-Up', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: 'Pronated grip. RIR 2/2/1. Log added weight only.',
+        cues: {
+          short: ['Pronated grip, just outside shoulder width', 'Full dead hang at the bottom every rep', 'Drive elbows down toward hips — not just pulling with arms', 'Chin clears the bar at top'],
+          full: 'SETUP\n- Pronated grip, hands just outside shoulder width\n- Warm-up: 1 set scapular pulls (dead hang, depress and retract shoulder blades, 8–10 reps), then 3–4 bodyweight pull-ups at easy effort\n- Attach weight via belt or vest. Log added weight only\n\nEXECUTION\n- Start from a full dead hang — no kipping, no partial ROM\n- Initiate by depressing the shoulder blades, then drive elbows down toward your hips\n- Chest up, slight lean back\n- Pull until chin clears the bar\n- Lower in 2–3s back to full dead hang\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong intent.\n\nKEY CUE\n- Think "elbows to hips" not "hands to bar"\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR. If bodyweight alone puts you in this range, drop the added weight\n\nWATCH FOR\n- Cutting the bottom short\n- Chin not clearing the bar\n- Kipping or using momentum'
+        }
+      },
+      {
+        id: 'pl-csrow', name: 'Chest-Supported Row', sets: 3, repsDisplay: '8–12', rest: 120, logType: 'standard',
+        note: 'Pronated grip, chest on pad. Pull to lower chest. RIR 2/2/1.',
+        cues: {
+          short: ['Chest firmly on pad throughout', 'Pull to lower chest — not upper chest', 'Pause and squeeze at the peak', 'Actively reach into the stretch at the bottom'],
+          full: 'SETUP\n- Chest-supported row machine (Hammer Strength iso-lateral, plate-loaded, or similar). Pronated grip handles. Adjust seat so handles are at lower chest height when arms extended\n- Chest pressed firmly into the pad throughout\n- Both arms work simultaneously, not alternating\n\nEXECUTION\n- Row both arms back, pulling to lower chest. Brief 1s pause and squeeze at the peak\n- Actively reach forward into the stretch at the bottom — don\'t passively let the weight drop\n- Control the eccentric in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s. Pause at peak: 1s. Concentric: controlled but firm.\n\nKEY CUE\n- Drive the elbows back past the torso — keeps the mid-back and lats working rather than just the biceps\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Chest coming off the pad under heavy loads\n- Pulling to upper chest\n- One side feeling weaker — let the weaker side set the load'
+        }
+      },
+      {
+        id: 'ub-cablerow', name: 'Tucked-Elbow Single-Arm Cable Row', sets: 2, repsDisplay: '10–15 ea.', rest: 120, logType: 'per-arm-full',
+        note: 'Elbow tucked — drive toward hip, not out to side. Lat focus. RIR 2/1. REST IS PER ARM.',
+        cues: {
+          short: ['Elbow tucked close to the torso throughout', 'Drive elbow toward the hip — not out to the side', 'Actively reach into the stretch at the bottom', 'REST PER ARM — full rest between each arm'],
+          full: 'SETUP\n- Single-arm cable handle. Standing or half-kneeling. Pulley at mid-height or slightly lower\n- Hip-width stance, slight forward lean, core braced\n- Elbow tucked close to the torso throughout\n\nEXECUTION\n- Drive the elbow back and down toward the hip — tucked close to the torso\n- Brief pause at full retraction\n- Actively reach into the stretch at the bottom\n- Lower in 2s\n\nTEMPO\n- Eccentric: 2s with active reach. Concentric: elbow drives back and down.\n\nKEY CUE\n- "Elbow to hip pocket" — keeps the lat as the primary mover rather than the rear delt and rhomboids\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nREST PROTOCOL\n- Complete all reps on one arm. Rest the full 2 minutes. Switch\n\nWATCH FOR\n- Elbow flaring out to the side\n- Torso rotating to assist\n- Not reaching full extension at the bottom'
+        }
+      },
+      {
+        id: 'ua-reardelt', name: 'Rear Delt Cable Fly', sets: 3, repsDisplay: '15–25', rest: 60, logType: 'standard',
+        note: 'Cable at eye level or above. Horizontal abduction. RIR 2/1/0–1.',
+        cues: {
+          short: ['Cable at eye level or above', 'Arms spread wide — horizontal abduction, not pulling down', 'Light weight — rear delt is a small muscle', 'S3 to failure'],
+          full: 'SETUP\n- Cable at eye level or higher. Stand centred, balanced against the cable tension with a staggered stance\n- Cross the cables or use a single pulley working one side at a time\n- Light weight\n\nEXECUTION\n- Arms out to the sides at 90° to the torso — horizontal abduction\n- Think spreading the wings rather than pulling backward\n- Control the return in 2s\n- Brief pause at end range with arms wide\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Horizontal abduction only — if the elbows drop below the wrists you\'ve shifted to a pulldown\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Pulling down instead of spreading wide\n- Shrugging\n- Too much weight'
+        }
+      },
+      {
+        id: 'la-shrug', name: 'Dumbbell Shrug', sets: 2, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Straight up and down — no rolling. Pause at peak. Slow descent. RIR 2/1.',
+        cues: {
+          short: ['Straight up and down — zero shoulder rolling', 'Pause 1s at peak elevation', '2–3s slow descent', 'Go heavy — upper traps are fast-twitch dominant'],
+          full: 'SETUP\n- Heavy dumbbells at sides. Stand tall, neutral spine, slight bend in the knees\n- Grip firmly — straps are acceptable if grip becomes the limiting factor before the traps do\n\nEXECUTION\n- Elevate shoulders straight up toward the ears\n- No rolling forward or backward\n- Pause 1s at peak elevation and actively squeeze\n- Lower in 2–3s\n\nTEMPO\n- Concentric: 1–2s. Pause: 1s. Eccentric: 2–3s.\n\nKEY CUE\n- Upper traps are fast-twitch dominant — don\'t go light\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Shoulder rolling\n- Letting the weight drop on the eccentric\n- Grip failing before the traps'
+        }
+      },
+      {
+        id: 'ua-curl', name: 'Incline DB Curl', sets: 3, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Arm behind torso — maximal long-head stretch. RIR 2/1/0–1.',
+        cues: {
+          short: ['Arm fully behind the body — do not let it drift forward', 'Full hang at the bottom — own the stretch', 'Full supination at the top', 'All sets to failure on S3'],
+          full: 'SETUP\n- Incline bench at ~60°. Lie back so arms hang behind the torso\n- Do not set up with the bench too upright\n\nEXECUTION\n- Curl from the fully stretched hanging position\n- Upper arm must stay behind the torso throughout\n- Supinate hard at the top\n- Lower in 2–3s back to full stretch\n\nTEMPO\n- Eccentric: 2–3s with active control. Pause at the bottom: 1s.\n\nKEY CUE\n- The stretch at the bottom is where the stimulus is\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Upper arm swinging forward on the concentric\n- Shortening the ROM at the bottom\n- Using too much weight'
+        }
+      },
+      {
+        id: 'ub-cabcurl', name: 'Straight-Bar Cable Curl', sets: 2, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: 'Straight bar, low pulley. Full extension at bottom. RIR 1/0–1.',
+        cues: {
+          short: ['Straight bar attachment, low pulley', 'Full extension at the bottom — constant tension advantage', 'Supinate hard at the top — straight bar allows full supination', 'S2 to failure'],
+          full: 'SETUP\n- Straight bar attachment on low pulley. Stand with slight forward lean or seated\n- Elbows pinned to sides before starting\n\nEXECUTION\n- Full extension at the bottom\n- Curl smoothly, supinate hard at the top\n- Lower in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: smooth and deliberate.\n\nKEY CUE\n- Full extension at the bottom is the whole point of using a cable\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Swinging the body to assist\n- Elbows drifting forward\n- Not reaching full extension at the bottom'
+        }
+      }
+    ]
+  },
+
+  'legs': {
+    id: 'legs', name: 'Legs', subtitle: 'Quads / Hamstrings / Calves / Core', type: 'legs',
+    exercises: [
+      {
+        id: 'la-hack', name: 'Hack Squat', sets: 3, repsDisplay: '6–10', rest: 180, logType: 'standard',
+        note: 'Mid-platform foot position. Full ROM. RIR 2/2/1.',
+        cues: {
+          short: ['Mid-platform foot position, shoulder width', 'Full ROM — don\'t cut the bottom short', 'Knees track over toes throughout', 'RIR 2/2/1'],
+          full: 'SETUP\n- Mid-platform foot position, shoulder width, toes slightly out\n- Back and hips pressed firmly into the pad throughout\n- Unrack and let the weight settle before descending\n\nEXECUTION\n- Descend to full depth — hips should not rise off the pad at the bottom\n- Knees track over toes throughout\n- Drive through the heels\n- Do not fully lock out the knees at the top\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive.\n\nKEY CUE\n- Feel the weight in the heels\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Hips rising off the pad\n- Knees caving\n- Locking out the knees\n- Not reaching adequate depth'
+        }
+      },
+      {
+        id: 'lb-rdl', name: 'Barbell Romanian Deadlift', sets: 3, repsDisplay: '6–10', rest: 210, logType: 'standard',
+        note: 'Hip hinge, soft knee, bar close. RIR 2/1, graduated to harder by the final set. Own the stretch.',
+        cues: {
+          short: ['Hip hinge — not a squat, knees stay soft and fixed', 'Bar stays close to legs throughout — almost dragging', 'Own the hamstring stretch at the bottom', 'Work from ~2 RIR down to ~1 RIR by the final set'],
+          full: 'SETUP\n- Bar in hands at hip height, standing tall\n- Soft knee bend — maintain throughout, do not bend more on the descent\n- Lats engaged, neutral spine, slight chest up\n\nEXECUTION\n- Push the hips back as the bar descends\n- Bar stays close to the legs throughout\n- Descend until a significant hamstring stretch is felt, typically mid-shin\n- Pause 1s at the bottom\n- Drive hips forward to return to standing, squeeze glutes at the top\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled drive.\n\nKEY CUE\n- "Push hips back to the wall behind you"\n\nRIR\n- Work from around 2 RIR on the first set down to around 1 RIR on the last. Never lose the hip hinge pattern under fatigue\n\nWATCH FOR\n- Knees bending more on the descent\n- Bar drifting away from the legs\n- Lower back rounding at the bottom\n- Rushing through the bottom stretch'
+        }
+      },
+      {
+        id: 'la-bss', name: 'Bulgarian Split Squat', sets: 2, repsDisplay: '8–12 ea.', rest: 150, logType: 'per-leg',
+        note: 'Rear foot elevated. Full depth. RIR 2/1. REST IS PER LEG.',
+        cues: {
+          short: ['Front foot far enough forward — shin stays vertical at depth', 'Back knee close to floor at full depth', 'Drive through front heel on the way up', 'REST PER LEG — full rest between each leg'],
+          full: 'SETUP\n- Rear foot elevated on a bench. Front foot far enough forward that your front shin stays roughly vertical at the bottom\n- Dumbbells at sides or machine\n\nEXECUTION\n- Descend until the back knee is close to the floor\n- Front knee tracks directly over the toes\n- Drive through the front heel and mid-foot\n- Stay upright through the torso\n\nTEMPO\n- Eccentric: 2–3s controlled descent. Concentric: strong drive.\n\nKEY CUE\n- Feel the weight in your front heel\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nREST PROTOCOL\n- Complete ALL reps on one leg. Rest the full 2–3 minutes. Then the other leg\n\nWATCH FOR\n- Front foot too close to the bench\n- Knee caving inward on the ascent\n- Torso falling forward'
+        }
+      },
+      {
+        id: 'la-legcurl', name: 'Seated Leg Curl', sets: 3, repsDisplay: '8–12', rest: 120, logType: 'standard',
+        note: 'Reclined seat for hip flexion benefit. Plantarflex. RIR 2/1, graduated to harder by the final set.',
+        cues: {
+          short: ['Reclined seat position — maintains hip flexion throughout', 'Point toes (plantarflex) throughout the set', 'Full extension at the bottom before each rep', 'Work down toward failure on the last set'],
+          full: 'SETUP\n- Adjust the back pad to a reclined position\n- Pad just above the ankles. Point toes (plantarflex) before starting and maintain throughout\n\nEXECUTION\n- Begin from full extension\n- Curl to full flexion. Brief pause\n- Lower in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s. Concentric: controlled.\n\nKEY CUE\n- Reclined seat is non-negotiable\n\nRIR\n- Work from around 2 RIR on the first set down to around 1 RIR (or lower) by the last\n\nWATCH FOR\n- Seat too upright\n- Toes releasing to neutral under fatigue\n- Hips rising off the seat\n- Shortening the ROM at the bottom'
+        }
+      },
+      {
+        id: 'la-legext', name: 'Leg Extension', sets: 2, repsDisplay: '12–20', rest: 90, logType: 'standard',
+        note: '3s eccentric. Hard peak contraction. RIR 1/0–1.',
+        cues: {
+          short: ['Full ROM — from full flexion to full extension', 'Hard contraction and 1s pause at the top', '3s eccentric — non-negotiable', 'S2 to failure'],
+          full: 'SETUP\n- Adjust the machine so the pad sits just above the ankle\n- Sit fully back in the seat — hips at 90°\n\nEXECUTION\n- Extend to full lockout\n- Hold the contraction hard at the top for 1s\n- Lower in 3 full seconds — not optional\n\nTEMPO\n- Eccentric: 3s. Pause at top: 1s. Concentric: 1–2s.\n\nKEY CUE\n- If you can\'t control the 3s descent, the weight is too heavy\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Hips lifting off the seat\n- Cutting the top position short\n- Rushing the eccentric'
+        }
+      },
+      {
+        id: 'la-calf', name: 'Standing Calf Raise', sets: 3, repsDisplay: '8–15', rest: 90, logType: 'standard',
+        note: 'Deep stretch at bottom. Vary toe angle across sets. RIR 2/1, graduated to harder by the final set.',
+        cues: {
+          short: ['Deep stretch at bottom — research-supported primary stimulus', 'Full elevation at the top, 1s pause', 'Vary toe angle: neutral / out / in across sets', 'Push the last set toward failure'],
+          full: 'SETUP\n- Balls of the feet on the platform edge, heels free to drop below platform level\n- Toe angle: vary across your 3 sets — neutral, toes out, toes in\n\nEXECUTION\n- Lower to a deep stretch — heel well below platform level\n- Rise to full elevation. Pause 1s at the top\n- Lower in 2s back to the deep stretch\n\nTEMPO\n- Eccentric: 2s. Pause at top: 1s. Pause at bottom: 1s.\n\nKEY CUE\n- The deep stretch at the bottom is the mechanism\n\nRIR\n- Work from around 2 RIR on the first set down to around 1 RIR (or lower) by the last\n\nWATCH FOR\n- Bouncing out of the bottom position\n- Not reaching full elevation\n- Bending the knees'
+        }
+      },
+      {
+        id: 'lb-legraise', name: 'Hanging Leg Raise', sets: 2, repsDisplay: '8–15', rest: 60, logType: 'standard',
+        note: 'Dead hang. Straight legs if possible — slight knee bend if needed for control. RIR 1/0–1.',
+        cues: {
+          short: ['Dead hang, arms fully extended — let any swing settle first', 'Raise legs with control — straight if possible', 'Pull hips toward chest at the top', 'No swinging or momentum — control the descent'],
+          full: 'SETUP\n- Hang from a pull-up bar, arms fully extended, shoulder-width grip\n- Let the body settle completely before starting\n- Straight legs target the rectus abdominis and hip flexors more than knee raises\n\nEXECUTION\n- Raise legs with control — straight if possible, slight knee bend acceptable\n- Aim to reach horizontal or above\n- Pause briefly at the top\n- Lower in 2–3s back to full hang\n\nTEMPO\n- Eccentric: 2–3s. Pause at top: 1s. Concentric: controlled.\n\nKEY CUE\n- Pull the hips toward the chest at the top\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Swinging\n- Knees bending excessively\n- Dropping the legs quickly\n- Shoulders shrugging'
+        }
+      },
+      {
+        id: 'l-cablecrunch', name: 'Cable Crunch', sets: 2, repsDisplay: '10–15', rest: 60, logType: 'standard',
+        note: 'Kneeling, rope at high pulley. Flex the spine, not the hips. RIR 1/0–1.',
+        cues: {
+          short: ['Kneel below a high pulley with a rope attachment', 'Flex the spine — crunch down, don\'t hinge at the hips', 'Hold the rope at the head, don\'t pull with the arms', 'S2 to failure'],
+          full: 'SETUP\n- Kneel facing a high pulley with a rope attachment. Hold the rope ends beside your head or at the forehead — grip is just an anchor, not a pulling point\n- Hips stay stacked roughly over the knees throughout — this isn\'t a hip-hinge movement\n\nEXECUTION\n- Crunch down by flexing the spine — round the upper back and curl the ribcage toward the hips\n- Keep the hips still; the movement comes from the abs, not from sitting back\n- Pause briefly at full contraction\n- Return with control to the start position, keeping tension on the abs rather than fully relaxing\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s controlled.\n\nKEY CUE\n- Round the spine, don\'t just nod the head down — the crunch happens through the torso, not the neck\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Hinging at the hips instead of flexing the spine — turns it into a different movement entirely\n- Pulling with the arms instead of the abs\n- Using momentum by rocking back between reps'
+        }
+      }
+    ]
+  },
+
+  'upper': {
+    id: 'upper', name: 'Upper', subtitle: 'Full Upper — Higher Volume', type: 'upper',
+    exercises: [
+      {
+        id: 'ua-incpress', name: 'Low-Incline DB Press', sets: 3, repsDisplay: '8–12', rest: 150, logType: 'standard',
+        note: '15–30° incline. RIR 2/2/1. Upper chest, not front delts.',
+        cues: {
+          short: ['15–30° bench angle — lower than standard incline', 'Own the deep chest stretch at the bottom', 'Press to peak without fully locking out', 'RIR 2/2/1'],
+          full: 'SETUP\n- Bench at 15–30°. Dumbbells at shoulder height, elbows slightly forward of the torso\n- Retract shoulder blades slightly before the first rep and hold throughout\n\nEXECUTION\n- Lower with control until you feel a deep upper chest stretch — this is the primary stimulus\n- Do not cut the bottom short\n- Press back up without fully locking out\n\nTEMPO\n- Eccentric: 2–3s with intent. Concentric: controlled but firm.\n\nKEY CUE\n- Think about spreading the dumbbells apart on the way down\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Front delts dominating\n- Bench above 30°\n- Dumbbells drifting out of alignment'
+        }
+      },
+      {
+        id: 'ub-pulldown', name: 'Neutral-Grip Pulldown', sets: 3, repsDisplay: '8–12', rest: 180, logType: 'standard',
+        note: 'V-bar or parallel handles. Pull to upper chest. RIR 2/2/1.',
+        cues: {
+          short: ['Neutral grip V-bar or parallel handles', 'Slight lean back, chest tall throughout', 'Drive elbows down toward hips', 'Full extension at the top — own the lat stretch'],
+          full: 'SETUP\n- Neutral grip attachment. Adjust knee pad to lock thighs in\n- Grip just outside shoulder width or slightly narrower\n- Slight lean back from the hips, chest tall before starting\n\nEXECUTION\n- Initiate by depressing the shoulder blades before the arms bend\n- Drive elbows down toward the hips\n- Pull to upper chest\n- Control the return to full extension\n\nTEMPO\n- Eccentric: 2–3s back to full extension. Concentric: strong intent.\n\nKEY CUE\n- Neutral grip allows a strong bottom contraction\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Not reaching full extension at the top\n- Excessive lean back\n- Elbows flaring outward'
+        }
+      },
+      {
+        id: 'u-cablerow', name: 'Cable Row', sets: 2, repsDisplay: '10–15', rest: 90, logType: 'standard',
+        note: 'Seated, wide or V-bar handle, both arms. Pull to torso. RIR 2/1.',
+        cues: {
+          short: ['Seated, feet braced on the platform', 'Chest up throughout — don\'t round forward on the reach', 'Pull to the torso, elbows back past the ribs', 'RIR 2/1'],
+          full: 'SETUP\n- Seated at a low cable row station, feet braced on the platform, knees slightly bent\n- Wide bar or V-handle attachment. Reach forward with a slight forward lean from the hips, arms extended, without letting the lower back round\n\nEXECUTION\n- Initiate by driving the elbows back and depressing the shoulder blades, then bend the arms to bring the handle to the torso\n- Sit tall through the pull — avoid using body momentum by rocking back\n- Pause briefly with the elbows past the torso\n- Control the return, letting the shoulder blades protract and arms extend fully before the next rep\n\nTEMPO\n- Eccentric: 2s with active reach. Concentric: controlled, firm.\n\nKEY CUE\n- Chest leads the pull — think about pulling the torso and handle together rather than just bending the elbows\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Rocking the torso to generate momentum\n- Rounding the lower back on the stretch\n- Shrugging the shoulders up toward the ears'
+        }
+      },
+      {
+        id: 'ua-lateral', name: 'Cable Lateral Raise (Single-Arm)', sets: 4, repsDisplay: '12–20', rest: 60, logType: 'per-arm-alt',
+        note: 'Low pulley. Lead with elbow. RIR 2/2/1/0–1. Alternate arms within rest period.',
+        cues: {
+          short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within rest period'],
+          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°)\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top\n- Lower in 2–3s. Alternate arms within the rest period\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom unlike a dumbbell\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR. S4: 0–1 RIR.\n\nWATCH FOR\n- Body leaning away to assist\n- Raising above shoulder height\n- Shrugging the working shoulder'
+        }
+      },
+      {
+        id: 'ub-rpecdec', name: 'Reverse Pec Dec', sets: 2, repsDisplay: '15–25', rest: 60, logType: 'standard',
+        note: 'Face machine. Arms at 90°. Light weight — rear delt is the target. RIR 2/1.',
+        cues: {
+          short: ['Face the machine, chest lightly on pad', 'Arms at 90° to torso — horizontal abduction', 'Light weight — rear delt is the target', 'RIR 2/1'],
+          full: 'SETUP\n- Face the machine with chest lightly against the pad\n- Adjust arm height so arms are at 90° to the torso at the start\n- Light weight\n\nEXECUTION\n- Open the arms wide — horizontal abduction\n- Arms at roughly 90° to the torso, parallel to the floor\n- Pause briefly at the end position\n- Control the return in 2s\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s.\n\nKEY CUE\n- Feel the back of the shoulder contracting — not the traps\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Arms rising above 90°\n- Shrugging\n- Too much weight'
+        }
+      },
+      {
+        id: 'la-shrug', name: 'Dumbbell Shrug', sets: 2, repsDisplay: '8–12', rest: 90, logType: 'standard',
+        note: 'Second shrug session of the week. Straight up and down. RIR 2/1.',
+        cues: {
+          short: ['Straight up and down — zero shoulder rolling', 'Pause 1s at peak elevation', '2–3s slow descent', 'Go heavy — upper traps are fast-twitch dominant'],
+          full: 'SETUP\n- Heavy dumbbells at sides. Stand tall, neutral spine\n- Grip firmly — straps acceptable if grip fails before the traps\n\nEXECUTION\n- Elevate shoulders straight up toward the ears\n- No rolling forward or backward\n- Pause 1s at peak elevation\n- Lower in 2–3s\n\nTEMPO\n- Concentric: 1–2s. Pause: 1s. Eccentric: 2–3s.\n\nKEY CUE\n- Same movement as Pull day\'s shrug — this is the week\'s second exposure\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Shoulder rolling\n- Letting the weight drop on the eccentric\n- Grip failing before the traps'
+        }
+      },
+      {
+        id: 'u-hammercurl', name: 'Hammer Curl', sets: 2, repsDisplay: '10–15', rest: 75, logType: 'standard',
+        note: 'Neutral grip, dumbbells. Full ROM. RIR 1/0–1.',
+        cues: {
+          short: ['Neutral grip — thumbs up throughout, not a standard curl', 'Full extension at the bottom every rep', 'No swinging or body momentum', 'S2 to failure'],
+          full: 'SETUP\n- Standing or seated, dumbbells held with a neutral grip — thumbs pointing up, palms facing each other throughout\n- Elbows pinned to the sides before the first rep\n\nEXECUTION\n- Curl both arms (together or alternating) to shoulder height, elbows staying fixed at the sides\n- Brief squeeze at the top\n- Lower in 2s back to full extension — arms fully straight between reps\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: firm, no jerking.\n\nKEY CUE\n- The neutral grip shifts emphasis onto the brachialis and brachioradialis — this adds arm thickness that a standard supinated curl doesn\'t provide, distinct from the week\'s other curl work\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbows drifting forward to swing the weight up\n- Not reaching full extension at the bottom\n- Using body momentum under fatigue'
+        }
+      },
+      {
+        id: 'u-ohe', name: 'Single-Arm Cable Overhead Triceps Extension', sets: 2, repsDisplay: '12–20 ea.', rest: 90, logType: 'per-arm-full',
+        note: 'Low pulley, face away from stack. RIR 2/1. REST IS PER ARM.',
+        cues: {
+          short: ['Low pulley, single handle, face away from the stack', 'Elbow stays high and fixed beside the head', 'Extend to full lockout overhead', 'CAUTION: right elbow — stop immediately if any irritation'],
+          full: 'SETUP\n- Low pulley with a single handle. Face away from the stack, step forward, and raise the working arm overhead so the elbow points at the ceiling beside your head\n- Support the working elbow lightly with the free hand if it helps keep it still\n- Elbow stays fixed and close to the head throughout — this is the whole exercise\n\nEXECUTION\n- Extend the forearm to full lockout overhead\n- The overhead stretch position loads the tricep long head maximally — this is what differentiates it from a pushdown\n- Control the descent in 2–3s back to the fully stretched position behind the head\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled extension.\n\nKEY CUE\n- Elbow stays pinned beside the head — the only movement is the forearm extending and flexing around a fixed upper arm\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nREST PROTOCOL\n- Complete all reps on one arm, rest the full period, then switch\n\nELBOW NOTE\n- Overhead extension was previously removed from this program due to right distal triceps tendon irritation — the overhead stretched position under load is the primary aggravating mechanism for that specific issue. It has since resolved, but this remains the highest-risk exercise in the program for that joint. Stop immediately at any sign of irritation and swap back to rope pushdowns for the week if it recurs\n\nWATCH FOR\n- Elbow drifting forward away from the head\n- Not reaching full extension\n- Going too heavy — this exercise requires honest loading and strict form given the elbow history'
+        }
+      }
+    ]
+  },
 };
 
 // ═══════════════════════════════════════════════
@@ -2622,7 +2884,7 @@ function getCycleData() {
 }
 function saveCycleData(d) { localStorage.setItem('wt_cycles', JSON.stringify(d)); }
 
-const ALL_SESSIONS = ['upper-a', 'lower-a', 'upper-b', 'lower-b'];
+const ALL_SESSIONS = ['push', 'pull', 'legs', 'upper'];
 const DELOAD_THRESHOLD = 5;
 
 function recordSessionInCycle(sessionId, isDeload) {
@@ -3753,7 +4015,7 @@ function switchProgTab(tab) {
 }
 
 function renderProgSessions() {
-  const ORDER = ['upper-a', 'lower-a', 'upper-b', 'lower-b', 'upper-optional'];
+  const ORDER = ['push', 'pull', 'legs', 'upper'];
   const TYPE_LABEL = { push: 'Push', pull: 'Pull', legs: 'Legs' };
 
   const html = ORDER.map(sid => {
