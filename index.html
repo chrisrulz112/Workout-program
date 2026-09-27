@@ -1591,6 +1591,7 @@ input { font-family: 'DM Sans', sans-serif; }
 }
 
 /* Toast */
+.toast {
   position: fixed;
   top: calc(var(--safe-t) + 60px);
   left: 50%;
@@ -1824,6 +1825,7 @@ input { font-family: 'DM Sans', sans-serif; }
 }
 .chart-toggle-btn:active { opacity: 0.7; }
 
+.chart-no-data {
   text-align: center;
   padding: 44px 24px;
   font-size: 13px;
@@ -2242,7 +2244,7 @@ const PROGRAM = {
         note: 'Low pulley. Lead with elbow. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR. Alternate arms within rest period.',
         cues: {
           short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within rest period'],
-          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow — the hand just follows. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top — internal rotation cue for lateral head engagement\n- Lower in 2–3s back to the starting position — don\'t let the arm drop\n- Alternate arms within the rest period: one arm works while the other rests\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom unlike a dumbbell — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight\n- Raising above shoulder height — trap recruitment spikes past this point\n- Shrugging the working shoulder up — actively depress throughout'
+          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow — the hand just follows. Raise to shoulder height only\n- Keep the wrist neutral to slightly pronated (thumb roughly level with or just below the pinky) — don\'t actively rotate the palm down further. That internal-rotation \\"pouring a jug\\" cue is common in gyms but doesn\'t add lateral delt activation in EMG studies and increases subacromial impingement risk, especially raising to shoulder height repeatedly under fatigue\n- Lower in 2–3s back to the starting position — don\'t let the arm drop\n- Alternate arms within the rest period: one arm works while the other rests\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom unlike a dumbbell — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight\n- Raising above shoulder height — trap recruitment spikes past this point\n- Shrugging the working shoulder up — actively depress throughout'
         }
       },
       {
@@ -2304,7 +2306,7 @@ const PROGRAM = {
         note: '3s eccentric. Hard peak contraction. S1: 1 RIR · S2: 0–1 RIR.',
         cues: {
           short: ['Full ROM — from full flexion to full extension', 'Hard contraction and 1s pause at the top', '3s eccentric — non-negotiable', 'S2 to failure'],
-          full: 'SETUP\n- Adjust the machine so the pad sits just above the ankle, not mid-shin\n- Sit fully back in the seat — hips at 90°. This positions the rectus femoris in a stretched starting position\n- Feet roughly hip-width, toes pointed slightly upward or neutral\n\nEXECUTION\n- Extend to full lockout — don\'t stop short. Full extension is where the quad is maximally contracted\n- Hold the contraction hard at the top for 1s — actively squeeze\n- Lower in 3 full seconds — not optional. The 3s eccentric provides significant additional mechanical stimulus\n- Return to full flexion at the bottom\n\nTEMPO\n- Eccentric: 3s. Pause at top: 1s. Concentric: controlled, 1–2s.\n\nKEY CUE\n- If you can\'t control the 3s descent, the weight is too heavy — reduce it. The slow eccentric is the mechanism, not a guideline\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Hips lifting off the seat — means you\'re using momentum\n- Cutting the top position short — you need full extension for full quad contraction\n- Rushing the eccentric — the 3s is the stimulus, not a formality'
+          full: 'SETUP\n- Adjust the machine so the pad sits just above the ankle, not mid-shin\n- Sit fully back in the seat — hips at 90°. Note this hip-flexed seated position actually shortens the rectus femoris at the hip (it\'s a two-joint muscle acting on both hip and knee), so most of the load here falls on the mono-articular vasti (medialis, lateralis, intermedius) rather than the rectus femoris — that\'s normal and expected for this exercise, not a flaw\n- Feet roughly hip-width, toes pointed slightly upward or neutral\n\nEXECUTION\n- Extend to full lockout — don\'t stop short. Full extension is where the quad is maximally contracted\n- Hold the contraction hard at the top for 1s — actively squeeze\n- Lower in 3 full seconds — not optional. The 3s eccentric provides significant additional mechanical stimulus\n- Return to full flexion at the bottom\n\nTEMPO\n- Eccentric: 3s. Pause at top: 1s. Concentric: controlled, 1–2s.\n\nKEY CUE\n- If you can\'t control the 3s descent, the weight is too heavy — reduce it. The slow eccentric is the mechanism, not a guideline\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Hips lifting off the seat — means you\'re using momentum\n- Cutting the top position short — you need full extension for full quad contraction\n- Rushing the eccentric — the 3s is the stimulus, not a formality'
         }
       },
       {
@@ -2366,7 +2368,7 @@ const PROGRAM = {
         note: 'Low pulley. Lead with elbow. S1: 2 RIR · S2: 1 RIR · S3: 0–1 RIR. Alternate arms.',
         cues: {
           short: ['Low pulley, stand side-on to the stack', 'Lead with the elbow — not the hand', 'Raise to shoulder height only — no higher', 'Alternate arms within rest period'],
-          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow. Raise to shoulder height only\n- Pinky slightly higher than thumb at the top — internal rotation cue for lateral head engagement\n- Lower in 2–3s. Alternate arms within the rest period\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight\n- Raising above shoulder height — trap recruitment spikes past this point\n- Shrugging the working shoulder — actively depress throughout'
+          full: 'SETUP\n- Low pulley. Stand side-on to the cable stack, cable crossing in front of the body\n- Slight forward lean from the hips (~10–15°) — aligns the lateral delt with the direction of pull\n- Free hand holds the stack for stability\n\nEXECUTION\n- Lead the raise with the elbow. Raise to shoulder height only\n- Keep the wrist neutral to slightly pronated — don\'t actively rotate the palm down further. That \\"pour a jug\\" internal-rotation cue is common but doesn\'t add lateral delt activation in EMG studies and increases subacromial impingement risk under fatigue\n- Lower in 2–3s. Alternate arms within the rest period\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- Cable provides constant tension at the bottom — own the starting position rather than letting the arm go slack between reps\n\nWATCH FOR\n- Body leaning away from the cable to assist the raise — reduce weight\n- Raising above shoulder height — trap recruitment spikes past this point\n- Shrugging the working shoulder — actively depress throughout'
         }
       },
       {
@@ -2700,11 +2702,11 @@ const PROGRAM = {
         }
       },
       {
-        id: 'u-cablerow', name: 'Cable Row', sets: 2, repsDisplay: '10–15', rest: 90, logType: 'standard',
-        note: 'Seated, wide or V-bar handle, both arms. Pull to torso. RIR 2/1.',
+        id: 'u-pullover', name: 'Pullover Machine', sets: 2, repsDisplay: '12–15', rest: 90, logType: 'standard',
+        note: 'Seated, elbows fixed on pads. Lat isolation — own the overhead stretch. RIR 1/0–1.',
         cues: {
-          short: ['Seated, feet braced on the platform', 'Chest up throughout — don\'t round forward on the reach', 'Pull to the torso, elbows back past the ribs', 'RIR 2/1'],
-          full: 'SETUP\n- Seated at a low cable row station, feet braced on the platform, knees slightly bent\n- Wide bar or V-handle attachment. Reach forward with a slight forward lean from the hips, arms extended, without letting the lower back round\n\nEXECUTION\n- Initiate by driving the elbows back and depressing the shoulder blades, then bend the arms to bring the handle to the torso\n- Sit tall through the pull — avoid using body momentum by rocking back\n- Pause briefly with the elbows past the torso\n- Control the return, letting the shoulder blades protract and arms extend fully before the next rep\n\nTEMPO\n- Eccentric: 2s with active reach. Concentric: controlled, firm.\n\nKEY CUE\n- Chest leads the pull — think about pulling the torso and handle together rather than just bending the elbows\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Rocking the torso to generate momentum\n- Rounding the lower back on the stretch\n- Shrugging the shoulders up toward the ears'
+          short: ['Seated, back fully supported against the pad', 'Elbows locked onto the pads throughout — they do not bend or unbend', 'Drive from the shoulder, not the elbows or lower back', 'Own the stretch at the top — don\'t rush through it'],
+          full: 'SETUP\n- Seated with your back fully supported against the pad — this removes the lower-back hyperextension risk that comes with a bench pullover\n- Elbows rest on the machine\'s arm pads and stay locked there for the entire set — the elbow joint angle does not change throughout the rep\n- Grip the bar or handles lightly — grip is not doing the work here\n\nEXECUTION\n- Pull the bar down and around in an arc by driving the upper arms down from the shoulder — the movement is shoulder extension only, not elbow flexion\n- Squeeze the lats at the bottom of the arc, ribcage staying down rather than flaring\n- Return with control to the top, fully stretched position\n- A well-set-up machine keeps tension on the lats through this full stretch — unlike a free-weight pullover, the resistance doesn\'t fall away at end range, so don\'t shortcut it\n\nTEMPO\n- Eccentric: 2–3s back to the stretch. Pause at the stretch: 1s. Concentric: driven from the lats.\n\nKEY CUE\n- If you feel this in the triceps or lower back more than the lats, the elbows have unlocked from the pads or you\'re using the ribcage/back to help — reset and reduce weight\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbows bending to help move the weight — this turns it into a pulldown and defeats the isolation\n- Ribcage flaring up at the stretch to get more ROM — keep the ribs down\n- Rushing the stretch position at the top — this is where the value of the exercise lives'
         }
       },
       {
@@ -2732,11 +2734,11 @@ const PROGRAM = {
         }
       },
       {
-        id: 'u-hammercurl', name: 'Hammer Curl', sets: 2, repsDisplay: '10–15', rest: 75, logType: 'standard',
-        note: 'Neutral grip, dumbbells. Full ROM. RIR 1/0–1.',
+        id: 'u-hammercurl', name: 'Rope Hammer Curl', sets: 2, repsDisplay: '10–15', rest: 75, logType: 'standard',
+        note: 'Cable, neutral grip on rope. Full ROM. RIR 1/0–1.',
         cues: {
-          short: ['Neutral grip — thumbs up throughout, not a standard curl', 'Full extension at the bottom every rep', 'No swinging or body momentum', 'S2 to failure'],
-          full: 'SETUP\n- Standing or seated, dumbbells held with a neutral grip — thumbs pointing up, palms facing each other throughout\n- Elbows pinned to the sides before the first rep\n\nEXECUTION\n- Curl both arms (together or alternating) to shoulder height, elbows staying fixed at the sides\n- Brief squeeze at the top\n- Lower in 2s back to full extension — arms fully straight between reps\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: firm, no jerking.\n\nKEY CUE\n- The neutral grip shifts emphasis onto the brachialis and brachioradialis — this adds arm thickness that a standard supinated curl doesn\'t provide, distinct from the week\'s other curl work\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbows drifting forward to swing the weight up\n- Not reaching full extension at the bottom\n- Using body momentum under fatigue'
+          short: ['Low pulley, rope attachment', 'Neutral grip — palms facing each other throughout, thumbs up', 'Full extension at the bottom every rep', 'S2 to failure'],
+          full: 'SETUP\n- Low pulley, rope attachment. Stand facing the stack, elbows pinned to the sides before the first rep\n- Grip the rope with a neutral grip — palms facing each other, thumbs up, held together at the ends (not spread apart like a pushdown)\n\nEXECUTION\n- Curl the rope up to shoulder height, elbows staying fixed at the sides throughout\n- Brief squeeze at the top\n- Lower in 2s back to full extension — arms fully straight between reps\n- The cable keeps tension on at the bottom, unlike a dumbbell version where the bottom position can go slack\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: firm, no jerking.\n\nKEY CUE\n- Same neutral-grip emphasis as a DB hammer curl (brachialis and brachioradialis, adding arm thickness distinct from the week\'s other curl work) but with constant cable tension through the full ROM\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbows drifting forward to swing the weight up\n- Rope ends spreading apart mid-curl — keep them together for a true neutral grip\n- Not reaching full extension at the bottom'
         }
       },
       {
@@ -2756,15 +2758,144 @@ const PROGRAM = {
 // ═══════════════════════════════════════════════
 
 const ALTS = {
-  // ─── UPPER A ───
-  'ua-pushdown': [{
-    id: 'ua-pushdown-ohe', name: 'Overhead Tricep Extension (Rope)',
-    note: 'Low pulley. Face away from stack. ONLY USE if right elbow is fully symptom-free.',
+  // ─── ACTIVE PROGRAM (Push / Pull / Legs / Upper) ───
+  'ub-bench': [{
+    id: 'ub-bench-incdb', name: 'Low-Incline DB Press',
+    note: 'Use if no barbell/rack available. 15–30° incline. Upper chest, not front delts. RIR 2/2/1.',
     cues: {
-      short: ['Low pulley, face away from stack — rope behind head', 'Elbows narrow, framing the head — do not flare', 'Extend to full lockout overhead', 'CAUTION: right elbow — stop immediately if any irritation'],
-      full: 'SETUP\n- Rope attachment at low pulley. Face away from the stack, step forward\n- Grip the rope behind your head, elbows framing the face and pointing forward\n- Elbows must stay narrow throughout — flaring outward reduces tricep engagement and stresses the elbow\n\nEXECUTION\n- Extend arms overhead to full lockout\n- The overhead stretch position loads the tricep long head maximally — this is what differentiates it from pushdowns\n- Control the descent in 2–3s back to the fully stretched position behind the head\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled extension.\n\nKEY CUE\n- Elbows point forward and stay narrow — the only movement is the forearms extending overhead around the fixed upper arm\n\nELBOW NOTE\n- This exercise was previously removed from the program due to right distal triceps tendon irritation — the overhead stretched position under load is the primary aggravating mechanism\n- Only use this alternate when the elbow is completely symptom-free. At any sign of irritation, switch back to rope pushdown immediately and do not continue\n\nWATCH FOR\n- Elbows flaring outward — re-narrow immediately\n- Not reaching full extension at the top\n- Going too heavy — overhead extension requires honest loading and strict form'
+      short: ['15–30° bench angle — lower than standard incline', 'Own the deep chest stretch at the bottom', 'Press to peak without fully locking out', 'RIR 2/2/1'],
+      full: 'SETUP\n- Bench at 15–30°. Dumbbells at shoulder height, elbows slightly forward of the torso\n- Retract shoulder blades slightly before the first rep and hold throughout\n\nEXECUTION\n- Lower with control until you feel a deep upper chest stretch — this is the primary stimulus\n- Do not cut the bottom short\n- Press back up without fully locking out\n\nTEMPO\n- Eccentric: 2–3s with intent. Concentric: controlled but firm.\n\nKEY CUE\n- Think about spreading the dumbbells apart on the way down\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Front delts dominating\n- Bench above 30°\n- Dumbbells drifting out of alignment\n- Note: same exercise Upper day uses as its main lift, just at a different angle/rep range than your usual incline barbell work'
     }
   }],
+
+  'ua-incpress': [{
+    id: 'ua-incpress-bb', name: 'Incline Barbell Bench Press',
+    note: 'Use if no bench/dumbbells available. 30–45°. Bar to upper chest. RIR 2/2/1.',
+    cues: {
+      short: ['30–45° bench angle', 'Retract and depress shoulder blades before unracking', 'Bar to upper chest — full ROM every rep', 'RIR 2/2/1'],
+      full: 'SETUP\n- Bench at 30–45°. Higher than 45° shifts stimulus to front delts\n- Grip slightly wider than shoulder width. Retract and depress shoulder blades hard into the bench before unracking — hold this position for the entire set\n- Eyes under the bar. Unrack with straight arms, walk out minimally\n\nEXECUTION\n- Lower to the upper chest in 2–3s, controlled. Slight elbow tuck — not flared 90°, not tucked fully\n- Brief touch at the upper chest — no bounce\n- Press in a slight arc back toward the rack\n\nTEMPO\n- Eccentric: 2–3s. Concentric: explosive intent. No pause at top.\n\nKEY CUE\n- Shoulder blades retracted and depressed throughout — if you feel this slipping mid-set, reset between reps\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Bar drifting to mid-chest\n- Bench angle above 45°\n- Butt coming off the bench under heavy loads\n- Note: same exercise Push day uses as its main lift, just at a different angle/rep range than your usual low-incline DB work'
+    }
+  }],
+
+  'p-flatbench': [{
+    id: 'p-flatbench-machine', name: 'Machine Chest Press (Iso-Lateral)',
+    note: 'Use if flat bench/dumbbells unavailable. Independent-arm machine preferred over a fixed-cam press. RIR 2/2/1.',
+    cues: {
+      short: ['Independent-arm (iso-lateral) machine preferred — closer to a dumbbell press than a fixed-bar machine', 'Seat height so handles sit at mid-chest', 'Press without locking elbows out hard', 'RIR 2/2/1'],
+      full: 'SETUP\n- Prefer an iso-lateral (independent-arm) plate-loaded machine over a fixed-cam selectorized press if your gym has one — each arm moves on its own path rather than being locked to a single bar, which is the closest a machine gets to a dumbbell press\n- Adjust seat height so the handles line up with mid-chest at the start position\n- Shoulder blades retracted and pinned to the pad before the first rep\n\nEXECUTION\n- Press the handles forward and slightly in, stopping just short of a hard elbow lockout to keep tension on the chest\n- Lower with control until a solid stretch is felt across the chest\n- Keep the wrists stacked over the elbows throughout\n\nTEMPO\n- Eccentric: 2–3s. Concentric: firm, controlled drive.\n\nKEY CUE\n- If it\'s a fixed-cam (non-iso-lateral) machine instead, expect it to feel noticeably different from a dumbbell press — the fixed bar path removes the stabilisation demand, so you\'ll likely handle more weight for the same effective stimulus\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Shoulder blades losing retraction under fatigue\n- Locking elbows out hard at the top — keep a soft lockout\n- Seat set too low or too high, shifting the angle toward shoulders or lower chest'
+    }
+  }],
+
+  'ub-pecdec': [{
+    id: 'ub-pecdec-incdbfly', name: 'Incline DB Fly',
+    note: 'Use if pec deck unavailable. ~30° incline. Same stretch-focused chest isolation via dumbbells. RIR 2/1.',
+    cues: {
+      short: ['~30° bench angle', 'Arms slightly bent — fixed angle, not a pressing movement', 'Lower in a wide arc — own the chest stretch', 'Pause at the stretch, squeeze at the top'],
+      full: 'SETUP\n- Bench at ~30°. Dumbbells held above the chest, arms slightly bent — establish this elbow angle and hold it for the entire set\n- Not a pressing movement — the elbows do not bend more through the movement\n\nEXECUTION\n- Lower in a wide controlled arc until a significant chest stretch is felt\n- Pause 1s at the bottom — actively feel the chest loaded in the stretched position\n- Squeeze upward and inward, hands meeting above the chest\n\nTEMPO\n- Eccentric: 2–3s with active reach into the stretch. Concentric: controlled arc upward.\n\nKEY CUE\n- "Hug a barrel" — the arc is the movement. Any pressing action (elbows bending more) reduces the stretch benefit\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nWATCH FOR\n- Elbows bending progressively under fatigue — weight is too heavy\n- Cutting the bottom arc short — the stretch is the stimulus\n- Note: significantly less weight than a press — this is correct'
+    }
+  }],
+
+  'ua-lateral': [
+    {
+      id: 'ua-lateral-pivot', name: 'Lateral Raise Machine (Seated Pivot)',
+      note: 'Use if cable station unavailable. Seated, forearm pads pivot at shoulder height. RIR 2/1/0–1.',
+      logType: 'standard',
+      cues: {
+        short: ['Seated, shoulder joint lined up with the machine\'s pivot point', 'Forearms/elbows against the pads, not gripping with the hands', 'Drive the pads up to roughly shoulder height', 'RIR 2/1/0–1'],
+        full: 'SETUP\n- Seated, back against the pad. Adjust the seat so your shoulder joint lines up with the machine\'s pivot axis — this matters more than people realise, since a misaligned pivot changes the resistance curve\n- Forearms or elbows rest against the pads — you\'re driving through the upper arm, not gripping and pulling with the hands\n\nEXECUTION\n- Drive the pads outward and up to roughly shoulder height, leading with the elbows\n- Brief pause at the top\n- Lower in 2–3s back to the start — don\'t let the weight stack drop\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s.\n\nKEY CUE\n- Because both arms move together and the machine\'s cam does some of the work at the bottom, this generally allows a bit more load than the single-arm cable version for a similar effort level — don\'t be surprised if the numbers don\'t match\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Shrugging to help lift the pads\n- Raising above shoulder height\n- Seat height misaligned with the pivot — re-check if it feels off'
+      }
+    },
+    {
+      id: 'ua-lateral-isolat', name: 'Lateral Raise Machine (Iso-Lateral, Pin-Loaded)',
+      note: 'Use if cable station unavailable. Standing on the adjustable platform, independent-arm handles. RIR 2/1/0–1.',
+      logType: 'standard',
+      cues: {
+        short: ['Set platform height so the handles start at your side', 'Independent arms — each side moves on its own, but drive both together', 'Lead with the elbow, same as the cable version', 'RIR 2/1/0–1'],
+        full: 'SETUP\n- Stand on the height-adjustable platform and set it so the handles sit at your sides at the bottom of the movement — too low and you start pre-raised, too high and you lose range at the bottom\n- Grip the handles or rest forearms against the pads depending on the model. Independent-arm design means each side has its own resistance rather than one shared bar\n\nEXECUTION\n- Lead with the elbows, same cue as the cable single-arm version — raise both arms together to roughly shoulder height\n- Pause briefly at the top\n- Lower in 2–3s\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2–3s. No momentum.\n\nKEY CUE\n- The independent-arm design means it behaves closer to the single-arm cable raise than the seated pivot machine does — each side has to control its own weight rather than sharing a fixed bar\n\nRIR\n- S1: 2 RIR. S2: 1 RIR. S3: 0–1 RIR.\n\nWATCH FOR\n- Platform height not reset between sessions — recheck it each time so the ROM stays consistent\n- Using body sway or knee bend to help drive the weight up\n- Raising above shoulder height'
+      }
+    }
+  ],
+
+  'ua-pushdown': [{
+    id: 'ua-pushdown-ohe', name: 'Single-Arm Cable Overhead Triceps Extension',
+    note: 'Low pulley, face away from stack. RIR 2/1. REST IS PER ARM.',
+    sets: 2, repsDisplay: '12–20 ea.', rest: 90, logType: 'per-arm-full',
+    cues: {
+      short: ['Low pulley, single handle, face away from the stack', 'Elbow stays high and fixed beside the head', 'Extend to full lockout overhead', 'CAUTION: right elbow — stop immediately if any irritation'],
+      full: 'SETUP\n- Low pulley with a single handle. Face away from the stack, step forward, and raise the working arm overhead so the elbow points at the ceiling beside your head\n- Support the working elbow lightly with the free hand if it helps keep it still\n- Elbow stays fixed and close to the head throughout — this is the whole exercise\n\nEXECUTION\n- Extend the forearm to full lockout overhead\n- The overhead stretch position loads the tricep long head maximally — this is what differentiates it from a pushdown\n- Control the descent in 2–3s back to the fully stretched position behind the head\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled extension.\n\nKEY CUE\n- Elbow stays pinned beside the head — the only movement is the forearm extending and flexing around a fixed upper arm\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nREST PROTOCOL\n- Complete all reps on one arm, rest the full period, then switch\n\nELBOW NOTE\n- This is the same movement Upper day programs directly, and the same one previously removed from the program for aggravating the right distal triceps tendon — the overhead stretched position under load is the mechanism. Stop immediately at any sign of irritation and go back to rope pushdowns for the rest of the week if it recurs\n\nWATCH FOR\n- Elbow drifting forward away from the head\n- Not reaching full extension\n- Going too heavy — this exercise requires honest loading and strict form given the elbow history'
+    }
+  }],
+
+  'u-ohe': [{
+    id: 'u-ohe-pushdown', name: 'Rope Pushdown',
+    note: 'Use if the overhead-extension setup (or the elbow) isn\'t cooperating. Pulley high. RIR 2/2/1.',
+    sets: 3, repsDisplay: '10–15', rest: 90, logType: 'standard',
+    cues: {
+      short: ['Pulley at highest position', 'Upper arms pinned to sides — non-negotiable', 'Flare hands outward at full extension', 'Own the stretch at the top between reps'],
+      full: 'SETUP\n- Pulley at highest position. Rope attachment, grip one end in each hand\n- Stand close to the stack with a slight forward lean\n- Upper arms pinned to sides before the first rep\n\nEXECUTION\n- Push the rope down by extending the elbows — upper arms remain still\n- Flare hands outward at full extension\n- Pause 1s at full extension\n- Return in 2–3s to the stretch position at the top\n\nTEMPO\n- Eccentric: 2–3s. Pause at bottom: 1s. Concentric: controlled.\n\nKEY CUE\n- Upper arms pinned — the moment elbows drift forward, the shoulders take over\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Elbows drifting forward\n- Not flaring hands at the bottom\n- Rushing the eccentric\n- Note: this is the same, lower-elbow-risk option Push day already uses — a safe default if the overhead extension setup isn\'t available or the elbow is at all questionable that day'
+    }
+  }],
+
+  'pl-csrow': [
+    {
+      id: 'pl-csrow-seal', name: 'Seal Row',
+      note: 'Barbell or EZ-bar, prone on a high incline bench. RIR 2/2/1.',
+      cues: {
+        short: ['Lie prone on a high incline bench, chest and hips pinned down', 'Bar hangs straight down to the floor at the start', 'Row to the bench, elbows back past the torso', 'RIR 2/2/1'],
+        full: 'SETUP\n- Set a bench to a high incline (or use a dedicated seal row bench) and lie face down with your chest against the pad. Arms hang straight down, gripping a barbell or EZ-bar on the floor beneath you\n- Chest and hips stay pinned to the bench throughout the set — this is what makes it chest-supported, same as the machine version. No body english is possible if you\'re set up correctly\n\nEXECUTION\n- Row the bar straight up to the underside of the bench, driving the elbows back past the torso\n- Brief squeeze at the top\n- Lower under control back to a full arm hang — dead stop, no bouncing off the floor\n\nTEMPO\n- Eccentric: 2s. Concentric: firm, controlled.\n\nKEY CUE\n- Because the torso is fully locked against the bench, you can\'t cheat the row with momentum the way you can standing — expect this to feel harder than the machine version at the same weight\n\nRIR\n- S1: 2 RIR. S2: 2 RIR. S3: 1 RIR.\n\nWATCH FOR\n- Chest or hips lifting off the bench under heavy loads\n- Not reaching a full arm hang at the bottom\n- Bar crashing into the floor between reps instead of a controlled dead stop'
+      }
+    },
+    {
+      id: 'pl-csrow-sadbrow', name: 'Single-Arm Dumbbell Row',
+      note: 'One flat bench, one DB. RIR 2/1. REST IS PER ARM.',
+      sets: 3, repsDisplay: '8–12 ea.', rest: 120, logType: 'per-arm-full',
+      cues: {
+        short: ['Opposite hand and knee braced on a flat bench', 'Back flat, roughly parallel to the floor', 'Row to the hip, elbow back past the torso', 'REST PER ARM — full rest between each arm'],
+        full: 'SETUP\n- Opposite-side hand and knee braced on a flat bench, other foot planted on the floor. Back flat and roughly parallel to the floor — this is what makes it chest/torso-supported rather than a standing row, since the bench is taking your bodyweight rather than your lower back stabilising it\n- Dumbbell hangs straight down from a fully extended arm at the start\n\nEXECUTION\n- Row the dumbbell up toward the hip, driving the elbow back past the torso\n- Brief squeeze at the top\n- Lower under control back to a full stretch, shoulder reaching down slightly\n\nTEMPO\n- Eccentric: 2s with active reach. Concentric: firm, controlled.\n\nKEY CUE\n- Keep the back flat throughout — if it starts to round or you find yourself twisting the torso to help the weight up, it\'s too heavy\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nREST PROTOCOL\n- Complete all reps on one arm. Rest the full 2 minutes. Switch\n\nWATCH FOR\n- Torso rotating to assist the row — keep it square to the bench\n- Not reaching full extension at the bottom\n- Bench angle causing the back to round'
+      }
+    }
+  ],
+
+  'ub-cabcurl': [{
+    id: 'ub-cabcurl-preacher', name: 'Machine Preacher Curl',
+    note: 'Use if the cable stack is unavailable. RIR 1/0–1.',
+    cues: {
+      short: ['Upper arms flat against the preacher pad throughout', 'Full extension at the bottom — controlled by the pad, not the cable', 'Squeeze hard at the top', 'S2 to failure'],
+      full: 'SETUP\n- Seat adjusted so the armpits sit at the top edge of the preacher pad, upper arms flat against it\n- Grip the handles or bar with a fully extended arm at the start\n\nEXECUTION\n- Curl up to a strong peak contraction, squeezing hard at the top\n- Lower with control back to full extension — the preacher angle limits how much you can cheat the bottom with body momentum, similar to how the cable keeps tension on there\n- Keep the upper arms pinned to the pad throughout — they should not lift off\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: smooth, deliberate.\n\nKEY CUE\n- Like the straight-bar cable curl, this keeps the biceps under real tension at the bottom instead of the dead-hang rest position a standing free-weight curl allows\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Upper arms lifting off the pad to assist — immediately reduces the isolation\n- Not reaching full extension at the bottom\n- Using shoulder movement to help drive the weight up'
+    }
+  }],
+
+  'l-cablecrunch': [{
+    id: 'l-cablecrunch-machine', name: 'Ab Crunch Machine',
+    note: 'Use if the cable stack is unavailable. RIR 1/0–1.',
+    cues: {
+      short: ['Seated, chest pad against the upper chest/shoulders', 'Flex the spine — crunch down, don\'t just lean forward from the hips', 'Full contraction at the bottom, control the return', 'S2 to failure'],
+      full: 'SETUP\n- Seated, chest or shoulder pad positioned against the upper body depending on the machine. Feet flat, hips stay planted in the seat throughout\n\nEXECUTION\n- Crunch down by flexing the spine — round the upper back and curl the ribcage down toward the hips, same movement as the cable crunch, just against a fixed lever arm instead of a rope\n- Pause briefly at full contraction\n- Return with control, keeping tension on the abs rather than fully relaxing at the top\n\nTEMPO\n- Concentric: 1–2s. Eccentric: 2s controlled.\n\nKEY CUE\n- Round the spine, don\'t just hinge forward at the hips — the crunch happens through the torso\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Hinging at the hips instead of flexing the spine\n- Using momentum by rocking back between reps\n- Pulling with the arms/shoulders instead of the abs'
+    }
+  }],
+
+  'u-hammercurl': [{
+    id: 'u-hammercurl-db', name: 'DB Hammer Curl',
+    note: 'Use if the cable stack is unavailable. Neutral grip, dumbbells. RIR 1/0–1.',
+    cues: {
+      short: ['Neutral grip — thumbs up throughout, not a standard curl', 'Full extension at the bottom every rep', 'No swinging or body momentum', 'S2 to failure'],
+      full: 'SETUP\n- Standing or seated, dumbbells held with a neutral grip — thumbs pointing up, palms facing each other throughout\n- Elbows pinned to the sides before the first rep\n\nEXECUTION\n- Curl both arms (together or alternating) to shoulder height, elbows staying fixed at the sides\n- Brief squeeze at the top\n- Lower in 2s back to full extension — arms fully straight between reps\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: firm, no jerking.\n\nKEY CUE\n- Same target as the rope version (brachialis and brachioradialis) but without the cable\'s constant tension at the bottom — expect the stretch position to feel slightly less loaded\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbows drifting forward to swing the weight up\n- Not reaching full extension at the bottom\n- Using body momentum under fatigue'
+    }
+  }],
+
+  // ─── UPPER (current) ───
+  'u-pullover': [{
+    id: 'u-pullover-sapd', name: 'Straight-Arm Pulldown',
+    note: 'Use if no pullover machine available. Cable, straight or slightly bent bar. Elbows fixed.',
+    cues: {
+      short: ['High pulley, straight or lat bar attachment', 'Slight forward lean, elbows fixed with a soft bend', 'Drive the bar down in an arc to the thighs', 'Own the stretch overhead — don\'t rush the return'],
+      full: 'SETUP\n- High pulley, straight bar or lat bar attachment. Stand facing the stack with a slight forward lean from the hips\n- Set a soft, fixed bend in the elbows before the first rep and hold that angle throughout — the elbow joint does not open or close during the set\n- Grip just outside shoulder width\n\nEXECUTION\n- Drive the bar down and back in an arc to the thighs by extending the shoulder — the movement is shoulder extension only, not elbow flexion\n- Squeeze the lats at the bottom, ribcage staying down\n- Return with control to the overhead stretch position, resisting the weight the whole way\n\nTEMPO\n- Eccentric: 2–3s back to the stretch. Concentric: driven from the lats.\n\nKEY CUE\n- Same target as the pullover machine — shoulder extension with the elbow locked, not a pulldown\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbows bending to assist — turns it into a pulldown\n- Leaning back excessively or using body momentum\n- Cutting the overhead stretch short\n- Note: pullover machine is preferred when available — it maintains resistance through the stretch more reliably than a cable\'s pulley-height-dependent line of pull'
+    }
+  }],
+
+  // ─── UPPER A ───
+  // (ua-pushdown alt now defined above, in the ACTIVE PROGRAM section, since
+  // this id is shared with the live 'push' session)
 
   // ─── UPPER B ───
   'ub-pushdown': [{
@@ -2945,8 +3076,11 @@ function switchAlt(exId) {
   const numAlts = alts.length;
   const current = exState.activeAltIndex ?? null;
   exState.activeAltIndex = current === null ? 0 : (current + 1 >= numAlts ? null : current + 1);
-  // Clear any pre-filled weights when switching
-  exState.sets = exState.sets.map(() => ({ weight: '', reps: '', logged: false }));
+  // Resize the sets array to match the newly active exercise's set count —
+  // an alt can override `sets` (e.g. a bilateral exercise swapped for a
+  // per-arm one), so the array can't just be preserved at its old length.
+  const activeEx = getActiveExercise(ex, exState.activeAltIndex);
+  exState.sets = Array(activeEx.sets).fill(null).map(() => ({ weight: '', reps: '', logged: false }));
   exState.activeSet = 0;
   saveCurrent(state.current);
   renderExercises();
@@ -3464,7 +3598,7 @@ function requestNotificationPermission() {
 }
 
 function scheduleSwNotification(endTime, nextLabel) {
-  if (!('serviceWorker' in navigator) || Notification.permission !== 'granted') return;
+  if (!('Notification' in window) || !('serviceWorker' in navigator) || Notification.permission !== 'granted') return;
   navigator.serviceWorker.ready.then(reg => {
     reg.active.postMessage({
       type: 'SCHEDULE_NOTIFICATION',
