@@ -1928,7 +1928,7 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="session-card pull" id="scard-pull" onclick="startSession('pull')">
           <div class="card-name">Pull</div>
           <div class="card-subtitle">Back / Rear Delts / Biceps</div>
-          <div class="card-meta"><span>7 ex</span><span>·</span><span>65–75m</span></div>
+          <div class="card-meta"><span>7 + 2 optional</span><span>·</span><span>65–75m</span></div>
         </div>
         <div class="session-card legs" id="scard-legs" onclick="startSession('legs')">
           <div class="card-name">Legs</div>
@@ -1938,7 +1938,7 @@ input { font-family: 'DM Sans', sans-serif; }
         <div class="session-card upper" id="scard-upper" onclick="startSession('upper')">
           <div class="card-name">Upper</div>
           <div class="card-subtitle">Full Upper — Higher Volume</div>
-          <div class="card-meta"><span>8 ex</span><span>·</span><span>75–85m</span></div>
+          <div class="card-meta"><span>10 ex</span><span>·</span><span>80–90m</span></div>
         </div>
       </div>
 
@@ -2608,6 +2608,22 @@ const PROGRAM = {
           short: ['Straight bar attachment, low pulley', 'Full extension at the bottom — constant tension advantage', 'Supinate hard at the top — straight bar allows full supination', 'S2 to failure'],
           full: 'SETUP\n- Straight bar attachment on low pulley. Stand with slight forward lean or seated\n- Elbows pinned to sides before starting\n\nEXECUTION\n- Full extension at the bottom\n- Curl smoothly, supinate hard at the top\n- Lower in 2s back to full extension\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: smooth and deliberate.\n\nKEY CUE\n- Full extension at the bottom is the whole point of using a cable\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Swinging the body to assist\n- Elbows drifting forward\n- Not reaching full extension at the bottom'
         }
+      },
+      {
+        id: 'u-wristcurl', name: '(Optional) Dumbbell Wrist Curl (Palms Up)', sets: 2, repsDisplay: '12–20', rest: 60, logType: 'standard',
+        note: 'Optional — add if time/energy allows. Forearm supported, palms up. Forearm flexors. RIR 1/0–1.',
+        cues: {
+          short: ['Forearm fully supported on your thigh or the bench, wrist hanging just past the edge', 'Palm up, dumbbell held toward the fingers for full ROM', 'Only the wrist moves — forearm stays pinned down', 'RIR 1/0–1'],
+          full: 'SETUP\n- Sit on a bench, forearm resting fully along your thigh (or along the bench itself), wrist and hand hanging just past the knee/edge\n- Palm facing up. Hold the dumbbell toward the fingers rather than deep in the palm — gripping too deep cuts the usable range of motion short\n- Forearm stays pinned to the thigh/bench for the entire set — only the wrist hinges\n\nEXECUTION\n- Let the dumbbell roll down toward the fingertips at the bottom, uncurling the fingers slightly to get a full stretch through the wrist flexors before curling\n- Curl the wrist up as far as it goes, squeezing the forearm at the top\n- Lower with control back to the stretched position\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: 1–2s with a deliberate squeeze at the top.\n\nKEY CUE\n- This is wrist flexion only — the forearm itself doesn\'t move. If your forearm is rocking off your leg or your elbow is bending to help, the weight\'s too heavy or the setup\'s off\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Forearm lifting off the thigh/bench\n- Gripping too deep in the palm, cutting the ROM short\n- Going heavy enough that grip gives out before the forearm flexors do'
+        }
+      },
+      {
+        id: 'u-wristext', name: '(Optional) Dumbbell Wrist Extension (Palms Down)', sets: 2, repsDisplay: '15–25', rest: 60, logType: 'standard',
+        note: 'Optional — add if time/energy allows. Forearm supported, palms down. Forearm extensors — wrist movement only, not a reverse curl. RIR 1/0–1.',
+        cues: {
+          short: ['Same supported setup as the wrist curl, but palm down', 'Elbow stays bent at a fixed angle and completely still — only the wrist moves', 'This is NOT a reverse curl', 'RIR 1/0–1'],
+          full: 'SETUP\n- Same forearm-supported position as the wrist curl, but palm facing down, dumbbell gripped normally\n- Forearm pinned to the thigh/bench throughout, wrist and hand hanging just past the edge\n\nEXECUTION\n- Lower the dumbbell by letting the wrist drop as far as it comfortably goes — a stretch through the top of the forearm\n- Lift the back of the hand up as high as possible by extending the wrist — the forearm and elbow do not move at all\n- Control the descent back to the stretch\n\nTEMPO\n- Eccentric: 2s. Concentric: 1–2s.\n\nKEY CUE\n- This is wrist extension, not a reverse elbow curl — the elbow stays fixed and still; the only joint moving is the wrist. If you feel this up near the elbow/bicep rather than along the top of the forearm, you\'re bending the elbow to help lift the weight instead of isolating the wrist\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbow bending to assist — turns it into a different exercise and defeats the purpose\n- Going too heavy — the extensors are noticeably weaker than the flexors, so expect much less weight than the wrist curl\n- Forearm lifting off the support'
+        }
       }
     ]
   },
@@ -2747,6 +2763,22 @@ const PROGRAM = {
         cues: {
           short: ['Low pulley, single handle, face away from the stack', 'Elbow stays high and fixed beside the head', 'Extend to full lockout overhead', 'CAUTION: right elbow — stop immediately if any irritation'],
           full: 'SETUP\n- Low pulley with a single handle. Face away from the stack, step forward, and raise the working arm overhead so the elbow points at the ceiling beside your head\n- Support the working elbow lightly with the free hand if it helps keep it still\n- Elbow stays fixed and close to the head throughout — this is the whole exercise\n\nEXECUTION\n- Extend the forearm to full lockout overhead\n- The overhead stretch position loads the tricep long head maximally — this is what differentiates it from a pushdown\n- Control the descent in 2–3s back to the fully stretched position behind the head\n\nTEMPO\n- Eccentric: 2–3s. Concentric: controlled extension.\n\nKEY CUE\n- Elbow stays pinned beside the head — the only movement is the forearm extending and flexing around a fixed upper arm\n\nRIR\n- S1: 2 RIR. S2: 1 RIR.\n\nREST PROTOCOL\n- Complete all reps on one arm, rest the full period, then switch\n\nELBOW NOTE\n- Overhead extension was previously removed from this program due to right distal triceps tendon irritation — the overhead stretched position under load is the primary aggravating mechanism for that specific issue. It has since resolved, but this remains the highest-risk exercise in the program for that joint. Stop immediately at any sign of irritation and swap back to rope pushdowns for the week if it recurs\n\nWATCH FOR\n- Elbow drifting forward away from the head\n- Not reaching full extension\n- Going too heavy — this exercise requires honest loading and strict form given the elbow history'
+        }
+      },
+      {
+        id: 'u-wristcurl', name: 'Dumbbell Wrist Curl (Palms Up)', sets: 2, repsDisplay: '12–20', rest: 60, logType: 'standard',
+        note: 'Forearm supported, palms up. Forearm flexors. RIR 1/0–1.',
+        cues: {
+          short: ['Forearm fully supported on your thigh or the bench, wrist hanging just past the edge', 'Palm up, dumbbell held toward the fingers for full ROM', 'Only the wrist moves — forearm stays pinned down', 'RIR 1/0–1'],
+          full: 'SETUP\n- Sit on a bench, forearm resting fully along your thigh (or along the bench itself), wrist and hand hanging just past the knee/edge\n- Palm facing up. Hold the dumbbell toward the fingers rather than deep in the palm — gripping too deep cuts the usable range of motion short\n- Forearm stays pinned to the thigh/bench for the entire set — only the wrist hinges\n\nEXECUTION\n- Let the dumbbell roll down toward the fingertips at the bottom, uncurling the fingers slightly to get a full stretch through the wrist flexors before curling\n- Curl the wrist up as far as it goes, squeezing the forearm at the top\n- Lower with control back to the stretched position\n\nTEMPO\n- Eccentric: 2s controlled. Concentric: 1–2s with a deliberate squeeze at the top.\n\nKEY CUE\n- This is wrist flexion only — the forearm itself doesn\'t move. If your forearm is rocking off your leg or your elbow is bending to help, the weight\'s too heavy or the setup\'s off\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Forearm lifting off the thigh/bench\n- Gripping too deep in the palm, cutting the ROM short\n- Going heavy enough that grip gives out before the forearm flexors do'
+        }
+      },
+      {
+        id: 'u-wristext', name: 'Dumbbell Wrist Extension (Palms Down)', sets: 2, repsDisplay: '15–25', rest: 60, logType: 'standard',
+        note: 'Forearm supported, palms down. Forearm extensors — wrist movement only, not a reverse curl. RIR 1/0–1.',
+        cues: {
+          short: ['Same supported setup as the wrist curl, but palm down', 'Elbow stays bent at a fixed angle and completely still — only the wrist moves', 'This is NOT a reverse curl', 'RIR 1/0–1'],
+          full: 'SETUP\n- Same forearm-supported position as the wrist curl, but palm facing down, dumbbell gripped normally\n- Forearm pinned to the thigh/bench throughout, wrist and hand hanging just past the edge\n\nEXECUTION\n- Lower the dumbbell by letting the wrist drop as far as it comfortably goes — a stretch through the top of the forearm\n- Lift the back of the hand up as high as possible by extending the wrist — the forearm and elbow do not move at all\n- Control the descent back to the stretch\n\nTEMPO\n- Eccentric: 2s. Concentric: 1–2s.\n\nKEY CUE\n- This is wrist extension, not a reverse elbow curl — the elbow stays fixed and still; the only joint moving is the wrist. If you feel this up near the elbow/bicep rather than along the top of the forearm, you\'re bending the elbow to help lift the weight instead of isolating the wrist\n\nRIR\n- S1: 1 RIR. S2: 0–1 RIR.\n\nWATCH FOR\n- Elbow bending to assist — turns it into a different exercise and defeats the purpose\n- Going too heavy — the extensors are noticeably weaker than the flexors, so expect much less weight than the wrist curl\n- Forearm lifting off the support'
         }
       }
     ]
